@@ -5,33 +5,30 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F5D9E5AC-4946-4DFD-A7BC-2E6C00DB70B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.WpfApp", "src\Copernicus.WpfApp\Copernicus.WpfApp.csproj", "{4D56A38E-7F29-4017-BEA7-A62C440087CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.WpfApp", "src\Copernicus.WpfApp\Copernicus.WpfApp.csproj", "{4D56A38E-7F29-4017-BEA7-A62C440087CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Core", "src\Copernicus.Core\Copernicus.Core.csproj", "{21D81F25-9E67-4781-9131-4816E46AEF4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Core", "src\Copernicus.Core\Copernicus.Core.csproj", "{21D81F25-9E67-4781-9131-4816E46AEF4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Modules.SecurityMaster", "src\Copernicus.Modules.SecurityMaster\Copernicus.Modules.SecurityMaster.csproj", "{C4BE8EC3-AEA0-4002-A398-1A56D6C64A95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Modules.SecurityMaster", "src\Copernicus.Modules.SecurityMaster\Copernicus.Modules.SecurityMaster.csproj", "{C4BE8EC3-AEA0-4002-A398-1A56D6C64A95}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Modules.CorporateActions", "src\Copernicus.Modules.CorporateActions\Copernicus.Modules.CorporateActions.csproj", "{14921818-9DE1-46E9-9043-905772688F33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Modules.CorporateActions", "src\Copernicus.Modules.CorporateActions\Copernicus.Modules.CorporateActions.csproj", "{14921818-9DE1-46E9-9043-905772688F33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Modules.Pricing", "src\Copernicus.Modules.Pricing\Copernicus.Modules.Pricing.csproj", "{5F66B0F0-A468-4088-B4E2-94358B1AC3AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Modules.Pricing", "src\Copernicus.Modules.Pricing\Copernicus.Modules.Pricing.csproj", "{5F66B0F0-A468-4088-B4E2-94358B1AC3AF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DC97D27F-102C-43BE-86C2-9D5252B693B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Core.UnitTest", "test\Copernicus.Core.UnitTest\Copernicus.Core.UnitTest.csproj", "{64AA781D-DC1E-4FE5-A8E2-F4EC39618B03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Core.UnitTest", "test\Copernicus.Core.UnitTest\Copernicus.Core.UnitTest.csproj", "{64AA781D-DC1E-4FE5-A8E2-F4EC39618B03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.SecurityMaster.UnitTest", "test\Copernicus.SecurityMaster.UnitTest\Copernicus.SecurityMaster.UnitTest.csproj", "{65EC5E44-6539-4E37-AF49-0CC9F51E1468}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.SecurityMaster.UnitTest", "test\Copernicus.SecurityMaster.UnitTest\Copernicus.SecurityMaster.UnitTest.csproj", "{65EC5E44-6539-4E37-AF49-0CC9F51E1468}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.CorporateActions.UnitTest", "test\Copernicus.CorporateActions.UnitTest\Copernicus.CorporateActions.UnitTest.csproj", "{5232F39D-9815-4B88-87F8-521F96EF041A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.CorporateActions.UnitTest", "test\Copernicus.CorporateActions.UnitTest\Copernicus.CorporateActions.UnitTest.csproj", "{5232F39D-9815-4B88-87F8-521F96EF041A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Pricing.UnitTest", "test\Copernicus.Pricing.UnitTest\Copernicus.Pricing.UnitTest.csproj", "{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Pricing.UnitTest", "test\Copernicus.Pricing.UnitTest\Copernicus.Pricing.UnitTest.csproj", "{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4D56A38E-7F29-4017-BEA7-A62C440087CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -71,6 +68,9 @@ Global
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4D56A38E-7F29-4017-BEA7-A62C440087CB} = {F5D9E5AC-4946-4DFD-A7BC-2E6C00DB70B1}
 		{21D81F25-9E67-4781-9131-4816E46AEF4F} = {F5D9E5AC-4946-4DFD-A7BC-2E6C00DB70B1}
@@ -81,5 +81,8 @@ Global
 		{65EC5E44-6539-4E37-AF49-0CC9F51E1468} = {DC97D27F-102C-43BE-86C2-9D5252B693B0}
 		{5232F39D-9815-4B88-87F8-521F96EF041A} = {DC97D27F-102C-43BE-86C2-9D5252B693B0}
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D} = {DC97D27F-102C-43BE-86C2-9D5252B693B0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AE92A05-8C69-4A22-8595-BD70A43DC5AD}
 	EndGlobalSection
 EndGlobal
