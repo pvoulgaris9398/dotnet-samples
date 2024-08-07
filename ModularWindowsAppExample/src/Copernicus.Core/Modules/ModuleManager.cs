@@ -2,41 +2,39 @@
 
 namespace Copernicus.Core.Modules
 {
-    public class ModuleManager
+    public class ModuleManager(IViewManager viewManager)
     {
-        private IViewManager _viewManager;
-        public ModuleManager(IViewManager viewManager)
-        {
-            _viewManager = viewManager;
-        }
+        private readonly IViewManager _viewManager = viewManager;
 
         // TODO: Fetch dynamically
-        private IEnumerable<ModuleDefinition> GetModules()
+        private static IEnumerable<ModuleDefinition> Modules
         {
-            yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
-            yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
-            yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
+            get
+            {
+                yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
+                yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
+                yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
+            }
         }
+
         public void Load()
         {
             var moduleLocation = Assembly.GetExecutingAssembly().Location;
 
-            var alc = new CopernicusAssemblyLoadContext(moduleLocation);
-
-            foreach (var module in GetModules())
+            foreach (var module in Modules)
             {
-                Assembly a = alc.Load(module.ModuleName);
+                CopernicusAssemblyLoadContext.Load(module.ModuleName);
 
                 // TODO: Generalize.
                 Type? type = Type.GetType(module.TypeName);
 
                 if (type is not null)
                 {
-                    var moduleInstance = Activator.CreateInstance(type) as IModule;
-                    if (moduleInstance is not null)
+                    if (Activator.CreateInstance(type) is not IModule moduleInstance)
                     {
-                        moduleInstance.Initialize(_viewManager);
+                        continue;
                     }
+                    moduleInstance.Initialize(_viewManager);
                 }
             }
 

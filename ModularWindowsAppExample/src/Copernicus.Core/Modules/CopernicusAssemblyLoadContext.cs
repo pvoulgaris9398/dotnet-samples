@@ -3,33 +3,22 @@ using System.Runtime.Loader;
 
 namespace Copernicus.Core.Modules
 {
-    public class CopernicusAssemblyLoadContext : AssemblyLoadContext
+    public class CopernicusAssemblyLoadContext(string mainAssemblyToLoadPath) : AssemblyLoadContext(isCollectible: true)
     {
-        private AssemblyDependencyResolver _resolver;
+        private readonly AssemblyDependencyResolver _resolver = new(mainAssemblyToLoadPath);
 
-        public CopernicusAssemblyLoadContext(string mainAssemblyToLoadPath) : base(isCollectible: true)
-        {
-            _resolver = new AssemblyDependencyResolver(mainAssemblyToLoadPath);
-        }
-
-        public Assembly Load(string name)
+        public static Assembly Load(string name)
         {
             var assemblyName = new AssemblyName() { Name = name };
             var assembly = Assembly.Load(assemblyName);
             //TODO: Implement better exception class
-            if (assembly is null) { throw new Exception($"Unable to load {name}!"); }
-            return assembly;
+            return assembly is null ? throw new Exception($"Unable to load {name}!") : assembly;
         }
 
         protected override Assembly? Load(AssemblyName name)
         {
             string? assemblyPath = _resolver.ResolveAssemblyToPath(name);
-            if (assemblyPath != null)
-            {
-                return LoadFromAssemblyPath(assemblyPath);
-            }
-
-            return null;
+            return assemblyPath != null ? LoadFromAssemblyPath(assemblyPath) : null;
         }
     }
 }
