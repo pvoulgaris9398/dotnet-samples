@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Copernicus.Core.Modules;
+using System.Windows;
 
 namespace Copernicus.WpfApp;
 
@@ -7,5 +8,13 @@ namespace Copernicus.WpfApp;
 /// </summary>
 public partial class App : Application
 {
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        var mainWindow = new MainWindow();
+        var moduleManager = new ModuleManager(mainWindow);
+        moduleManager.Load();
+        base.OnStartup(e);
+        mainWindow.Show();
+    }
 }
 
