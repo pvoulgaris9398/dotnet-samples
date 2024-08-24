@@ -10,9 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Copernicus.Core\Copernicus.Core.csproj" />
-    <ProjectReference Include="..\Copernicus.Modules.CorporateActions\Copernicus.Modules.CorporateActions.csproj" />
-    <ProjectReference Include="..\Copernicus.Modules.Pricing\Copernicus.Modules.Pricing.csproj" />
-    <ProjectReference Include="..\Copernicus.Modules.SecurityMaster\Copernicus.Modules.SecurityMaster.csproj" />
   </ItemGroup>
 
 </Project>

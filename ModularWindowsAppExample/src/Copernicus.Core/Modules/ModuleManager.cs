@@ -12,29 +12,30 @@ namespace Copernicus.Core.Modules
             get
             {
                 yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
-                yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
-                yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
+                //yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
+                //yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
             }
         }
 
         public void Load()
         {
-            var moduleLocation = Assembly.GetExecutingAssembly().Location;
-
             foreach (var module in Modules)
             {
-                CopernicusAssemblyLoadContext.Load(module.ModuleName);
+                var context = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
+                var assembly = context.Load(module.ModuleName);
 
                 // TODO: Generalize.
-                Type? type = Type.GetType(module.TypeName);
+                Type? type = Type.GetType(module.ModuleClassName);
 
                 if (type is not null)
                 {
-                    if (Activator.CreateInstance(type) is not IModule moduleInstance)
+                    if (Activator.CreateInstanceFrom(module.ModuleName, module.ModuleClassName) is not IModule moduleInstance)
                     {
                         continue;
                     }
                     moduleInstance.Initialize(_viewManager);
+
+                    context.Unload();
                 }
             }
 

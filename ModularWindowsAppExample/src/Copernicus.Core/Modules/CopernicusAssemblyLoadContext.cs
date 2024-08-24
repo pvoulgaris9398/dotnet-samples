@@ -7,10 +7,9 @@ namespace Copernicus.Core.Modules
     {
         private readonly AssemblyDependencyResolver _resolver = new(mainAssemblyToLoadPath);
 
-        public static Assembly Load(string name)
+        public Assembly Load(string name)
         {
-            var assemblyName = new AssemblyName() { Name = name };
-            var assembly = Assembly.Load(assemblyName);
+            var assembly = Load(new AssemblyName() { Name = name });
             //TODO: Implement better exception class
             return assembly is null ? throw new Exception($"Unable to load {name}!") : assembly;
         }
