@@ -7,5 +7,6 @@
         )
     {
         public string TypeName => $"{ModuleClassName}, {ModuleName}";
+        public string FileName => $"{ModuleName}.dll";
     }
 }

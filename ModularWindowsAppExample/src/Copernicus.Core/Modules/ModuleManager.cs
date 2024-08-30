@@ -29,7 +29,9 @@ namespace Copernicus.Core.Modules
 
                 if (type is not null)
                 {
-                    if (Activator.CreateInstanceFrom(module.ModuleName, module.ModuleClassName) is not IModule moduleInstance)
+                    var mi = Activator.CreateInstance(module.FileName, module.TypeName);
+
+                    if (mi is not IModule moduleInstance)
                     {
                         continue;
                     }

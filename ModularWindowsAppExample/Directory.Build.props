@@ -1,0 +1,6 @@
+<Project>
+  <Target Name="CustomClean" BeforeTargets="Clean">
+    <RemoveDir Directories="$(ProjectDir)$(BaseOutputPath)" /> <!-- bin -->
+    <RemoveDir Directories="$(ProjectDir)$(BaseIntermediateOutputPath)" /> <!-- obj -->
+  </Target>
+</Project>
