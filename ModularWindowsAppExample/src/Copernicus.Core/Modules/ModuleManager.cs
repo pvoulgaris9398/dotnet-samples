@@ -22,14 +22,28 @@ namespace Copernicus.Core.Modules
             foreach (var module in Modules)
             {
                 var context = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
-                var assembly = context.Load(module.ModuleName);
+                var assembly = context.LoadFromAssemblyName(module.Name);
+
+                foreach (var t in assembly.GetTypes())
+                {
+                    if (typeof(IModule).IsAssignableFrom(t))
+                    {
+                        IModule m = Activator.CreateInstance(t) as IModule;
+                        m.Initialize(_viewManager);
+                    }
+                }
+
+                Type myType = assembly
+                    .ExportedTypes
+                    .Where(t => t.FullName == module.ModuleClassName)
+                    .FirstOrDefault();
 
                 // TODO: Generalize.
                 Type? type = Type.GetType(module.ModuleClassName);
 
-                if (type is not null)
+                if (myType is not null)
                 {
-                    var mi = Activator.CreateInstance(module.FileName, module.TypeName);
+                    var mi = (IModule)Activator.CreateInstance(myType);
 
                     if (mi is not IModule moduleInstance)
                     {

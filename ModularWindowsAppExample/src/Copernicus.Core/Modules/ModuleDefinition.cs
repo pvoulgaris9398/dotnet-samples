@@ -1,4 +1,6 @@
-﻿namespace Copernicus.Core.Modules
+﻿using System.Reflection;
+
+namespace Copernicus.Core.Modules
 {
     public record ModuleDefinition(
         string ModuleName,
@@ -8,5 +10,7 @@
     {
         public string TypeName => $"{ModuleClassName}, {ModuleName}";
         public string FileName => $"{ModuleName}.dll";
+
+        public AssemblyName Name => AssemblyName.GetAssemblyName(FileName);
     }
 }
