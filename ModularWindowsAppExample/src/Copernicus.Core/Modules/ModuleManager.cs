@@ -12,8 +12,8 @@ namespace Copernicus.Core.Modules
             get
             {
                 yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
-                //yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
-                //yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
+                yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
+                yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
             }
         }
 
@@ -33,26 +33,8 @@ namespace Copernicus.Core.Modules
                     }
                 }
 
-                Type myType = assembly
-                    .ExportedTypes
-                    .Where(t => t.FullName == module.ModuleClassName)
-                    .FirstOrDefault();
+                context.Unload();
 
-                // TODO: Generalize.
-                Type? type = Type.GetType(module.ModuleClassName);
-
-                if (myType is not null)
-                {
-                    var mi = (IModule)Activator.CreateInstance(myType);
-
-                    if (mi is not IModule moduleInstance)
-                    {
-                        continue;
-                    }
-                    moduleInstance.Initialize(_viewManager);
-
-                    context.Unload();
-                }
             }
 
         }
