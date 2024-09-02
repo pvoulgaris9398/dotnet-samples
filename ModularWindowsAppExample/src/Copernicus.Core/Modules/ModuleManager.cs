@@ -5,6 +5,7 @@ namespace Copernicus.Core.Modules
     public class ModuleManager(IViewManager viewManager)
     {
         private readonly IViewManager _viewManager = viewManager;
+        private List<ModuleInstance> _instances = new List<ModuleInstance>();
 
         // TODO: Fetch dynamically
         private static IEnumerable<ModuleDefinition> Modules
@@ -17,26 +18,70 @@ namespace Copernicus.Core.Modules
             }
         }
 
-        public void Load()
+        public static void Load(IViewManager vm, ModuleDefinition md, out ModuleInstance mi)
+        {
+            var alc = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
+            var assembly = alc.LoadFromAssemblyName(md.Name);
+            var wr = new WeakReference(alc, trackResurrection: true);
+            mi = new(wr, alc);
+            foreach (var t in assembly.GetTypes())
+            {
+                if (typeof(IModule).IsAssignableFrom(t))
+                {
+                    IModule m = Activator.CreateInstance(t) as IModule;
+                    m.Initialize(vm);
+                }
+            }
+        }
+
+        public void Load(IViewManager viewManager)
         {
             foreach (var module in Modules)
             {
-                var context = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
-                var assembly = context.LoadFromAssemblyName(module.Name);
-
-                foreach (var t in assembly.GetTypes())
-                {
-                    if (typeof(IModule).IsAssignableFrom(t))
-                    {
-                        IModule m = Activator.CreateInstance(t) as IModule;
-                        m.Initialize(_viewManager);
-                    }
-                }
-
-                context.Unload();
-
+                ModuleInstance mi;
+                Load(viewManager, module, out mi);
+                _instances.Add(mi);
             }
-
         }
+
+        /*
+         *  This code doesn't work, obviously, I am keeping a reference and keeping the
+         *  context referenced such that it won't unload
+         */
+        public void Unload()
+        {
+            foreach (var instance in _instances)
+            {
+                instance.AssemblyLoadContext.Unload();
+                for (int i = 0; instance.WeakReference.IsAlive && (i < 10); i++)
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
+            }
+        }
+        //public void Load()
+        //{
+        //    foreach (var module in Modules)
+        //    {
+        //        var context = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
+        //        var assembly = context.LoadFromAssemblyName(module.Name);
+
+        //        foreach (var t in assembly.GetTypes())
+        //        {
+        //            if (typeof(IModule).IsAssignableFrom(t))
+        //            {
+        //                IModule m = Activator.CreateInstance(t) as IModule;
+        //                m.Initialize(_viewManager);
+        //            }
+        //        }
+
+        //        context.Unload();
+
+        //        GC.Collect();
+        //        GC.WaitForPendingFinalizers();
+
+        //    }
+        //}
     }
 }
