@@ -14,7 +14,7 @@ public partial class App : Application
     {
         var mainWindow = new MainWindow();
         mainWindow.Loaded += MainWindow_Loaded;
-        var _moduleManager = new ModuleManager(mainWindow);
+        var _moduleManager = new ModuleManager2(mainWindow);
         mainWindow.Tag = _moduleManager;
         _moduleManager.Load(mainWindow);
         base.OnStartup(e);
@@ -24,7 +24,7 @@ public partial class App : Application
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         if (sender is MainWindow mw &&
-            mw.Tag is ModuleManager mm)
+            mw.Tag is ModuleManager2 mm)
         {
             mm.Unload();
         }

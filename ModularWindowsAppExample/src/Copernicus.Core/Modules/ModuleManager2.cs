@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Copernicus.Core.Modules
 {
-    public class ModuleManager(IViewManager viewManager)
+    public class ModuleManager2(IViewManager viewManager)
     {
         private readonly IViewManager _viewManager = viewManager;
-        private List<ModuleInstance> _instances = new List<ModuleInstance>();
+        private List<CopernicusAssemblyLoadContext> _instances = new List<CopernicusAssemblyLoadContext>();
 
         // TODO: Fetch dynamically
         private static IEnumerable<ModuleDefinition> Modules
@@ -18,12 +19,11 @@ namespace Copernicus.Core.Modules
             }
         }
 
-        public static void Load(IViewManager vm, ModuleDefinition md, out ModuleInstance mi)
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static CopernicusAssemblyLoadContext Load(IViewManager vm, ModuleDefinition md)
         {
             var alc = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
             var assembly = alc.LoadFromAssemblyName(md.Name);
-            var wr = new WeakReference(alc, trackResurrection: true);
-            mi = new(wr, alc);
             foreach (var t in assembly.GetTypes())
             {
                 if (typeof(IModule).IsAssignableFrom(t))
@@ -32,15 +32,15 @@ namespace Copernicus.Core.Modules
                     m.Initialize(null);
                 }
             }
+            return alc;
         }
 
         public void Load(IViewManager viewManager)
         {
             foreach (var module in Modules)
             {
-                ModuleInstance mi;
-                Load(viewManager, module, out mi);
-                _instances.Add(mi);
+                var alc = Load(viewManager, module);
+                _instances.Add(alc);
             }
         }
 
@@ -50,10 +50,11 @@ namespace Copernicus.Core.Modules
          */
         public void Unload()
         {
-            foreach (var instance in _instances)
+            foreach (var alc in _instances)
             {
-                instance.AssemblyLoadContext.Unload();
-                for (int i = 0; instance.WeakReference.IsAlive && (i < 10); i++)
+                var wr = new WeakReference(alc);
+                alc.Unload();
+                for (int i = 0; wr.IsAlive && (i < 10); i++)
                 {
                     GC.Collect();
                     GC.WaitForPendingFinalizers();
@@ -85,3 +86,4 @@ namespace Copernicus.Core.Modules
         //}
     }
 }
+
