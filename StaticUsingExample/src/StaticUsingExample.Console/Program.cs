@@ -1,0 +1,2 @@
+﻿
+WriteLine(GetValue(67));

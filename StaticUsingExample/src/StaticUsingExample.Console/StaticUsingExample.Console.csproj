@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System.Console" Static="true" />
+  </ItemGroup>
+
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Debug'">
+      <ItemGroup>
+        <Using Include="StaticUsingExample.Console.ClassNameDoesNotMatterHere" Static="true"/>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <ProjectReference Include="..\LibraryOne\LibraryOne.csproj" />
+        <Using Include="LibraryOne.ClassNameDoesNotMatterHereEither" Static="true"/>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+</Project>
