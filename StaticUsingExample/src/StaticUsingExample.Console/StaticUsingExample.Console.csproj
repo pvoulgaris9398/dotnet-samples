@@ -10,7 +10,7 @@
   <ItemGroup>
     <Using Include="System.Console" Static="true" />
   </ItemGroup>
-
+  
   <Choose>
     <When Condition="'$(Configuration)' == 'Debug'">
       <ItemGroup>
@@ -19,6 +19,7 @@
     </When>
     <Otherwise>
       <ItemGroup>
+        <Compile Remove="ClassNameDoesNotMatterHere.cs"/>
         <ProjectReference Include="..\LibraryOne\LibraryOne.csproj" />
         <Using Include="LibraryOne.ClassNameDoesNotMatterHereEither" Static="true"/>
       </ItemGroup>
