@@ -1,0 +1,15 @@
+{
+    "[csharp]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "csharpier.csharpier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always",
+            "source.fixAll": "always"
+        },
+    },
+    "window.zoomLevel": 3,
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "editor.minimap.autohide": true,
+    "dotnet.defaultSolution": "StaticUsingExample.sln",
+    "git.openRepositoryInParentFolders": "never"
+}

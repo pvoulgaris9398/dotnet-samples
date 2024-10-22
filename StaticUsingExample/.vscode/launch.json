@@ -1,0 +1,10 @@
+{
+    "configurations": [
+    {
+        "name": "C#: <project-name> Debug",
+        "type": "dotnet",
+        "request": "launch",
+        "projectPath": "${workspaceFolder}/src/StaticUsingExample.Console/StaticUsingExample.Console.csproj"
+    }
+    ]
+}

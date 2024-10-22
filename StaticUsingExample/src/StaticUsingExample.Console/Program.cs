@@ -1,2 +1,1 @@
-﻿
-WriteLine(GetValue(67));
+﻿WriteLine(GetValue(67));
