@@ -7,6 +7,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$(Configuration.Contains(Debug))">
+    <DefineConstants>DEBUG</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration.Contains(Release))">
+    <DefineConstants>RELEASE</DefineConstants>
+  </PropertyGroup>
+
   <ItemGroup>
     <Using Include="System.Console" Static="true" />
   </ItemGroup>

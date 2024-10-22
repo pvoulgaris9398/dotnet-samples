@@ -1,10 +1,25 @@
+
+
 {
     "configurations": [
-    {
-        "name": "C#: <project-name> Debug",
-        "type": "dotnet",
-        "request": "launch",
-        "projectPath": "${workspaceFolder}/src/StaticUsingExample.Console/StaticUsingExample.Console.csproj"
-    }
+        {
+            "name": "Launch Console Please",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build Release",
+            "program": "${workspaceFolder}/src/StaticUsingExample.Console/bin/Release/net8.0/StaticUsingExample.Console.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/StaticUsingExample.Console",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }, 
     ]
+    ,"compounds": [
+    {
+        "name": "Console + API",
+        "configurations": [
+            "Launch Console Please"
+        ]
+    }
+]
 }
