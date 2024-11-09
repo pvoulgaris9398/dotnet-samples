@@ -1,9 +1,7 @@
-
-
 {
     "configurations": [
         {
-            "name": "Launch Console Please",
+            "name": "Launch Release Version",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build Release",
@@ -13,13 +11,16 @@
             "console": "internalConsole",
             "stopAtEntry": false
         }, 
+        {
+            "name": "Launch Debug Version",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build Debug",
+            "program": "${workspaceFolder}/src/StaticUsingExample.Console/bin/Debug/net8.0/StaticUsingExample.Console.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/StaticUsingExample.Console",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        }
     ]
-    ,"compounds": [
-    {
-        "name": "Console + API",
-        "configurations": [
-            "Launch Console Please"
-        ]
-    }
-]
 }
