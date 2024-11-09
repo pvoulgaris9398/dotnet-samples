@@ -2,11 +2,11 @@
 {
     public class ClassNameDoesNotMatterHereEither
     {
-        public static string GetValue(int arg1)
+        public static string GetValue(int arg1, Action<string> log)
         {
             Type t = typeof(ClassNameDoesNotMatterHereEither);
-            WriteLine(t);
-            WriteLine(nameof(GetValue));
+            log(t.ToString());
+            log(nameof(GetValue));
             return $"The value is {arg1}";
         }
     }
