@@ -1,24 +1,7 @@
 {
-    "[csharp]": {
-        "editor.formatOnSave": true,
-        "editor.defaultFormatter": "csharpier.csharpier-vscode",
-        "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": "always",
-            "source.organizeImports": "always",
-            "source.fixAll": "always"
-        },
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "vscode.json-language-features",
-        "editor.quickSuggestions": {
-            "strings": true
-        },
-        "editor.suggest.insertMode": "replace"
-    },
-    "editor.formatOnSave": true,
-    "window.zoomLevel": 3,
-    "terminal.integrated.defaultProfile.windows": "Git Bash",
-    "editor.minimap.autohide": true,
-    "dotnet.defaultSolution": "StaticUsingExample.sln",
-    "git.openRepositoryInParentFolders": "never"
+  "files.exclude": {
+    ".vs": true,
+    "obj": true,
+    "bin": true
+  }
 }
