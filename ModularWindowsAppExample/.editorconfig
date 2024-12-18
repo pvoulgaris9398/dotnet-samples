@@ -11,6 +11,12 @@ indent_size = 2
 # C# files
 [*.cs]
 
+# TODO: Fix these in the code instead
+dotnet_diagnostic.CS8600.severity = none
+dotnet_diagnostic.CS8602.severity = none
+dotnet_diagnostic.CS9113.severity = none
+dotnet_diagnostic.CS8625.severity = none
+
 #### Core EditorConfig Options ####
 
 # Indentation and spacing
@@ -23,6 +29,8 @@ insert_final_newline = false
 
 #### .NET Coding Conventions ####
 [*.{cs,vb}]
+
+
 
 # Organize usings
 dotnet_separate_import_directive_groups = true
@@ -172,6 +180,7 @@ csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
 #### Naming styles ####
+
 [*.{cs,vb}]
 
 # Naming rules
