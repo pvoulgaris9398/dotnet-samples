@@ -12,6 +12,11 @@
 ![](2024-12-18-02.png)
 
 - Maybe, I can't do this in a devcontainer?
+- The comment [here](https://github.com/microsoft/vscode-remote-release/issues/9099) about setting `remoteUser=root` worked for me:
+
+![](2024-12-18-03.png)
+
+- Haven't tried to run it yet though.
 
 ## Wednesday, 8/7/24
 
