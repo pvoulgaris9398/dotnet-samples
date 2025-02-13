@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 
 using Copernicus.Core.Interfaces;
-namespace Copernicus.Core.Controls
+namespace Copernicus.Core.Wpf.Controls
 {
     /// <summary>
     /// Interaction logic for EnhancedDataGrid.xaml

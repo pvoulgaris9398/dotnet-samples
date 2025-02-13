@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Copernicus.Pricing.UnitTest
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{22E5703B-616A-496D-B92E-02D2BB6DE640}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Copernicus.Core.Wpf", "src\Copernicus.Core.Wpf\Copernicus.Core.Wpf.csproj", "{1E2C5621-A0E5-464B-92C5-E175D0D72DA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E2C5621-A0E5-464B-92C5-E175D0D72DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2C5621-A0E5-464B-92C5-E175D0D72DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2C5621-A0E5-464B-92C5-E175D0D72DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E2C5621-A0E5-464B-92C5-E175D0D72DA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{5232F39D-9815-4B88-87F8-521F96EF041A} = {DC97D27F-102C-43BE-86C2-9D5252B693B0}
 		{0AF48860-B250-42A2-9FE5-A2F803FFCA6D} = {DC97D27F-102C-43BE-86C2-9D5252B693B0}
 		{22E5703B-616A-496D-B92E-02D2BB6DE640} = {F5D9E5AC-4946-4DFD-A7BC-2E6C00DB70B1}
+		{1E2C5621-A0E5-464B-92C5-E175D0D72DA7} = {F5D9E5AC-4946-4DFD-A7BC-2E6C00DB70B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6AE92A05-8C69-4A22-8595-BD70A43DC5AD}
