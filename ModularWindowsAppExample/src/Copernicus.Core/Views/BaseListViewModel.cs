@@ -14,6 +14,8 @@ namespace Copernicus.Core.Views
 
         public ObservableCollection<T>? Items { get; internal set; }
 
+        public int Count => Items?.Count ?? 0;
+
         #region ICanRefresh Implementation
 
         public virtual bool CanRefresh => true;
@@ -34,7 +36,7 @@ namespace Copernicus.Core.Views
 
         public virtual bool MayCreate => false;
 
-        public virtual BaseViewModel Create() => throw new NotImplementedException();
+        public virtual BaseViewModel Create() => ItemFactory(this);
 
         #endregion ICanCreateNewItem Implementation
     }

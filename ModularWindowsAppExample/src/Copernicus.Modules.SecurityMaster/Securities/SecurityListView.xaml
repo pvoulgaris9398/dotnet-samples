@@ -13,7 +13,7 @@
         <core:EnhancedDataGrid            
             x:Name="itemListViewDataGrid" 
             ItemsSource="{Binding Items}" 
-            AutoGenerateColumns="False"
+            AutoGenerateColumns="True"
             CanUserAddRows="True"
             CanUserDeleteRows="True"
             SelectionMode="Extended"

@@ -16,6 +16,7 @@ namespace Copernicus.Modules.SecurityMaster.Securities
             new SecurityViewModel("Security 9", DateTime.Now,"ticker9","cusip9","isin9","sedol9", 7845m,false),
         ];
 
-        public override Func<BaseListViewModel<SecurityViewModel>, SecurityViewModel> ItemFactory => throw new NotImplementedException();
+        public override Func<BaseListViewModel<SecurityViewModel>, SecurityViewModel> ItemFactory =>
+            lvm => new SecurityViewModel($"Security {Count + 1}", new DateTime(2022, 3, 12), $"ticker {Count + 1}", $"cusip {Count + 1}", $"isin {Count + 1}", $"sedol {Count + 1}", 202m, true);
     }
 }

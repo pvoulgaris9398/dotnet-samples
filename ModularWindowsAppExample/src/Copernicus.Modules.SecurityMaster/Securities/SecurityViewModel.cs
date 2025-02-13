@@ -4,6 +4,10 @@ namespace Copernicus.Modules.SecurityMaster.Securities
 {
     public class SecurityViewModel : BaseViewModel
     {
+        public SecurityViewModel()
+        {
+
+        }
         public SecurityViewModel(
             string securityName,
             DateTime issueDate,

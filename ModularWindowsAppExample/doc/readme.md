@@ -6,6 +6,7 @@
 
 ### What To Do Next?
 
+- Properly handle main view `Activate` and `Deactivate`
 - Styles for the `DataGrid` columns
 - Implement code to dynamically add/style columns at runtime from some store (get this code out of the xaml)
 - Factory or builder method for creating these, with binding to relevant view models
