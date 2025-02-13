@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticUsingExample.Console", "src\StaticUsingExample.Console\StaticUsingExample.Console.csproj", "{48022CE5-FADD-4704-AEE7-5DDA93DE95F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticUsingExample.ConsoleApp", "src\StaticUsingExample.ConsoleApp\StaticUsingExample.ConsoleApp.csproj", "{48022CE5-FADD-4704-AEE7-5DDA93DE95F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryOne", "src\LibraryOne\LibraryOne.csproj", "{B7A1B142-1016-46A6-9CCF-D75CAA442CA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibraryOne", "src\LibraryOne\LibraryOne.csproj", "{B7A1B142-1016-46A6-9CCF-D75CAA442CA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Petros.Core", "src\Petros.Core\Petros.Core.csproj", "{FDA8D0C2-5B67-4A93-B452-CB81FE4FC1D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B7A1B142-1016-46A6-9CCF-D75CAA442CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7A1B142-1016-46A6-9CCF-D75CAA442CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7A1B142-1016-46A6-9CCF-D75CAA442CA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA8D0C2-5B67-4A93-B452-CB81FE4FC1D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA8D0C2-5B67-4A93-B452-CB81FE4FC1D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA8D0C2-5B67-4A93-B452-CB81FE4FC1D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA8D0C2-5B67-4A93-B452-CB81FE4FC1D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
