@@ -7,7 +7,7 @@ namespace Copernicus.Modules.SecurityMaster
 
         public override void Initialize(IViewManager viewManager)
         {
-            viewManager?.Show(Name, $"Hello, from {Name}");
+            viewManager.AddView(Name, new MainLayout());
         }
     }
 }

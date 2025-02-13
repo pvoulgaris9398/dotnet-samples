@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Copernicus.Modules.SecurityMaster.Securities.SecurityListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Copernicus.Modules.SecurityMaster.Securities"
+             xmlns:core="clr-namespace:Copernicus.Core.Controls;assembly=Copernicus.Core">
+    <UserControl.DataContext>
+        <local:SecurityListViewModel/>
+    </UserControl.DataContext>
+    <DockPanel
+        LastChildFill="True">
+        <core:EnhancedDataGrid            
+            x:Name="itemListViewDataGrid" 
+            ItemsSource="{Binding Items}" 
+            AutoGenerateColumns="False"
+            CanUserAddRows="True"
+            CanUserDeleteRows="True"
+            SelectionMode="Extended"
+            SelectionUnit="FullRow">
+            <core:EnhancedDataGrid.Columns>
+
+                <DataGridTextColumn 
+                    Header="Security Name" 
+                    Binding="{Binding SecurityName}" />
+
+                <DataGridTextColumn 
+                    Header="Issue Date" 
+                    Binding="{Binding IssueDate}" />
+
+                <DataGridTextColumn 
+                    Header="Last Price" 
+                    Binding="{Binding LastPrice}" />
+
+                <DataGridTextColumn 
+                    Header="Ticker" 
+                    Binding="{Binding Ticker}" />
+
+                <DataGridTextColumn 
+                    Header="Cusip" 
+                    Binding="{Binding Cusip}" />
+
+                <DataGridTextColumn 
+                    Header="Isin" 
+                    Binding="{Binding Isin}" />
+
+                <DataGridTextColumn 
+                    Header="Sedol" 
+                    Binding="{Binding Sedol}" />
+
+                <DataGridCheckBoxColumn 
+                    Header="Is Private" 
+                    Binding="{Binding IsPrivate}" />
+
+            </core:EnhancedDataGrid.Columns>
+            <core:EnhancedDataGrid.Resources>
+                
+            </core:EnhancedDataGrid.Resources>
+        </core:EnhancedDataGrid>
+    </DockPanel>
+</UserControl>

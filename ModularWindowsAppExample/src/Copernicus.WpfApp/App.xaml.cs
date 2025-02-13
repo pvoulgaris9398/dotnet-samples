@@ -14,7 +14,7 @@ public partial class App : Application
     {
         var mainWindow = new MainWindow();
         mainWindow.Loaded += MainWindow_Loaded;
-        var _moduleManager = new ModuleManager2(mainWindow);
+        var _moduleManager = new ModuleManager(mainWindow);
         mainWindow.Tag = _moduleManager;
         _moduleManager.Load(mainWindow);
         base.OnStartup(e);

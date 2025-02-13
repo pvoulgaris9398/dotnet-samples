@@ -5,14 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Copernicus.WpfApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <DockPanel>
-        <Label
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="18"
-            Background="Wheat"
-            Foreground="Red"
-            Content="Hello, World!" />
-    </DockPanel>
+        Title="Modular Application Example" Height="450" Width="800">
+    <TabControl
+        x:Name="DockingArea">
+    </TabControl>
 </Window>

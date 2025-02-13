@@ -13,8 +13,8 @@ namespace Copernicus.Core.Modules
             get
             {
                 yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
-                //yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
-                //yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
+                yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
+                yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
             }
         }
 
@@ -29,7 +29,7 @@ namespace Copernicus.Core.Modules
                 if (typeof(IModule).IsAssignableFrom(t))
                 {
                     IModule m = Activator.CreateInstance(t) as IModule;
-                    m.Initialize(null);
+                    m.Initialize(vm);
                 }
             }
         }

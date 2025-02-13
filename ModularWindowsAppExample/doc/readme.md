@@ -1,6 +1,26 @@
 # Modular Windows App Example
 
-## Wednesday, 12/18/24
+## `Wednesday, 2/12/25`
+
+- Look at items from `Wednesday, 8/7/24`
+
+### What To Do Next?
+
+- Styles for the `DataGrid` columns
+- Implement code to dynamically add/style columns at runtime from some store (get this code out of the xaml)
+- Factory or builder method for creating these, with binding to relevant view models
+- Look into `Visual State` transitions for nicer look-and-feel
+- Implement actual `Domain` model objects, with behavior and rules
+- Implement in-process notification, `Mediator`
+- Look at different implementations of `IViewManager` and move that code out of the `Copernicus.WpfApp.MainWindow` code-behind
+- Continue to refine the framework, Interfaces for common workflows
+- Create `ToolBar`, `Menu` and/or `RibbonBar` impementations and their backing view models/behaviors
+- Create `StatusBar`, `Toasts`, etc.
+- Add logging, tracing
+- Add some connectivity to actual data from public/free API's
+- Implement logic to consume `Observables`, [maybe](https://introtorx.com/)
+
+## `Wednesday, 12/18/24`
 
 - Added `devcontainer` support, some clean-up of the `vscode` settings, etc.
 - Encountered this error on my Windows machine:
@@ -18,7 +38,7 @@
 
 - Haven't tried to run it yet though.
 
-## Wednesday, 8/7/24
+## `Wednesday, 8/7/24`
 
 - Created shell application
   - Very early days here, this is just good for `POC` or _Demo_ purposes
