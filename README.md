@@ -2,6 +2,6 @@
 
 **My general repository for any `.NET` related samples**
 
-1. [ModularWindowsAppExample](ModularWindowsAppExample/doc/readme.md)
-1. [StaticUsingExample](StaticUsingExample/doc/readme.md)
-1. [AvaloniaApplication]
+1. [Modula Windows App Example](ModularWindowsAppExample/doc/readme.md)
+1. [Static Using Example](StaticUsingExample/doc/readme.md)
+1. [Avalonia Application](AvaloniaApplication1/doc/readme.md)
