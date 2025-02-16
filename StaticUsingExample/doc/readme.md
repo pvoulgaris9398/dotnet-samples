@@ -9,3 +9,4 @@ This sample shows two (2) different ways of varying behavior:
  ## `Sunday, 2/16/25`
 
  - Setup automated builds for just this project, for now.
+ - Added `yaml` formatter
