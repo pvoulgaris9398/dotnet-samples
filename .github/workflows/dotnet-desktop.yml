@@ -3,7 +3,7 @@ name: .NET Core Desktop - StaticUsingExample Build
 on:
   push:
     paths:
-    - 'StaticUsingExample'
+    - 'StaticUsingExample/**'
     branches: [ "main" ]
     
 jobs:
