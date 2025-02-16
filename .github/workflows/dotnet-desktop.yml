@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+name: .NET Core Desktop - StaticUsingExample Build
 
 on:
   push:
@@ -45,7 +45,7 @@ jobs:
       env:
         Configuration: ${{ matrix.configuration }}
 
-    - name: Restore the application
+    - name: Build the application
       run: msbuild $env:Solution_Name /t:Build /p:Configuration=$env:Configuration
       env:
         Configuration: ${{ matrix.configuration }}        
