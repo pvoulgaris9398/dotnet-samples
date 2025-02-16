@@ -1,0 +1,20 @@
+Installing Razor Telemetry Version = 7.0.0-preview.24178.4...
+Platform: win32, x86_64
+
+Downloading package 'Razor Language Server Telemetry (Windows / x64)' (9674 KB).................... Done!
+Validating download...
+Integrity Check succeeded.
+Installing package 'Razor Language Server Telemetry (Windows / x64)'
+
+Finished
+
+Using dotnet configured on PATH
+Dotnet path: C:\Program Files\dotnet\dotnet.exe
+Activating C# + C# Dev Kit...
+waiting for named pipe information from server...
+[stdout] {"pipeName":"\\\\.\\pipe\\48049fbc"}
+received named pipe information from server
+attempting to connect client to server...
+client has connected to server
+[Info  - 10:49:11 AM] [Program] Language server initialized
+[Info  - 10:49:17 AM] [WorkspaceProjectFactoryService] Project C:\_WorkLog\_Code\DotNetSampleApp\src\DotNetSampleApp\DotNetSampleApp.csproj loaded by C# Dev Kit

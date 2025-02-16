@@ -1,0 +1,10 @@
+{
+    "recommendations": [
+        "ms-dotnettools.csharp",
+        "humao.rest-client",
+        "pkief.material-icon-theme",
+        "ms-dotnettools.vscodeintellicode-csharp",
+        "editorconfig.editorconfig",
+        "csharpier.csharpier-vscode"
+    ]
+}
