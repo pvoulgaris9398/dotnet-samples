@@ -1,5 +1,9 @@
 # Modular Windows App Example
 
+## `Sunday, 2/16/25`
+
+- Added comment in other project to make sure build is _not_ triggered
+
 ## `Wednesday, 2/12/25`
 
 - Look at items from `Wednesday, 8/7/24`
