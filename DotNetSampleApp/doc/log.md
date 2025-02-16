@@ -5,13 +5,13 @@
 - Working through some examples using `BenchmarkDotNet` and `ReadOnlySpan`
 - These results look interesting, note `net6.0` vs. `net8.0` result(s):
 
-![](docs/2024-07-10-01-benchmark-readonlyspan.png)
+![1](2024-07-10-01-benchmark-readonlyspan.png)
 
-![](docs/2024-07-10-02-benchmark-readonlyspan.png)
+![1](2024-07-10-02-benchmark-readonlyspan.png)
 
 - Note the difference with the results from the [article](https://www.codemag.com/Article/2207031/Writing-High-Performance-Code-Using-SpanT-and-MemoryT-in-C)
 
-![](docs/2024-07-10-02-benchmark-from-codemag-article.png)
+![1](2024-07-10-02-benchmark-from-codemag-article.png)
 
 - My machine is a little more powerful (in terms of cores) than his and I am seeing a 10-12x improvement
 - Also, I am using `.NET 8` which might have an affect
@@ -32,27 +32,27 @@
 (until I understand what it is and does)
 - See [here](https://code.visualstudio.com/docs/getstarted/telemetry#_disable-telemetry-reporting)
 
-![](docs/2024-07-06-04.png)
+![1](2024-07-06-04.png)
 
 - Reviewing the information in this [link](https://code.visualstudio.com/docs/getstarted/telemetry#_output-channel-for-telemetry-events) and this:
 
-![](docs/2024-07-06-05.png)
+![1](2024-07-06-05.png)
 
 - Really nice!
 
 - Cloned repo to my desktop machine: `DESKTOP-5PV6HMC`
 - Hit `Control-F5` and encountered:
 
-![](docs/2024-07-06-01.png)
+![1](2024-07-06-01.png)
 
 - Noticed that I was in my default profile
 - Went to my `C#` profile and clicked on `Reinstall Extensions` and got the following text in my terminal.
 - (See `docs\2024-07-06-01-terminal.txt`)
 - And I was able to run the app
 
-![](docs/2024-07-06-03.png)
+![1](2024-07-06-03.png)
 
-![](docs/2024-07-06-02.png)
+![1](2024-07-06-02.png)
 
 ## Thursday, 7/4/24
 
@@ -90,5 +90,3 @@ dotnet new console -o src/DotNetSampleApp
 ```text
 dotnet run --project src/DotNetSampleApp
 ```
-
-
