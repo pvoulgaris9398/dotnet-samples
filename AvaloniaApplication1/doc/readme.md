@@ -1,5 +1,13 @@
 # AvaloniaApplication1
 
+## `Sunday, 2/16/25`
+
+- Found [npolyak](https://github.com/npolyak)
+- Excellent code repository with demos and a docking control example (future commercial product)?
+- [UniDock](https://github.com/npolyak/NP.Ava.UniDock/tree/main)
+- Also, working on [ReactiveUI](https://www.reactiveui.net/) Samples
+- Also, look at [Roland's Cool Examples](https://github.com/RolandPheasant)
+
 ## `Friday, 2/14/25`
 
 - A cross-platform example using Avalonia

@@ -1,25 +1,54 @@
-﻿using ReactiveUI;
+﻿using AvaloniaApplication1.Services;
+using DynamicData;
+using ReactiveUI;
+using System;
+using System.Collections.ObjectModel;
+using System.Reactive;
+using System.Reactive.Linq;
 
 namespace AvaloniaApplication1.ViewModels
 {
-    public class SecurityListViewModel : ViewModelBase
+    public class SecurityListViewModel : ViewModelBase, IDisposable
     {
-        public string Caption
+        private readonly ReadOnlyObservableCollection<SecurityViewModel> _items;
+        private readonly IDisposable _cleanUp;
+
+        public SecurityListViewModel(ISecurityService securityService)
         {
-            get
+            securityService.Securities
+                // Transform in DynamicData works like Select in
+                // LINQ, it observes changes in one collection, and
+                // projects it's elements to another collection.
+                .Transform(x => new SecurityViewModel(x))
+                // Filter is basically the same as .Where() operator
+                // from LINQ. See all operators in DynamicData docs.
+                .Filter(x => true)
+                // Ensure the updates arrive on the UI thread.
+                .ObserveOn(RxApp.MainThreadScheduler)
+                // We .Bind() and now our mutable Items collection 
+                // contains the new items and the GUI gets refreshed.
+                .Bind(out _items)
+                .Subscribe();
+        }
+
+        private string _securityName = "";
+
+        public string SecurityName
+        {
+            get => _securityName;
+            set
             {
-                return Count > 0 ? $"I have been clicked: {Count} time(s)!" : "Security List View";
+                this.RaiseAndSetIfChanged(ref _securityName, value);
             }
         }
 
-        private int _count = 0;
-        public int Count
+        public ReadOnlyObservableCollection<SecurityViewModel> Items => _items;
+
+        public ReactiveCommand<Unit, Unit> SubmitCommand { get; }
+
+        public void Dispose()
         {
-            get => _count; set
-            {
-                this.RaiseAndSetIfChanged(ref _count, value);
-                this.RaisePropertyChanged(nameof(Caption));
-            }
+            _cleanUp.Dispose();
         }
     }
 }

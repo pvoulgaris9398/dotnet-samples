@@ -5,12 +5,8 @@
              xmlns:vm="using:AvaloniaApplication1.ViewModels"
              x:DataType="vm:SecurityListViewModel"
              x:Class="AvaloniaApplication1.Views.SecurityListView">
-  <UserControl.DataContext>
-    <vm:SecurityListViewModel/>
-  </UserControl.DataContext>
-  <StackPanel
-    Orientation="Vertical">
-    <Label Content="{Binding Caption}" />
-    <Button Click="OnClick">Click</Button>
-  </StackPanel>
+  <DataGrid
+    ItemsSource="{Binding Items}"
+    AutoGenerateColumns="True"
+    />
 </UserControl>

@@ -10,6 +10,9 @@
     </Application.DataTemplates>
   
     <Application.Styles>
+        <!--This line is required for the DataGrid to show-->
+        <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <!--See https://docs.avaloniaui.net/docs/reference/controls/datagrid/-->
         <FluentTheme />
     </Application.Styles>
 </Application>
