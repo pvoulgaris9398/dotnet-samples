@@ -2,10 +2,10 @@ name: .NET Core Desktop - StaticUsingExample Build
 
 on:
   push:
+    paths:
+    - 'StaticUsingExample'
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
+    
 jobs:
 
   build:
