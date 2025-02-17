@@ -1,12 +1,12 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:AvaloniaAppExample.ViewModels"
-             x:DataType="vm:PriceListViewModel"
-             x:Class="AvaloniaAppExample.Views.PriceListView">
-  <DataGrid
-    ItemsSource="{Binding Items}"
-    AutoGenerateColumns="True"
-    />
+<UserControl
+    x:Class="AvaloniaAppExample.Views.PriceListView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AvaloniaAppExample.ViewModels"
+    x:DataType="vm:PriceListViewModel">
+    <DataGrid
+        AutoGenerateColumns="True"
+        ItemsSource="{Binding Items}" />
 </UserControl>

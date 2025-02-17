@@ -1,12 +1,12 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="using:AvaloniaAppExample.ViewModels"
-             x:DataType="vm:SecurityListViewModel"
-             x:Class="AvaloniaAppExample.Views.SecurityListView">
-  <DataGrid
-    ItemsSource="{Binding Items}"
-    AutoGenerateColumns="True"
-    />
+<UserControl
+    x:Class="AvaloniaAppExample.Views.SecurityListView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AvaloniaAppExample.ViewModels"
+    x:DataType="vm:SecurityListViewModel">
+    <DataGrid
+        AutoGenerateColumns="False"
+        ItemsSource="{Binding Items}" />
 </UserControl>

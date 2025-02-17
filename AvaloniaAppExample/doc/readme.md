@@ -3,6 +3,10 @@
 ## `Monday, 2/17/25`
 
 - Continuing on with this sample, renaming it for `AvaloniaAppExample`
+- Added `XmlStyler` from [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=dabbinavo.xamlstyler)
+- See [github](https://github.com/Xavalon/XamlStyler)
+- Also, added `Settings.XamlStyler` to this project, because `*.axaml` files are not formatted by default by Visual Studio 2022
+- Note, the file _must_ be named exactly `Settings.XamlStyler` for it to be recognized
 
 ## `Sunday, 2/16/25`
 
