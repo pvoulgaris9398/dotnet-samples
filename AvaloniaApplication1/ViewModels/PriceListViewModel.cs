@@ -1,4 +1,5 @@
-﻿using AvaloniaApplication1.Services;
+﻿using AvaloniaApplication1.Models;
+using AvaloniaApplication1.Services;
 using DynamicData;
 using ReactiveUI;
 using System;
@@ -7,17 +8,18 @@ using System.Reactive.Linq;
 
 namespace AvaloniaApplication1.ViewModels
 {
-    public class SecurityListViewModel : ViewModelBase, IDisposable
+    public class PriceListViewModel : ViewModelBase, IDisposable
     {
-        private readonly ReadOnlyObservableCollection<SecurityViewModel> _items;
-        //private readonly IDisposable _cleanUp;
-        public SecurityListViewModel(ISecurityService securityService)
+        private readonly ReadOnlyObservableCollection<Price> _items;
+        private IDisposable _disposable;
+
+        public PriceListViewModel(IPriceService priceService)
         {
-            securityService.Securities
+            _disposable = priceService.Prices
                 // Transform in DynamicData works like Select in
                 // LINQ, it observes changes in one collection, and
                 // projects it's elements to another collection.
-                .Transform(x => new SecurityViewModel(x))
+                .Transform(x => x)
                 // Filter is basically the same as .Where() operator
                 // from LINQ. See all operators in DynamicData docs.
                 .Filter(x => true)
@@ -29,23 +31,11 @@ namespace AvaloniaApplication1.ViewModels
                 .Subscribe();
         }
 
-        private string _securityName = "";
-
-        public string SecurityName
-        {
-            get => _securityName;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _securityName, value);
-            }
-        }
-
-        public ReadOnlyObservableCollection<SecurityViewModel> Items => _items;
+        public ReadOnlyObservableCollection<Price> Items => _items;
 
         public void Dispose()
         {
             GC.SuppressFinalize(this);
-            //_cleanUp.Dispose();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace AvaloniaApplication1.Services
 {
     public class SecurityService : ISecurityService
     {
-        private readonly SourceList<Security> _items = new SourceList<Security>();
+        private readonly SourceList<Security> _items = new();
 
         public SecurityService()
         {

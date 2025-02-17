@@ -7,8 +7,8 @@
         x:Class="AvaloniaApplication1.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Width="400"
-        Height="200"
+        Width="800"
+        Height="400"
         Title="Cross-Platform Avalonia Sample">
 
     <!--<Design.DataContext>
@@ -17,7 +17,15 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>-->
 
-  <views:SecurityListView/>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <views:PriceListView Grid.Row="0"/>
+    <views:SecurityListView Grid.Row="1"/>
+  </Grid>
+  
 
   
 </Window>
