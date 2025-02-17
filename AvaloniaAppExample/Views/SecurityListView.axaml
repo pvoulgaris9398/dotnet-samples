@@ -9,5 +9,6 @@
     x:TypeArguments="vm:SecurityListViewModel">
     <DataGrid
         AutoGenerateColumns="True"
+        GridLinesVisibility="All"
         ItemsSource="{Binding Items}" />
 </ReactiveUserControl>

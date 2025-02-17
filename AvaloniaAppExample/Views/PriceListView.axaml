@@ -10,6 +10,7 @@
 
     <DataGrid
         AutoGenerateColumns="False"
+        GridLinesVisibility="All"
         ItemsSource="{Binding Items}">
 
         <DataGrid.Columns>
