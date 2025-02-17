@@ -1,10 +1,10 @@
-﻿using AvaloniaApplication1.Models;
+﻿using AvaloniaAppExample.Models;
 using DynamicData;
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
-namespace AvaloniaApplication1.Services
+namespace AvaloniaAppExample.Services
 {
     public class PriceService : IPriceService, IDisposable
     {

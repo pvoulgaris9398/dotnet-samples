@@ -1,15 +1,15 @@
 using Avalonia.ReactiveUI;
-using AvaloniaApplication1.Services;
-using AvaloniaApplication1.ViewModels;
+using AvaloniaAppExample.Services;
+using AvaloniaAppExample.ViewModels;
 
-namespace AvaloniaApplication1.Views;
+namespace AvaloniaAppExample.Views;
 
-public partial class PriceListView : ReactiveUserControl<PriceListViewModel>
+public partial class SecurityListView : ReactiveUserControl<SecurityListViewModel>
 {
-    public PriceListView()
+    public SecurityListView()
     {
         InitializeComponent();
-        ViewModel = new PriceListViewModel(new PriceService());
+        ViewModel = new SecurityListViewModel(new SecurityService());
     }
 
     //public void OnClick(object sender, RoutedEventArgs args)

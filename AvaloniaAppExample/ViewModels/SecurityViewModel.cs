@@ -1,7 +1,7 @@
-﻿using AvaloniaApplication1.Models;
+﻿using AvaloniaAppExample.Models;
 using System;
 
-namespace AvaloniaApplication1.ViewModels
+namespace AvaloniaAppExample.ViewModels
 {
     public class SecurityViewModel
     {

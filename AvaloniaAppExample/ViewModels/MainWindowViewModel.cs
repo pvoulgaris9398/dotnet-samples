@@ -1,4 +1,4 @@
-﻿namespace AvaloniaApplication1.ViewModels
+﻿namespace AvaloniaAppExample.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AvaloniaApplication1.Models
+namespace AvaloniaAppExample.Models
 {
     public record Price(
         string Security,

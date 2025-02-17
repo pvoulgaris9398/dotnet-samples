@@ -1,8 +1,8 @@
-﻿using AvaloniaApplication1.Models;
+﻿using AvaloniaAppExample.Models;
 using DynamicData;
 using System;
 
-namespace AvaloniaApplication1.Services
+namespace AvaloniaAppExample.Services
 {
     public interface IPriceService
     {

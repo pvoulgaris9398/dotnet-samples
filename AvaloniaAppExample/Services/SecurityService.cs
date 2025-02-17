@@ -1,9 +1,9 @@
-﻿using AvaloniaApplication1.Models;
+﻿using AvaloniaAppExample.Models;
 using DynamicData;
 using System;
 using System.Linq;
 
-namespace AvaloniaApplication1.Services
+namespace AvaloniaAppExample.Services
 {
     public class SecurityService : ISecurityService
     {

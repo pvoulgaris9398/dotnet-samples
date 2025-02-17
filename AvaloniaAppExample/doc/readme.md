@@ -1,4 +1,8 @@
-# AvaloniaApplication1
+# AvaloniaAppExample
+
+## `Monday, 2/17/25`
+
+- Continuing on with this sample, renaming it for `AvaloniaAppExample`
 
 ## `Sunday, 2/16/25`
 

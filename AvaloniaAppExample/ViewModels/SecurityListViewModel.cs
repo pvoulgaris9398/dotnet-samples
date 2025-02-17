@@ -1,11 +1,11 @@
-﻿using AvaloniaApplication1.Services;
+﻿using AvaloniaAppExample.Services;
 using DynamicData;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
 
-namespace AvaloniaApplication1.ViewModels
+namespace AvaloniaAppExample.ViewModels
 {
     public class SecurityListViewModel : ViewModelBase, IDisposable
     {
