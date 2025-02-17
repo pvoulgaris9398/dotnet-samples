@@ -1,3 +1,4 @@
+using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using AvaloniaAppExample.Services;
 using AvaloniaAppExample.ViewModels;
@@ -8,8 +9,8 @@ public partial class SecurityListView : ReactiveUserControl<SecurityListViewMode
 {
     public SecurityListView()
     {
-        InitializeComponent();
         ViewModel = new SecurityListViewModel(new SecurityService());
+        AvaloniaXamlLoader.Load(this);
     }
 
     //public void OnClick(object sender, RoutedEventArgs args)

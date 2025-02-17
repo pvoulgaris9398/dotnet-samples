@@ -1,3 +1,4 @@
+using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using AvaloniaAppExample.Services;
 using AvaloniaAppExample.ViewModels;
@@ -8,8 +9,8 @@ public partial class PriceListView : ReactiveUserControl<PriceListViewModel>
 {
     public PriceListView()
     {
-        InitializeComponent();
         ViewModel = new PriceListViewModel(new PriceService());
+        AvaloniaXamlLoader.Load(this);
     }
 
     //public void OnClick(object sender, RoutedEventArgs args)

@@ -1,12 +1,37 @@
-<UserControl
+<ReactiveUserControl
     x:Class="AvaloniaAppExample.Views.PriceListView"
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:AvaloniaAppExample.ViewModels"
-    x:DataType="vm:PriceListViewModel">
+    x:DataType="vm:PriceListViewModel"
+    x:TypeArguments="PriceListViewModel">
+
     <DataGrid
-        AutoGenerateColumns="True"
-        ItemsSource="{Binding Items}" />
-</UserControl>
+        AutoGenerateColumns="False"
+        ItemsSource="{Binding Items}">
+
+        <DataGrid.Columns>
+
+            <DataGridTextColumn
+                Binding="{Binding Security}"
+                Header="Security" />
+
+            <DataGridTextColumn
+                Binding="{Binding Currency}"
+                Header="Currency" />
+
+            <DataGridTextColumn
+                Binding="{Binding Timestamp}"
+                Header="Timestamp" />
+
+            <DataGridTextColumn
+                Binding="{Binding Value}"
+                Header="Price" />
+
+        </DataGrid.Columns>
+
+    </DataGrid>
+
+</ReactiveUserControl>
