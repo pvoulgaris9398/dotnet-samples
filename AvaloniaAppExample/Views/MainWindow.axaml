@@ -28,11 +28,38 @@
                 Height="*" />
             <RowDefinition
                 Height="*" />
+            <RowDefinition
+                Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="*" />
+            <ColumnDefinition
+                Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Orientation="Horizontal">
+            <Button
+                Click="ClickHandler">
+                Close One View
+            </Button>
+        </StackPanel>
+
         <views:PriceListView
-            Grid.Row="0" />
+            Name="Price1"
+            Grid.Row="1"
+            Grid.Column="0" />
+        <views:PriceListView
+            Name="Price2"
+            Grid.Row="1"
+            Grid.Column="1" />
         <views:SecurityListView
-            Grid.Row="1" />
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2" />
     </Grid>
 
 </Window>

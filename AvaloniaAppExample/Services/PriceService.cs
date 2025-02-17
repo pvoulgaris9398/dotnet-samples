@@ -1,8 +1,10 @@
 ﻿using AvaloniaAppExample.Models;
 using DynamicData;
 using System;
+using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading;
 
 namespace AvaloniaAppExample.Services
 {
@@ -11,11 +13,14 @@ namespace AvaloniaAppExample.Services
         private readonly IDisposable _cleanup;
         public PriceService()
         {
-            var priceData = GeneratePrices().Publish();
+            var priceData = GeneratePrices().Publish(); // Returns an IConnectableObservable<T>
             Prices = priceData.ToObservableChangeSet();
-            _cleanup = new CompositeDisposable(priceData.Connect());
-
+            _cleanup = new CompositeDisposable(priceData.Connect()); // Returns an IDisposable
         }
+
+        /// <summary>
+        /// Consumers will _Subscribe_ to these events
+        /// </summary>
         public IObservable<IChangeSet<Price>> Prices { get; }
 
         public void Dispose()
@@ -37,27 +42,23 @@ namespace AvaloniaAppExample.Services
                 "YEN"
                 ];
             var random = new Random(1);
-            int counter = 0;
             Func<decimal> nextDecimal = () => Math.Round((decimal)random.Next(1, 1000) / random.Next(20, 45), 3);
             Func<string> nextCurrency = () => currencyList[random.Next(0, currencyList.Length - 1)];
 
-
             return Observable.Create<Price>(observer =>
             {
-                var initial = new Price($"Security # {counter}", nextCurrency(), DateTime.Now, nextDecimal());
-
-                var currentPrice = initial;
-                observer.OnNext(initial);
-
                 return Observable.Interval(TimeSpan.FromSeconds(2))
-                    .Subscribe(_ =>
+                    .Subscribe(i => /* Number of times this has been called*/
                     {
-                        counter += 1;
-                        var nextPrice = new Price($"Security # {counter}", nextCurrency(), DateTime.Now, nextDecimal());
+                        var currencyValue = nextCurrency();
+                        var decimalValue = nextDecimal();
+                        Debug.WriteLine($"Currency Value: {currencyValue}");
+                        Debug.WriteLine($"Decimal Value: {decimalValue}");
+                        Debug.WriteLine($"Thread: {Thread.CurrentThread.ManagedThreadId}");
+                        var nextPrice = new Price($"Security # {i}", currencyValue, DateTime.Now, decimalValue);
                         observer.OnNext(nextPrice);
                     });
             });
         }
-
     }
 }

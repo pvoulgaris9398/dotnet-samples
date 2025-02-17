@@ -16,17 +16,9 @@ namespace AvaloniaAppExample.ViewModels
         public PriceListViewModel(IPriceService priceService)
         {
             _disposable = priceService.Prices
-                // Transform in DynamicData works like Select in
-                // LINQ, it observes changes in one collection, and
-                // projects it's elements to another collection.
-                .Transform(x => x)
-                // Filter is basically the same as .Where() operator
-                // from LINQ. See all operators in DynamicData docs.
-                .Filter(x => true)
-                // Ensure the updates arrive on the UI thread.
+                //.Transform(x => x)
+                //.Filter(x => true)
                 .ObserveOn(RxApp.MainThreadScheduler)
-                // We .Bind() and now our mutable Items collection 
-                // contains the new items and the GUI gets refreshed.
                 .Bind(out _items)
                 .Subscribe();
         }
@@ -35,6 +27,7 @@ namespace AvaloniaAppExample.ViewModels
 
         public void Dispose()
         {
+            _disposable.Dispose();
             GC.SuppressFinalize(this);
         }
     }
