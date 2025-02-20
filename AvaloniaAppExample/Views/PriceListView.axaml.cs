@@ -1,3 +1,4 @@
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using AvaloniaAppExample.Services;
@@ -13,12 +14,8 @@ public partial class PriceListView : ReactiveUserControl<PriceListViewModel>
         AvaloniaXamlLoader.Load(this);
     }
 
-    //public void OnClick(object sender, RoutedEventArgs args)
-    //{
-    //    var button = myButton;
-    //    if (DataContext is SecurityListViewModel lvm)
-    //    {
-    //        lvm.SecurityName = "IBM US";
-    //    }
-    //}
+    public void ClickHandler(object sender, RoutedEventArgs args)
+    {
+
+    }
 }

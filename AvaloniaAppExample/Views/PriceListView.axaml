@@ -8,31 +8,43 @@
     x:DataType="vm:PriceListViewModel"
     x:TypeArguments="PriceListViewModel">
 
-    <DataGrid
-        AutoGenerateColumns="False"
-        GridLinesVisibility="All"
-        ItemsSource="{Binding Items}">
+    <DockPanel
+        LastChildFill="True">
+        <StackPanel
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+            <Button
+                Click="ClickHandler">
+                Close One View
+            </Button>
+        </StackPanel>
+        <DataGrid
+            AutoGenerateColumns="False"
+            GridLinesVisibility="All"
+            ItemsSource="{Binding Items}">
 
-        <DataGrid.Columns>
+            <DataGrid.Columns>
 
-            <DataGridTextColumn
-                Binding="{Binding Security}"
-                Header="Security" />
+                <DataGridTextColumn
+                    Binding="{Binding Security}"
+                    Header="Security" />
 
-            <DataGridTextColumn
-                Binding="{Binding Currency}"
-                Header="Currency" />
+                <DataGridTextColumn
+                    Binding="{Binding Currency}"
+                    Header="Currency" />
 
-            <DataGridTextColumn
-                Binding="{Binding Timestamp}"
-                Header="Timestamp" />
+                <DataGridTextColumn
+                    Binding="{Binding Timestamp}"
+                    Header="Timestamp" />
 
-            <DataGridTextColumn
-                Binding="{Binding Value}"
-                Header="Price" />
+                <DataGridTextColumn
+                    Binding="{Binding Value}"
+                    Header="Price" />
 
-        </DataGrid.Columns>
+            </DataGrid.Columns>
 
-    </DataGrid>
+        </DataGrid>
+
+    </DockPanel>
 
 </ReactiveUserControl>

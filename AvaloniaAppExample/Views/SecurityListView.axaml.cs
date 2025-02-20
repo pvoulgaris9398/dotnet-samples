@@ -1,3 +1,4 @@
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.ReactiveUI;
 using AvaloniaAppExample.Services;
@@ -13,12 +14,21 @@ public partial class SecurityListView : ReactiveUserControl<SecurityListViewMode
         AvaloniaXamlLoader.Load(this);
     }
 
-    //public void OnClick(object sender, RoutedEventArgs args)
-    //{
-    //    var button = myButton;
-    //    if (DataContext is SecurityListViewModel lvm)
-    //    {
-    //        lvm.SecurityName = "IBM US";
-    //    }
-    //}
+    public void Remove(object sender, RoutedEventArgs args)
+    {
+        if (DataContext is SecurityListViewModel lvm)
+        {
+            // Hack to trigger some updates
+            (lvm.Service as SecurityService)?.RemoveItem();
+        }
+    }
+
+    public void Add(object sender, RoutedEventArgs args)
+    {
+        if (DataContext is SecurityListViewModel lvm)
+        {
+            // Hack to trigger some updates
+            (lvm.Service as SecurityService)?.AddItem();
+        }
+    }
 }

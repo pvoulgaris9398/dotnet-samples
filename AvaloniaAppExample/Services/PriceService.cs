@@ -25,20 +25,34 @@ namespace AvaloniaAppExample.Services
 
         public void Dispose()
         {
-            GC.SuppressFinalize(this);
             _cleanup.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         private IObservable<Price> GeneratePrices()
         {
             string[] currencyList =
                 [
-                "USD",
-                "GBP",
+                "CHF",
+                "CNY",
                 "CAD",
                 "DKK",
-                "DMK",
+                "EUR",
+                "FRF",
+                "GBP",
+                "HKD",
+                "ISK",
+                "KWD",
+                "MXN",
+                "NZD",
+                "PKR",
                 "RUB",
+                "SAR",
+                "SEK",
+                "SGD",
+                "SKK",
+                "TWD",
+                "USD",
                 "YEN"
                 ];
             var random = new Random(1);

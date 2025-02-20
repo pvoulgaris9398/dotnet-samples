@@ -7,8 +7,24 @@
     xmlns:vm="using:AvaloniaAppExample.ViewModels"
     x:DataType="vm:SecurityListViewModel"
     x:TypeArguments="vm:SecurityListViewModel">
-    <DataGrid
-        AutoGenerateColumns="True"
-        GridLinesVisibility="All"
-        ItemsSource="{Binding Items}" />
+
+    <DockPanel
+        LastChildFill="True">
+        <StackPanel
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+            <Button
+                Click="Add">
+                Add Item
+            </Button>
+            <Button
+                Click="Remove">
+                Remove Item
+            </Button>
+        </StackPanel>
+        <DataGrid
+            AutoGenerateColumns="True"
+            GridLinesVisibility="All"
+            ItemsSource="{Binding Items}" />
+    </DockPanel>
 </ReactiveUserControl>

@@ -1,6 +1,7 @@
 ﻿using AvaloniaAppExample.Models;
 using AvaloniaAppExample.Services;
 using DynamicData;
+using DynamicData.Binding;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
@@ -11,13 +12,12 @@ namespace AvaloniaAppExample.ViewModels
     public class PriceListViewModel : ViewModelBase, IDisposable
     {
         private readonly ReadOnlyObservableCollection<Price> _items;
-        private IDisposable _disposable;
+        private readonly IDisposable _disposable;
 
         public PriceListViewModel(IPriceService priceService)
         {
             _disposable = priceService.Prices
-                //.Transform(x => x)
-                //.Filter(x => true)
+                .Sort(SortExpressionComparer<Price>.Descending(i => i.Timestamp))
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _items)
                 .Subscribe();
