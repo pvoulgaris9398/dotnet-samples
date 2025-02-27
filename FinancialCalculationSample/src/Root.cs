@@ -6,6 +6,7 @@
         {
             return new Root(value);
         }
+
         public static implicit operator int(Root value)
         {
             return value.Value;
