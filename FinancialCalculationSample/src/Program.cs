@@ -9,13 +9,11 @@ using FinancialCalculationSample;
 
 decimal[] returns = [-0.4m, 0.65m, 0.33m, 0.22m, -0.02m, 0.13m, -0.04m, 0.27m];
 
-var result1 = GeometricMeanReturn.Calculate
-    (returns);
+var result1 = GeometricMeanReturn.Calculate(returns);
 
 Console.WriteLine($"{nameof(GeometricMeanReturn)}: {result1:p4}\n");
 
-var result2 = ArithmeticMeanReturn.Calculate
-    (returns);
+var result2 = ArithmeticMeanReturn.Calculate(returns);
 
 Console.WriteLine($"{nameof(ArithmeticMeanReturn)}: {result2:p4}\n");
 

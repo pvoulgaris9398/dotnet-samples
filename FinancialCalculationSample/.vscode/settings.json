@@ -1,0 +1,16 @@
+{
+    "window.zoomLevel": 2,
+    "editor.formatOnSave": true,
+    "editor.minimap.enabled": false,
+    "editor.stickyScroll.enabled": false,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "**/bin": true,
+        "**/obj": true
+    },
+}
