@@ -5,8 +5,10 @@ namespace DotNetObservableExample
     /*
      *  https://learn.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh229114(v=vs.103)
      */
-    public static class TestTwo
+    public static class MicrosoftObservableExample
     {
+
+        public static string Description => "Microsoft Example";
         public static void Execute()
         {
             IObservable<Ticket> ticketObservable = Observable.Create(
@@ -39,7 +41,7 @@ namespace DotNetObservableExample
                 //*** The sequence generator for tickets will be run on another thread
                 //*** _Something_ needs to call back and generate events...
                 //************************************************************************//
-                Task.Factory.StartNew(
+                System.Threading.Tasks.Task.Factory.StartNew(
                     /* The Action to execute*/
                     new Action<object>(TicketGenerator),
                     /* Any argument(s) the Action needs*/
@@ -85,7 +87,7 @@ namespace DotNetObservableExample
 
             public void Dispose()
             {
-                throw new NotImplementedException();
+                Console.WriteLine("Disposing...");
             }
         }
 

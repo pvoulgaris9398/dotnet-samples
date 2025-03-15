@@ -1,7 +1,9 @@
 ﻿namespace DotNetObservableExample
 {
-    public static class TestFive
+    public static class MoneyExample
     {
+        public static string Description => "Money Example";
+
         public static void Execute()
         {
             int[] numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];

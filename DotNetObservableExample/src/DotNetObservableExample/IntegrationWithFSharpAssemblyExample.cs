@@ -2,8 +2,9 @@
 using Securities;
 namespace DotNetObservableExample
 {
-    public static class TestSix
+    public static class IntegrationWithFSharpAssemblyExample
     {
+        public static string Description => "Demonstrate Integration With Assembly Written In F#";
         public static void Execute()
         {
             Say.hello("Marie");

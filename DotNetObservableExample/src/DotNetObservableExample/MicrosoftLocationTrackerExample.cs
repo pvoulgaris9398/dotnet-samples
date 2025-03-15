@@ -3,8 +3,9 @@
     /*
      * https://learn.microsoft.com/en-us/dotnet/api/system.iobservable-1?view=net-9.0
      */
-    static class TestThree
+    static class MicrosoftLocationTrackerExample
     {
+        public static string Description => "Microsoft LocationTracker Sample";
         public static void Execute()
         {
             // Define a provider and two observers.

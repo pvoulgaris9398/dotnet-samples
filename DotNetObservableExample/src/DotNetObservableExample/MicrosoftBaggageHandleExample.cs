@@ -3,8 +3,10 @@
     /*
     * https://learn.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
     */
-    public static class TestZero
+    public static class MicrosoftBaggageHandleExample
     {
+        public static string Description => "Microsoft Baggage Handler Example";
+
         public static void Execute()
         {
             BaggageHandler provider = new();
