@@ -9,7 +9,7 @@ type Ticker = private Ticker of string
 
 module Cusip =
     let IsValid(str: string) =
-        str.Length = 7
+        str.Length = 9
 
 type Identifier = 
 |IdCusip of Cusip

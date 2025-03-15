@@ -103,7 +103,7 @@
 
     public class LocationReporter : IObserver<Location>
     {
-        private IDisposable unsubscriber;
+        private IDisposable? unsubscriber;
         private string instName;
 
         public LocationReporter(string name)
@@ -138,7 +138,7 @@
 
         public virtual void Unsubscribe()
         {
-            unsubscriber.Dispose();
+            unsubscriber?.Dispose();
         }
     }
 }

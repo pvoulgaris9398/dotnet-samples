@@ -9,7 +9,7 @@ namespace DotNetObservableExample
         {
             Say.hello("Marie");
 
-            var input = "ABCDEFG";
+            var input = "38259P508";
             var cusip = input.ToCusip();
 
             Console.WriteLine(cusip == null ? $"'{input}' is not a valid Cusip" : cusip);
