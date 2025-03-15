@@ -1,0 +1,3 @@
+﻿using DotNetObservableExample;
+
+TestSix.Execute();
