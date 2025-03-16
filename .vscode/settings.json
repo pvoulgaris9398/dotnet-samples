@@ -1,0 +1,11 @@
+{
+    "window.zoomLevel": 2,
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "editor.minimap.autohide": true,
+    "files.exclude": {
+        "**/bin": true,
+        "**/obj": true,
+        "**/.vs":true
+    },
+
+}
