@@ -16,6 +16,9 @@ double[] means = { 2, 3, 4 };
 var result = CovarianceMatrix.Calculate(matrix, means);
 
 Console.WriteLine(result);
+
+TestEulerMethod.Execute();
+
 /*
 var result1 = GeometricMeanReturn.Calculate(returns);
 
