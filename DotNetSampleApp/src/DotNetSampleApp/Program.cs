@@ -1,5 +1,5 @@
-﻿//using DotNetSampleApp;
-//using BenchmarkDotNet;
+using BenchmarkDotNet.Running;
+using DotNetSampleApp;
 using static System.Console;
 
 var now = DateTime.Now;
@@ -9,8 +9,10 @@ if (now > new DateTime(2022, 10, 1))
     WriteLine($"DotNetSampleApp is running {now}...");
 }
 
-//var summary = BenchmarkRunner.Run<BenchmarkPerformance>();
+var summary = BenchmarkRunner.Run<BenchmarkPerformance>();
+
+WriteLine(summary);
 
 WriteLine("Press any key to continue...");
 
-_ = Read();
+var _ = Read();

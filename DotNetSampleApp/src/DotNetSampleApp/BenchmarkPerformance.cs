@@ -1,4 +1,4 @@
-﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Attributes;
 
 namespace DotNetSampleApp
 {
@@ -9,7 +9,11 @@ namespace DotNetSampleApp
     public class BenchmarkPerformance
     {
         [Params(100, 200)]
-        private readonly int N = 1;
+#pragma warning disable IDE0044 // Add readonly modifier
+#pragma warning disable CA1051 // Do not declare visible instance fields
+        public int N = 1;
+#pragma warning restore CA1051 // Do not declare visible instance fields
+#pragma warning restore IDE0044 // Add readonly modifier
 
         private string _countries = "";
         private int _index;
@@ -30,7 +34,7 @@ namespace DotNetSampleApp
         {
             for (var i = 0; i < N; i++)
             {
-                _ = _countries.Substring(_index + 1, _numberOfCharactersToExtract - 1);
+                var _ = _countries.Substring(_index + 1, _numberOfCharactersToExtract - 1);
             }
         }
 
@@ -39,7 +43,7 @@ namespace DotNetSampleApp
         {
             for (var i = 0; i < N; i++)
             {
-                _ = _countries.AsSpan().Slice(_index + 1, _numberOfCharactersToExtract - 1);
+                var _ = _countries.AsSpan().Slice(_index + 1, _numberOfCharactersToExtract - 1);
             }
         }
     }

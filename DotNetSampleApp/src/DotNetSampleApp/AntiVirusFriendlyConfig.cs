@@ -16,7 +16,7 @@ namespace DotNetSampleApp
 #pragma warning restore IDE0051
         public AntiVirusFriendlyConfig()
         {
-            _ = AddJob(Job.MediumRun
+            var _ = AddJob(Job.MediumRun
                 .WithToolchain(InProcessNoEmitToolchain.Instance));
         }
     }
