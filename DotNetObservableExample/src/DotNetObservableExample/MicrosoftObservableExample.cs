@@ -8,7 +8,7 @@ namespace DotNetObservableExample
     public static class MicrosoftObservableExample
     {
 
-        public static string Description => "Microsoft Example";
+        public static string Description() => "Microsoft Example";
         public static void Execute()
         {
             IObservable<Ticket> ticketObservable = Observable.Create(

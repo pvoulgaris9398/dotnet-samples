@@ -5,7 +5,7 @@
     */
     public static class MicrosoftBaggageHandleExample
     {
-        public static string Description => "Microsoft Baggage Handler Example";
+        public static string Description() => "Microsoft Baggage Handler Example";
 
         public static void Execute()
         {

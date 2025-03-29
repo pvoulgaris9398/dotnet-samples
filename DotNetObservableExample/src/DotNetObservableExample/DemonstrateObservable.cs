@@ -8,7 +8,7 @@ namespace DotNetObservableExample
      */
     public static class DemonstrateObservable
     {
-        public static string Description => "Observable Demonstration";
+        public static string Description() => "Observable Demonstration";
 
         public static void Execute()
         {

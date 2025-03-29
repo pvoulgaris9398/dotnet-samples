@@ -2,7 +2,7 @@
 {
     public static class MoneyExample
     {
-        public static string Description => "Money Example";
+        public static string Description() => "Money Example";
 
         public static void Execute()
         {

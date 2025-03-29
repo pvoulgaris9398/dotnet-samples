@@ -8,19 +8,19 @@ React to user input and call appropriate option
 */
 
 (Func<string>, Action)[] tasks = [
-    (() => DemonstrateObservable.Description,
+    (DemonstrateObservable.Description,
         DemonstrateObservable.Execute)
-    ,(() => MicrosoftObservableExample.Description,
+    ,(MicrosoftObservableExample.Description,
         MicrosoftObservableExample.Execute)
-    ,(() => MicrosoftLocationTrackerExample.Description,
+    ,(MicrosoftLocationTrackerExample.Description,
         MicrosoftLocationTrackerExample.Execute)
-    ,(() => BasicObservableExample.Description,
+    ,(BasicObservableExample.Description,
         BasicObservableExample.Execute)
-    ,(() => MoneyExample.Description,
+    ,(MoneyExample.Description,
         MoneyExample.Execute)
-    ,(() => MicrosoftBaggageHandleExample.Description,
+    ,(MicrosoftBaggageHandleExample.Description,
         MicrosoftBaggageHandleExample.Execute)
-    ,(() => IntegrationWithFSharpAssemblyExample.Description,
+    ,(IntegrationWithFSharpAssemblyExample.Description,
         IntegrationWithFSharpAssemblyExample.Execute)
     ];
 

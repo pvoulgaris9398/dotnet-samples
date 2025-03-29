@@ -5,7 +5,7 @@
      */
     static class MicrosoftLocationTrackerExample
     {
-        public static string Description => "Microsoft LocationTracker Sample";
+        public static string Description() => "Microsoft LocationTracker Sample";
         public static void Execute()
         {
             // Define a provider and two observers.
