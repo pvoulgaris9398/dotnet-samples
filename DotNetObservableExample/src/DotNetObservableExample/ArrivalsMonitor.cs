@@ -3,7 +3,7 @@
     public class ArrivalsMonitor : IObserver<BaggageInfo>
     {
         private readonly string _name;
-        private readonly List<string> _flights = new();
+        private readonly List<string> _flights = [];
         private readonly string _format = "{0,-20} {1,5}  {2, 3}";
         private IDisposable? _cancellation;
 

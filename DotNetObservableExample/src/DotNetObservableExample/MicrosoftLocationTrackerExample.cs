@@ -9,10 +9,10 @@
         public static void Execute()
         {
             // Define a provider and two observers.
-            LocationTracker provider = new LocationTracker();
-            LocationReporter reporter1 = new LocationReporter("FixedGPS");
+            LocationTracker provider = new();
+            LocationReporter reporter1 = new("FixedGPS");
             reporter1.Subscribe(provider);
-            LocationReporter reporter2 = new LocationReporter("MobileGPS");
+            LocationReporter reporter2 = new("MobileGPS");
             reporter2.Subscribe(provider);
 
             provider.TrackLocation(new Location(47.6456, -122.1312));
@@ -25,7 +25,7 @@
 
     public struct Location
     {
-        double lat, lon;
+        private double lat, lon;
 
         public Location(double latitude, double longitude)
         {

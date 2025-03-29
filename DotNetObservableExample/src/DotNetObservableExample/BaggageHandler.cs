@@ -2,8 +2,8 @@
 {
     public sealed class BaggageHandler : IObservable<BaggageInfo>
     {
-        private readonly HashSet<IObserver<BaggageInfo>> _observers = new();
-        private readonly HashSet<BaggageInfo> _flights = new();
+        private readonly HashSet<IObserver<BaggageInfo>> _observers = [];
+        private readonly HashSet<BaggageInfo> _flights = [];
         public IDisposable Subscribe(IObserver<BaggageInfo> observer)
         {
 
