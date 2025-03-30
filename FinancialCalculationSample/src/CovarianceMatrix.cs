@@ -1,14 +1,20 @@
-
-public class CovarianceMatrix
+namespace FinancialCalculationSample
 {
-    public static double[,] Calculate(double[,] matrix, double[] means)
+
+
+    public class CovarianceMatrix
     {
-        int rows = matrix.GetLength(0);
+        public static double[,] Calculate(double[,] matrix, double[] means)
+        {
+            int rows = matrix.GetLength(0);
 
-        //TODO
+            //TODO
+            Console.WriteLine(means);
+            Console.WriteLine(rows);
 
-        double[,] cov = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            double[,] cov = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
 
-        return cov;
+            return cov;
+        }
     }
 }
