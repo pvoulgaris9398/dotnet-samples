@@ -1,4 +1,4 @@
-﻿namespace FinancialCalculationSample
+namespace FinancialCalculationSample
 {
     public static class RootCalculator
     {
@@ -9,32 +9,25 @@
              */
             double firstApproximation = input.N;
 
-            /*
-             * How are epsilon and the number of digits to round to
-             * related, if at all???
-             */
-            const double epsilon = 0.0000001;
             int roundedTo = 7;
-
-            //Console.WriteLine(Math.Pow(1))
 
             int iterations = 0;
 
-            double Xn = 0;
-            double Xnplus1 = firstApproximation;
+            double xn = 0;
+            double xnplus1 = firstApproximation;
 
             do
             {
                 iterations++;
                 if (logOutput) Console.WriteLine("**********************");
                 if (logOutput) Console.WriteLine($"Iteration: {iterations}");
-                if (logOutput) Console.WriteLine($"\tXn: {Xn}");
-                if (logOutput) Console.WriteLine($"\tXnplus1: {Xnplus1}");
-                Xn = Xnplus1;
-                Xnplus1 = Xn - ((Math.Pow(Xn, input.N) - input.Number) / (input.N * Math.Pow(Xn, input.N - 1)));
-            } while (Math.Abs(Xnplus1 - Xn) > epsilon);
+                if (logOutput) Console.WriteLine($"\tXn: {xn}");
+                if (logOutput) Console.WriteLine($"\tXnplus1: {xnplus1}");
+                xn = xnplus1;
+                xnplus1 = xn - ((Math.Pow(xn, input.N) - input.Number) / (input.N * Math.Pow(xn, input.N - 1)));
+            } while (Math.Abs(xnplus1 - xn) > MathExtensions.Epsilon(roundedTo));
 
-            return new RootCalculatorOutput(input.N, input.Number, Math.Round(Xn, roundedTo), roundedTo, iterations, epsilon);
+            return new RootCalculatorOutput(input.N, input.Number, Math.Round(xn, roundedTo), roundedTo, iterations, MathExtensions.Epsilon(roundedTo));
         }
     }
 }

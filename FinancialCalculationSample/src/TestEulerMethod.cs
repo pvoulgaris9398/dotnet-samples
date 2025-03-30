@@ -1,4 +1,4 @@
-﻿namespace FinancialCalculationSample
+namespace FinancialCalculationSample
 {
     public static class TestEulerMethod
     {
@@ -37,7 +37,7 @@
         {
             var iterations = Enumerable.Range(0, n);
 
-            Velocity v = new Velocity(0);
+            Velocity v = new(0);
             var counter = 0;
 
             foreach (var each in iterations)
@@ -55,35 +55,35 @@
             , Mass m
             , Velocity v
             , DeltaTime t) =>
-            new Velocity(v.Value + ((g.Value - c.Value / m.Value * v.Value) * t.Value));
+            new(v.Value + ((g.Value - (c.Value / m.Value * v.Value)) * t.Value));
 
         public record NumberOfIterations(int Value)
         {
             public static implicit operator int(NumberOfIterations n) => n.Value;
-            public static explicit operator NumberOfIterations(int n) => new NumberOfIterations(n);
+            public static explicit operator NumberOfIterations(int n) => new(n);
         }
 
         public record GravitionalForce(double Value)
         {
             public static implicit operator double(GravitionalForce m) => m.Value;
-            public static explicit operator GravitionalForce(double m) => new GravitionalForce(m);
+            public static explicit operator GravitionalForce(double m) => new(m);
         }
 
         public record WindResistance(double Value)
         {
             public static implicit operator double(WindResistance m) => m.Value;
-            public static explicit operator WindResistance(double m) => new WindResistance(m);
+            public static explicit operator WindResistance(double m) => new(m);
         }
         public record Mass(double Value)
         {
             public static implicit operator double(Mass m) => m.Value;
-            public static explicit operator Mass(double m) => new Mass(m);
+            public static explicit operator Mass(double m) => new(m);
         }
         public record Velocity(double Value);
         public record DeltaTime(double Value)
         {
             public static implicit operator double(DeltaTime m) => m.Value;
-            public static explicit operator DeltaTime(double m) => new DeltaTime(m);
+            public static explicit operator DeltaTime(double m) => new(m);
         }
 
 
