@@ -1,4 +1,4 @@
-﻿using DotNetObservableExample;
+using DotNetObservableExample;
 
 /* 
 Build array of Test Options
@@ -10,10 +10,6 @@ React to user input and call appropriate option
 (Func<string>, Action)[] tasks = [
     (DemonstrateObservable.Description,
         DemonstrateObservable.Execute)
-    ,(MicrosoftObservableExample.Description,
-        MicrosoftObservableExample.Execute)
-    ,(MicrosoftLocationTrackerExample.Description,
-        MicrosoftLocationTrackerExample.Execute)
     ,(BasicObservableExample.Description,
         BasicObservableExample.Execute)
     ,(MoneyExample.Description,
