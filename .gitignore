@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Local .env file
+.env
+
 # User-specific files
 *.rsuser
 *.suo
@@ -31,15 +34,6 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-/out/
-.DS_Store
-src/.DS_Store
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
