@@ -1,16 +1,15 @@
-﻿using AvaloniaAppExample.Models;
-using DynamicData;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Threading;
+using AvaloniaAppExample.Models;
+using DynamicData;
 
 namespace AvaloniaAppExample.Services
 {
     public class PriceService : IPriceService, IDisposable
     {
-        private readonly IDisposable _cleanup;
+        private readonly CompositeDisposable _cleanup;
         public PriceService()
         {
             var priceData = GeneratePrices().Publish(); // Returns an IConnectableObservable<T>
@@ -29,7 +28,7 @@ namespace AvaloniaAppExample.Services
             GC.SuppressFinalize(this);
         }
 
-        private IObservable<Price> GeneratePrices()
+        private static IObservable<Price> GeneratePrices()
         {
             string[] currencyList =
                 [
@@ -68,7 +67,7 @@ namespace AvaloniaAppExample.Services
                         var decimalValue = nextDecimal();
                         Debug.WriteLine($"Currency Value: {currencyValue}");
                         Debug.WriteLine($"Decimal Value: {decimalValue}");
-                        Debug.WriteLine($"Thread: {Thread.CurrentThread.ManagedThreadId}");
+                        Debug.WriteLine($"Thread: {Environment.CurrentManagedThreadId}");
                         var nextPrice = new Price($"Security # {i}", currencyValue, DateTime.Now, decimalValue);
                         observer.OnNext(nextPrice);
                     });

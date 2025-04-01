@@ -3,7 +3,7 @@ root = true
 # All files
 [*]
 indent_style = space
-
+csharp_style_prefer_local_over_anonymous_function
 # Xml files
 [*.xml]
 indent_size = 2
@@ -14,6 +14,7 @@ indent_size = 2
 # TODO: Fix these in the code instead
 dotnet_diagnostic.CS8600.severity = none
 dotnet_diagnostic.CS8602.severity = none
+dotnet_diagnostic.CS9113.severity = none
 dotnet_diagnostic.CS9113.severity = none
 dotnet_diagnostic.CS8625.severity = none
 
@@ -47,6 +48,9 @@ csharp_style_namespace_declarations = block_scoped
 dotnet_style_qualification_for_field = false:silent
 dotnet_style_qualification_for_method = false:silent
 dotnet_style_qualification_for_property = false:silent
+
+# Use local function instead of lambda (IDE0039)
+csharp_style_prefer_local_over_anonymous_function = false
 
 # 'var' preferences (IDE0007 and IDE0008)
 csharp_style_var_for_built_in_types = true
@@ -102,7 +106,7 @@ csharp_style_var_when_type_is_apparent = false:silent
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_constructors = false:silent
 csharp_style_expression_bodied_indexers = true:silent
-csharp_style_expression_bodied_lambdas = true:suggestion
+csharp_style_expression_bodied_lambdas = when_on_single_line
 csharp_style_expression_bodied_local_functions = false:silent
 csharp_style_expression_bodied_methods = when_on_single_line
 csharp_style_expression_bodied_operators = when_on_single_line

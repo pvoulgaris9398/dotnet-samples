@@ -1,11 +1,11 @@
-﻿using AvaloniaAppExample.Models;
-using DynamicData;
 using System;
 using System.Linq;
+using AvaloniaAppExample.Models;
+using DynamicData;
 
 namespace AvaloniaAppExample.Services
 {
-    public class SecurityService : ISecurityService
+    public class SecurityService : ISecurityService, IDisposable
     {
         private readonly SourceList<Security> _items = new();
 
@@ -29,5 +29,11 @@ namespace AvaloniaAppExample.Services
         }
 
         public IObservable<IChangeSet<Security>> Securities => _items.Connect();
+
+        public void Dispose()
+        {
+            _items.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }
