@@ -1,9 +1,9 @@
-﻿using AvaloniaAppExample.Services;
-using DynamicData;
-using ReactiveUI;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using AvaloniaAppExample.Services;
+using DynamicData;
+using ReactiveUI;
 
 namespace AvaloniaAppExample.ViewModels
 {
@@ -28,11 +28,7 @@ namespace AvaloniaAppExample.ViewModels
 
         public string SecurityName
         {
-            get => _securityName;
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _securityName, value);
-            }
+            get => _securityName; set => this.RaiseAndSetIfChanged(ref _securityName, value);
         }
 
         public ReadOnlyObservableCollection<SecurityViewModel> Items => _items;

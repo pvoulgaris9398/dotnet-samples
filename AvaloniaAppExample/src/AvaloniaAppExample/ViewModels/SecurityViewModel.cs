@@ -1,17 +1,11 @@
-﻿using AvaloniaAppExample.Models;
-using System;
+﻿using System;
+using AvaloniaAppExample.Models;
 
 namespace AvaloniaAppExample.ViewModels
 {
-    public class SecurityViewModel
+    public class SecurityViewModel(Security item)
     {
-
-        public SecurityViewModel(Security item)
-        {
-            Item = item;
-        }
-
-        protected Security Item { get; }
+        protected Security Item { get; } = item;
 
         public long Id => Item.Id;
         public string SecurityName => Item.SecurityName;

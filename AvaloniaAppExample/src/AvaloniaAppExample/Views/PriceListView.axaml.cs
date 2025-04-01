@@ -4,18 +4,19 @@ using Avalonia.ReactiveUI;
 using AvaloniaAppExample.Services;
 using AvaloniaAppExample.ViewModels;
 
-namespace AvaloniaAppExample.Views;
-
-public partial class PriceListView : ReactiveUserControl<PriceListViewModel>
+namespace AvaloniaAppExample.Views
 {
-    public PriceListView()
+    public partial class PriceListView : ReactiveUserControl<PriceListViewModel>
     {
-        ViewModel = new PriceListViewModel(new PriceService());
-        AvaloniaXamlLoader.Load(this);
-    }
+        public PriceListView()
+        {
+            ViewModel = new PriceListViewModel(new PriceService());
+            AvaloniaXamlLoader.Load(this);
+        }
 
-    public void ClickHandler(object sender, RoutedEventArgs args)
-    {
+        public void ClickHandler(object sender, RoutedEventArgs args)
+        {
 
+        }
     }
 }

@@ -1,15 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
 
-namespace AvaloniaAppExample.Views;
-
-public partial class MainWindow : Window
+namespace AvaloniaAppExample.Views
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
+        public MainWindow()
+        {
+            InitializeComponent();
 #if DEBUG
-        this.AttachDevTools();
+            this.AttachDevTools();
 #endif
+        }
     }
 }

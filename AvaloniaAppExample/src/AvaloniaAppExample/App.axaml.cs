@@ -4,26 +4,24 @@ using Avalonia.Markup.Xaml;
 using AvaloniaAppExample.ViewModels;
 using AvaloniaAppExample.Views;
 
-namespace AvaloniaAppExample;
-
-public partial class App : Application
+namespace AvaloniaAppExample
 {
-    public override void Initialize()
+    public partial class App : Application
     {
-        AvaloniaXamlLoader.Load(this);
-    }
+        public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
-    public override void OnFrameworkInitializationCompleted()
-    {
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        public override void OnFrameworkInitializationCompleted()
         {
-            desktop.MainWindow = new MainWindow
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                DataContext = new MainWindowViewModel(),
-            };
+                desktop.MainWindow = new MainWindow
+                {
+                    DataContext = new MainWindowViewModel(),
+                };
+            }
+
+            base.OnFrameworkInitializationCompleted();
         }
 
-        base.OnFrameworkInitializationCompleted();
     }
-
 }
