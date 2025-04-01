@@ -1,0 +1,15 @@
+<ReactiveUserControl
+    x:Class="AvaloniaAppExample.Views.SandboxView"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:AvaloniaAppExample.ViewModels"
+    x:DataType="vm:SandboxViewModel"
+    x:TypeArguments="vm:SandboxViewModel">
+
+    <DockPanel
+        LastChildFill="True">
+      <ContentControl Content="{Binding Display}"/>
+    </DockPanel>
+</ReactiveUserControl>

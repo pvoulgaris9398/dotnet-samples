@@ -26,8 +26,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Views\MainWindow2.axaml.cs">
+      <DependentUpon>MainWindow2.axaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\PriceListView.axaml.cs">
       <DependentUpon>PriceListView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\SandboxView.axaml.cs">
+      <DependentUpon>SandboxView.axaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

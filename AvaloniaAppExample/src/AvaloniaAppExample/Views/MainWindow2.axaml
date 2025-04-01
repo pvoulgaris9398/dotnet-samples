@@ -1,0 +1,26 @@
+<Window
+    x:Class="AvaloniaAppExample.Views.MainWindow2"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:AvaloniaAppExample.Views"
+    xmlns:vm="using:AvaloniaAppExample.ViewModels"
+    Title="Cross-Platform Avalonia Sample"
+    Width="800"
+    Height="400"
+    x:DataType="vm:MainWindowViewModel2"
+    Icon="/Assets/avalonia-logo.ico">
+  <DockPanel>
+    <Menu
+      DockPanel.Dock="Top">
+      <MenuItem Header="Securities" Click="OnClick1" />
+      <MenuItem Header="Prices" Click="OnClick2"/>
+      <MenuItem Header="Sandbox" Click="OnClick3"/>
+    </Menu>
+    <ContentControl 
+      x:Name="content"
+      Content=""/>
+  </DockPanel>
+
+</Window>
