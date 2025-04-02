@@ -10,6 +10,23 @@
 
     <DockPanel
         LastChildFill="True">
-      <ContentControl Content="{Binding Display}"/>
+
+        <StackPanel
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+            <TextBox
+                Name="TextBox1"
+                Width="100" />
+            <Button
+                Name="TheButton"
+                Content="Test!" />
+            <TextBox
+                Width="100"
+                Text="{Binding ElementName=TextBox1, Path=Text}" />
+        </StackPanel>
+
+        <ContentControl
+            Content="{Binding Display}" />
+
     </DockPanel>
 </ReactiveUserControl>

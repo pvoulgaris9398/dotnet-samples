@@ -25,7 +25,7 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.1" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <Compile Update="Views\MainWindow2.axaml.cs">
       <DependentUpon>MainWindow2.axaml</DependentUpon>
     </Compile>
@@ -35,5 +35,5 @@
     <Compile Update="Views\SandboxView.axaml.cs">
       <DependentUpon>SandboxView.axaml</DependentUpon>
     </Compile>
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
