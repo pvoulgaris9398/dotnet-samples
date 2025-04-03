@@ -14,15 +14,18 @@
         <StackPanel
             DockPanel.Dock="Top"
             Orientation="Horizontal">
-            <TextBox
+          <TextBox
                 Name="TextBox1"
-                Width="100" />
+                AcceptsReturn="True"
+                Width="100"
+                Text="{Binding DefaultText}"
+                Watermark="Enter a description"/>
             <Button
-                Name="TheButton"
-                Content="Test!" />
+                Command="{Binding SubmitCommand}"
+                Content="Submit" />
             <TextBox
                 Width="100"
-                Text="{Binding ElementName=TextBox1, Path=Text}" />
+                Text="{Binding DefaultText}" />
         </StackPanel>
 
         <ContentControl

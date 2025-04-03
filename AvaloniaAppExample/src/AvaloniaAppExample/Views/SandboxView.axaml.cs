@@ -8,13 +8,8 @@ namespace AvaloniaAppExample.Views
     {
         public SandboxView()
         {
-            //            InitializeComponent();
-            //#if DEBUG
-            //            this.AttachDevTools();
-            //#endif
             ViewModel = new SandboxViewModel();
             AvaloniaXamlLoader.Load(this);
-            //TheButton.Content = "testing";
         }
     }
 }

@@ -11,6 +11,9 @@ indent_size = 2
 # C# files
 [*.cs]
 
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = none
+
 # TODO: Fix these in the code instead
 dotnet_diagnostic.CS8600.severity = none
 dotnet_diagnostic.CS8602.severity = none
