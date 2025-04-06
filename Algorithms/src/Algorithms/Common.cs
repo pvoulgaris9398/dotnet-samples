@@ -42,5 +42,7 @@ namespace Algorithms
                 yield return line;
             }
         }
+
+        public static TextReader ReadFromFile(string path) => File.OpenText(path);
     }
 }

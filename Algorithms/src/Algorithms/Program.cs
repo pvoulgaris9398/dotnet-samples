@@ -1,3 +1,3 @@
 using Algorithms;
 
-DayTwo.Test();
+DayTwo.Run();
