@@ -4,7 +4,7 @@ namespace Algorithms
     {
         internal static void Run()
         {
-            var path = "C:\\_WorkLog\\_Code\\dotnet-samples\\Algorithms\\data.txt";
+            var path = "..\\..\\..\\..\\..\\data.txt";
             using TextReader reader = File.OpenText(path);
             (List<int> left, List<int> right) = LoadLists(reader);
 
@@ -14,8 +14,8 @@ namespace Algorithms
 
             /*
              * Very, very slick here!!!
-             * Using the Distributive property of multiplication
-             * to convert multiplication into additiont
+             * Using the [???name???] property of multiplication
+             * to convert multiplication into addition
              * if (3) occurs (5) times in the right list,
              * this returns (3) (5) times, then takes that sum
              * (5) + (5) + (5) +(5) + (5) = (15)
@@ -27,8 +27,8 @@ namespace Algorithms
                 .Join(right, l => l, r => r, (l, r) => r)
                 .Sum();
 
-            Console.WriteLine($" Total Items: {left.Count}");
-            Console.WriteLine($" Total Distance: {totalDistance}");
+            Console.WriteLine($"Total Items: {left.Count}");
+            Console.WriteLine($"Total Distance: {totalDistance}");
             Console.WriteLine($"Similarity Scores: {similarityScore}");
 
         }

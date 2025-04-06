@@ -1,3 +1,3 @@
 using Algorithms;
 
-ExampleOne.Run();
+DayTwo.Test();
