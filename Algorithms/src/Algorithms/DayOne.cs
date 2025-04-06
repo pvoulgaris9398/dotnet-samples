@@ -1,6 +1,6 @@
 namespace Algorithms
 {
-    internal static class ExampleTwo
+    internal static class DayOne
     {
         /// <summary>
         /// Example/solution for advent-of-code-2024
@@ -13,6 +13,9 @@ namespace Algorithms
             Console.WriteLine(new string('*', 80));
 
             var totalDistance = left.Order()
+                /*  Applies a specified function to the corresponding elements of
+                 *  two sequences, producing a sequence of results
+                 */
                 .Zip(right.Order(), (x, y) =>
                 {
                     Console.WriteLine($"Left: {x}\tRight: {y}");
@@ -32,6 +35,9 @@ namespace Algorithms
              * (same thing), in effect
              */
             int similarityScore = left
+                /*  Correlates the elements of two sequences based on matching keys.
+                 *  The default equality comparer is used to compare keys.
+                 */
                 .Join(right, l => l, r => r, (l, r) =>
                 {
                     Console.WriteLine($"Left: {l}\tRight: {r}");
