@@ -6,7 +6,10 @@ open System
 [<Extension>]
 type ListExtensions =
     [<Extension>]
-    // This returns a System.Tuple, C# uses System.ValueTuple
-    // I'd like to figure out how to return a System.ValueTuple here
-    static member ToPairs(list: seq<'a>) : seq<Tuple<'a, 'a>> =
-        list |> Seq.pairwise
+    // This returns a ValueTuple, which is what C# expects
+    // TODO: Figure out how/best to do a null check here
+    // static member ToPairs(list: seq<'a>) : seq<ValueTuple<'a, 'a>> =
+    static member ToPairs list =
+        list 
+            |> Seq.pairwise
+            |> Seq.map (fun (previous, current) -> struct(previous, current))

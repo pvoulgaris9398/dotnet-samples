@@ -92,10 +92,10 @@ namespace Algorithms
 
         private static bool IsSafe(this List<int> values, int direction) => values.ToPairs().All(pair => pair.IsSafe(direction));
 
-        private static bool IsSafe(this Tuple<int, int> pair, int direction) =>
-            Math.Abs(pair.Item2 - pair.Item1) >= 1 &&
-            Math.Abs(pair.Item2 - pair.Item1) <= 3 &&
-            Math.Sign(pair.Item2 - pair.Item1) == direction;
+        private static bool IsSafe(this (int previous, int current) pair, int direction) =>
+            Math.Abs(pair.current - pair.previous) >= 1 &&
+            Math.Abs(pair.current - pair.previous) <= 3 &&
+            Math.Sign(pair.current - pair.previous) == direction;
 
         /// <summary>
         /// The number of triplets in a dataset is equal to:
