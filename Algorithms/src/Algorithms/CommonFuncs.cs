@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Algorithms
 {
-    public static class Common
+    public static class CommonFuncs
     {
 #pragma warning disable SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
 #pragma warning disable CA1305 // Specify IFormatProvider

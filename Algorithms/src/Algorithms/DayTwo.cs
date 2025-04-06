@@ -1,3 +1,4 @@
+using Common;
 namespace Algorithms
 {
     /// <summary>
@@ -28,6 +29,18 @@ namespace Algorithms
             Console.WriteLine($"        Total count: {allLists.Count}");
             Console.WriteLine($"         Safe count: {safeCount}");
             Console.WriteLine($"Tolerant safe count: {tolerantSafeCount}");
+        }
+
+        internal static void Test3(List<int> list)
+        {
+            Console.WriteLine(new string('*', 80));
+            var pairs = list.ToPairs();
+            var pairs2 = list.ToPairs_ORIGINAL();
+            Console.WriteLine(pairs2);
+            foreach (var (prev, next) in pairs)
+            {
+                Console.WriteLine($"Previous: {prev}\tNext: {next}");
+            }
         }
 
         internal static void Test2()
@@ -79,10 +92,10 @@ namespace Algorithms
 
         private static bool IsSafe(this List<int> values, int direction) => values.ToPairs().All(pair => pair.IsSafe(direction));
 
-        private static bool IsSafe(this (int prev, int next) pair, int direction) =>
-            Math.Abs(pair.next - pair.prev) >= 1 &&
-            Math.Abs(pair.next - pair.prev) <= 3 &&
-            Math.Sign(pair.next - pair.prev) == direction;
+        private static bool IsSafe(this Tuple<int, int> pair, int direction) =>
+            Math.Abs(pair.Item2 - pair.Item1) >= 1 &&
+            Math.Abs(pair.Item2 - pair.Item1) <= 3 &&
+            Math.Sign(pair.Item2 - pair.Item1) == direction;
 
         /// <summary>
         /// The number of triplets in a dataset is equal to:
@@ -121,7 +134,7 @@ namespace Algorithms
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        private static IEnumerable<(int prev, int next)> ToPairs(this List<int> values)
+        private static IEnumerable<(int prev, int next)> ToPairs_ORIGINAL(this List<int> values)
         {
             using var enumerator = values.GetEnumerator();
             if (!enumerator.MoveNext()) yield break; // No _pairs_
@@ -135,7 +148,7 @@ namespace Algorithms
             }
         }
 
-        private static List<List<int>> LoadFileData(string path) => [.. File.OpenText(path).ReadLines().Select(Common.ParseIntsNoSign)];
+        private static List<List<int>> LoadFileData(string path) => [.. File.OpenText(path).ReadLines().Select(CommonFuncs.ParseIntsNoSign)];
 
         private static IEnumerable<List<int>> LoadTestData()
         {
