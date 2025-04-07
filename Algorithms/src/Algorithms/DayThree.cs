@@ -82,9 +82,61 @@ namespace Algorithms
              *  From my reading any spaces or other characters
              *  make these patterns invalid
              */
+            var data = LoadFileData("..\\..\\..\\..\\..\\day3.txt");
+
+            var instructions = ParseV4(data).ToList();
+
+            int sum = instructions.OfType<Multiply>().Evaluate();
+            int sumWithExclusions = instructions.Evaluate();
+
+            Console.WriteLine($"                Sum: {sum}");
+            Console.WriteLine($"Sum with exclusions: {sumWithExclusions}");
+
+
             Console.WriteLine(new string('*', 80));
             Console.WriteLine(nameof(Run));
         }
+
+        abstract record Instruction;
+
+        sealed record Multiply(int left, int right) : Instruction
+        {
+            public int Product => left * right;
+        }
+
+        sealed record Stop : Instruction;
+
+        sealed record Continue : Instruction;
+
+        private static int Evaluate(this IEnumerable<Instruction> instructions) => instructions.Aggregate(
+        (
+            /*  Seeding initial value
+             */
+            sum: 0
+            /*  Passing "state" to subsequent iterations
+             *  Indicating whether to include this multiplication
+             *  in the running sum or not
+             */
+            , include: true),
+        (acc, instruction) => instruction switch
+        {
+            Continue => (acc.sum, true),// Resets to allow subsequent multiplications to be included
+            Stop => (acc.sum, false),   // Causes summing to stop for subsequent multiplications
+            /*  Only include when the "include" flag is set to true
+             */
+            Multiply multiply when acc.include => (acc.sum + multiply.Product, acc.include),
+            /* Otherwise, don't include...as default case, just return the current sum
+             */
+            _ => acc
+        }).sum;
+
+        private static IEnumerable<Instruction> ParseV4(this string data)
+        =>
+            Regex.Matches(data, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
+            .Select(match =>
+                match.Groups["dont"].Success ? new Stop() as Instruction
+                : match.Groups["do"].Success ? new Continue()
+                : new Multiply(int.Parse(match.Groups["a"].Value), int.Parse(match.Groups["b"].Value)));
 
         private static IEnumerable<(long left, long right)> ParseV3(this string data)
         {
@@ -93,7 +145,8 @@ namespace Algorithms
             // This worked but didn't pull enough values
             // var pattern = @"\bmul\(\d+\,\d+\)\b";
             // Looked at Zoran's example and used this and it worked!
-            var pattern = @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)";
+            //var pattern = @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)";
+            var pattern = @"mul\(\d+,\d+\)";
 
             var result = Regex.Matches(data, pattern)
                 .Select(match => match.ToString())
