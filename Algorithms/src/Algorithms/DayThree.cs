@@ -90,7 +90,10 @@ namespace Algorithms
         {
             // Looking for "mul(d+,d+)"
 
-            var pattern = @"\bmul\(\d+\,\d+\)\b";
+            // This worked but didn't pull enough values
+            // var pattern = @"\bmul\(\d+\,\d+\)\b";
+            // Looked at Zoran's example and used this and it worked!
+            var pattern = @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)";
 
             var result = Regex.Matches(data, pattern)
                 .Select(match => match.ToString())
