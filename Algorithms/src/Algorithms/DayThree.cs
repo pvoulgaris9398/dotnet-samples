@@ -1,26 +1,59 @@
 using Common;
+using System.Text.RegularExpressions;
 namespace Algorithms
 {
     /// <summary>
     /// Sunday, 4/6/25 WIP
     /// Advent of Code: Day3
     /// </summary>
-    internal static partial class DayThree
+    internal static class DayThree
     {
-        internal static void Test0()
+        internal static class Attempt2
         {
-            var data = LoadFileData("..\\..\\..\\..\\..\\day3.txt");
-
-            var pairs = data[0].ToCharArray()
-                /* I've got this down to just valid _transitions_
-                 * Now I need to Zip??? them into a string that I can evaluate?
-                 */
-                .ToPairs()
-                .Where(IsValid);
-
-            foreach (var (prev, next) in pairs)
+            internal static void Run()
             {
-                Console.WriteLine($"Previous: {prev}\tNext: {next}");
+                var data = LoadFileData("..\\..\\..\\..\\..\\day3.txt");
+
+                var pairs = data.ParseV3().ToList();
+
+                foreach (var (left, right) in pairs)
+                {
+                    Console.WriteLine($"({left},{right})");
+                }
+
+                var total = pairs.Sum(pair => pair.left * pair.right);
+
+                Console.WriteLine($"Total:{total}");
+            }
+        }
+
+        internal static class Attempt1
+        {
+            internal static void Run()
+            {
+                var data = LoadFileData("..\\..\\..\\..\\..\\failing-test-case.txt");
+
+                var pairs = data
+                    .ToPairs()
+                    .Where(IsValid);
+
+                var digits = pairs
+                    .Parse()
+                    .ToList();
+
+                foreach (var (left, right) in digits)
+                {
+                    Console.WriteLine($"({left},{right})");
+                }
+
+                var total = digits.Sum(pair => pair.left * pair.right);
+
+                Console.WriteLine($"Total:{total}");
+
+                foreach (var (prev, next) in pairs)
+                {
+                    Console.WriteLine($"Previous: {prev}\tNext: {next}");
+                }
             }
         }
 
@@ -53,8 +86,137 @@ namespace Algorithms
             Console.WriteLine(nameof(Run));
         }
 
+        private static IEnumerable<(long left, long right)> ParseV3(this string data)
+        {
+            // Looking for "mul(d+,d+)"
+
+            var pattern = @"\bmul\(\d+\,\d+\)\b";
+
+            var result = Regex.Matches(data, pattern)
+                .Select(match => match.ToString())
+                .Select(s =>
+                {
+                    var input = s.Replace("mul(", "").Replace(")", "");
+                    if (input.Split(',') is string[] elements &&
+                    elements.Length == 2 /*&&
+                    int.TryParse(elements[0] out var l) &&
+                    int.TryParse(elements[1] out var r)*/)
+                    {
+                        return (long.Parse(elements[0]), long.Parse(elements[1]));
+                    }
+                    return (0L, 0L);
+                });
+
+            return result;
+        }
+
+        /// <summary>
+        /// This does not work correctly either...
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private static IEnumerable<(long left, long right)> ParseV2(this char[] data)
+        {
+            char[] validCharacters = ['(', ')', ',', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            var valid = data.Where(c => validCharacters.Contains(c));
+
+            char previousToken = '\0';
+            bool lookingForLeft = true;
+            bool lookingForRight = false;
+            List<char> left = [];
+            List<char> right = [];
+
+            foreach (var c in valid)
+            {
+                if (previousToken == '\0')
+                {
+                    previousToken = c;
+                    continue;
+                }
+                if (previousToken == '(' && char.IsNumber(c))
+                {
+                    previousToken = c;
+                    lookingForLeft = true;
+                    lookingForRight = false;
+                    left.Add(c);
+                    continue;
+                }
+
+                if (previousToken == ',' && char.IsNumber(c))
+                {
+                    previousToken = c;
+                    lookingForLeft = false;
+                    lookingForRight = true;
+                    right.Add(c);
+                    continue;
+                }
+
+                if (previousToken != '\0' && char.IsNumber(previousToken) && char.IsNumber(c))
+                {
+                    previousToken = c;
+                    if (lookingForLeft)
+                    {
+                        left.Add(c);
+                        continue;
+                    }
+                    if (lookingForRight)
+                    {
+                        right.Add(c);
+                        continue;
+                    }
+                }
+
+                if (previousToken != '\0' && char.IsNumber(previousToken) && c == ')')
+                {
+                    previousToken = '\0';
+                    lookingForLeft = true;
+                    lookingForRight = false;
+
+                    yield return (int.Parse(string.Join("", left)), int.Parse(string.Join("", right)));
+                }
+                previousToken = c;
+            }
+        }
+
+        private static IEnumerable<(long left, long right)> Parse(this IEnumerable<(char prev, char next)> pairs)
+        {
+            string left = string.Empty;
+            string right = string.Empty;
+            var fetchingLeft = true;
+            var fetchingRight = false;
+            foreach (var (prev, next) in pairs)
+            {
+                if (next == ',')
+                {
+                    fetchingLeft = false;
+                    fetchingRight = true;
+                    continue;
+                }
+                if (next == ')')
+                {
+                    fetchingLeft = true;
+                    fetchingRight = false;
+                    yield return (long.Parse(left), long.Parse(right));
+                    left = string.Empty;
+                    right = string.Empty;
+                    continue;
+                }
+
+                if (fetchingLeft) left += next;
+                if (fetchingRight) right += next;
+            }
+        }
 
 #pragma warning disable IDE0072 // Add missing cases
+        /// <summary>
+        /// So, this approach won't work.
+        /// I need context from check-to-check, because there could be another
+        /// _otherwise_ valid character, but in the wrong position
+        /// in other words, this would be wrong:
+        /// "(,2"..."(,5") but not be caught by this logic
+        /// </summary>
+        /// <param name="pair"></param>
+        /// <returns></returns>
         public static bool IsValid(this (char previous, char current) pair) => pair switch
         {
             var (previous, current) when previous == '(' && char.IsDigit(current) => true,
@@ -66,25 +228,6 @@ namespace Algorithms
         };
 #pragma warning restore IDE0072 // Add missing cases
 
-        //public static bool IsValid(this (char previous, char current) pair)
-        //{
-        //    return pair switch
-        //    {
-        //        ('(', '1') => true,
-        //        ('(', '2') => true,
-        //        ('(', '3') => true,
-        //        ('(', '4') => true,
-        //        ('(', '5') => true,
-        //        ('(', '6') => true,
-        //        ('(', '7') => true,
-        //        ('(', '8') => true,
-        //        ('(', '9') => true,
-
-        //        (_, _) => false,
-        //        _ => throw new NotImplementedException()
-        //    };
-        //}
-
-        private static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
+        private static string LoadFileData(string path) => string.Join("", [.. File.OpenText(path).ReadLines()]);
     }
 }

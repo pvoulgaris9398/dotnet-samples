@@ -1,7 +1,20 @@
 root = true
 
+
+# F#
+[*.fs]
+fsharp_space_before_uppercase_invocation = true
+
+# Write a comment by starting the line with a '#'
+[*.{fs,fsx,fsi}]
+fsharp_bar_before_discriminated_union_declaration = true
+
+# Apply specific settings for a targeted subfolder
+[src/Elmish/View.fs]
+fsharp_multiline_bracket_style = stroustrup
+
 # All files
-[*]
+[*.cs]
 indent_style = space
 csharp_style_prefer_local_over_anonymous_function
 # Xml files

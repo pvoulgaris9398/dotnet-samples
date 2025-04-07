@@ -1,3 +1,3 @@
 using Algorithms;
 
-DayThree.Test0();
+DayThree.Attempt2.Run();
