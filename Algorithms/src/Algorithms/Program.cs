@@ -1,3 +1,9 @@
 using Algorithms;
 
-DayThree.Run();
+//RegularExpressions.Run();
+
+DayFour.RunNew();
+
+DayFour.RunOriginal();
+
+

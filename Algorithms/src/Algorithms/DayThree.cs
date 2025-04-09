@@ -1,5 +1,6 @@
-using Common;
+using System.Globalization;
 using System.Text.RegularExpressions;
+using Common;
 namespace Algorithms
 {
     /// <summary>
@@ -97,18 +98,20 @@ namespace Algorithms
             Console.WriteLine(nameof(Run));
         }
 
-        abstract record Instruction;
+        internal abstract record Instruction;
 
-        sealed record Multiply(int left, int right) : Instruction
+        internal sealed record Multiply(int Left, int Right) : Instruction
         {
-            public int Product => left * right;
+            public int Product => Left * Right;
         }
 
-        sealed record Stop : Instruction;
+        internal sealed record Stop : Instruction;
 
-        sealed record Continue : Instruction;
+        internal sealed record Continue : Instruction;
 
-        private static int Evaluate(this IEnumerable<Instruction> instructions) => instructions.Aggregate(
+        private static int Evaluate(this IEnumerable<Instruction> instructions)
+        {
+            return instructions.Aggregate(
         (
             /*  Seeding initial value
              */
@@ -129,14 +132,18 @@ namespace Algorithms
              */
             _ => acc
         }).sum;
+        }
 
         private static IEnumerable<Instruction> ParseV4(this string data)
-        =>
-            Regex.Matches(data, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
-            .Select(match =>
-                match.Groups["dont"].Success ? new Stop() as Instruction
-                : match.Groups["do"].Success ? new Continue()
-                : new Multiply(int.Parse(match.Groups["a"].Value), int.Parse(match.Groups["b"].Value)));
+        {
+#pragma warning disable SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
+            return Regex.Matches(data, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
+                    .Select(match =>
+                        match.Groups["dont"].Success ? new Stop() as Instruction
+                        : match.Groups["do"].Success ? new Continue()
+                        : new Multiply(int.Parse(match.Groups["a"].Value, CultureInfo.InvariantCulture.NumberFormat), int.Parse(match.Groups["b"].Value, CultureInfo.InvariantCulture.NumberFormat)));
+#pragma warning restore SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
+        }
 
         private static IEnumerable<(long left, long right)> ParseV3(this string data)
         {
@@ -153,14 +160,10 @@ namespace Algorithms
                 .Select(s =>
                 {
                     var input = s.Replace("mul(", "").Replace(")", "");
-                    if (input.Split(',') is string[] elements &&
-                    elements.Length == 2 /*&&
-                    int.TryParse(elements[0] out var l) &&
-                    int.TryParse(elements[1] out var r)*/)
-                    {
-                        return (long.Parse(elements[0]), long.Parse(elements[1]));
-                    }
-                    return (0L, 0L);
+                    return input.Split(',') is string[] elements &&
+                    elements.Length == 2
+                        ? (long.Parse(elements[0], CultureInfo.InvariantCulture.NumberFormat), long.Parse(elements[1], CultureInfo.InvariantCulture.NumberFormat))
+                        : (0L, 0L);
                 });
 
             return result;
@@ -171,7 +174,9 @@ namespace Algorithms
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
+#pragma warning disable IDE0051 // Remove unused private members
         private static IEnumerable<(long left, long right)> ParseV2(this char[] data)
+#pragma warning restore IDE0051 // Remove unused private members
         {
             char[] validCharacters = ['(', ')', ',', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
             var valid = data.Where(c => validCharacters.Contains(c));
@@ -228,7 +233,8 @@ namespace Algorithms
                     lookingForLeft = true;
                     lookingForRight = false;
 
-                    yield return (int.Parse(string.Join("", left)), int.Parse(string.Join("", right)));
+                    yield return (int.Parse(string.Join("", left), CultureInfo.InvariantCulture.NumberFormat), int.Parse(string.Join("", right), CultureInfo.InvariantCulture.NumberFormat));
+
                 }
                 previousToken = c;
             }
@@ -252,7 +258,7 @@ namespace Algorithms
                 {
                     fetchingLeft = true;
                     fetchingRight = false;
-                    yield return (long.Parse(left), long.Parse(right));
+                    yield return (long.Parse(left, CultureInfo.InvariantCulture.NumberFormat), long.Parse(right, CultureInfo.InvariantCulture.NumberFormat));
                     left = string.Empty;
                     right = string.Empty;
                     continue;
