@@ -19,10 +19,10 @@ namespace FinancialCalculationSample
             do
             {
                 iterations++;
-                if (logOutput) Console.WriteLine("**********************");
-                if (logOutput) Console.WriteLine($"Iteration: {iterations}");
-                if (logOutput) Console.WriteLine($"\tXn: {xn}");
-                if (logOutput) Console.WriteLine($"\tXnplus1: {xnplus1}");
+                if (logOutput) WriteLine("**********************");
+                if (logOutput) WriteLine($"Iteration: {iterations}");
+                if (logOutput) WriteLine($"\tXn: {xn}");
+                if (logOutput) WriteLine($"\tXnplus1: {xnplus1}");
                 xn = xnplus1;
                 xnplus1 = xn - ((Math.Pow(xn, input.N) - input.Number) / (input.N * Math.Pow(xn, input.N - 1)));
             } while (Math.Abs(xnplus1 - xn) > MathExtensions.Epsilon(roundedTo));

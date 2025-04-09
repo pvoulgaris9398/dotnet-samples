@@ -1,3 +1,9 @@
+using FinancialCalculationSample;
+
+TestSecantMethod.Run();
+
+TestNewtonRaphsonMethod.Run();
+
 /*
  * https://quantrl.com/volatility-of-a-portfolio-calculation/#What_is_Portfolio_Volatility_and_Why_is_it_Important
  * 
@@ -5,7 +11,8 @@
  * 2. Calculate individual security volatility
  * 
  */
-using FinancialCalculationSample;
+
+WriteLine(new string('*', 80));
 
 Root root = 2;
 bool logOutput = false;
@@ -21,7 +28,7 @@ double[] means = [2, 3, 4];
 
 var result = CovarianceMatrix.Calculate(matrix, means);
 
-Console.WriteLine(result);
+WriteLine(result);
 
 TestEulerMethod.Execute();
 

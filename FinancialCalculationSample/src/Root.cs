@@ -1,16 +1,10 @@
-﻿namespace FinancialCalculationSample
+namespace FinancialCalculationSample
 {
     public record Root(int Value)
     {
-        public static implicit operator Root(int value)
-        {
-            return new Root(value);
-        }
+        public static implicit operator Root(int value) => new(value);
 
-        public static implicit operator int(Root value)
-        {
-            return value.Value;
-        }
+        public static implicit operator int(Root value) => value.Value;
 
         public override string ToString() => this switch
         {
