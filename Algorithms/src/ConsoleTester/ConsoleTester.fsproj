@@ -6,7 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Covariance.fs" />
+    <Compile Include="BST.fs" />
+    <Compile Include="UnitsOfMeasure.fs" />
+    <Compile Include="Cards.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Plotly.NET" Version="5.0.0" />
+    <PackageReference Include="FSharp.Stats" Version="0.6.0" />
   </ItemGroup>
 
 </Project>

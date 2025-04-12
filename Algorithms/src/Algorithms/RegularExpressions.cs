@@ -6,6 +6,35 @@ namespace Algorithms
     internal static class RegularExpressions
     {
 
+        /// <summary>
+        /// Nice Regex samples from Daniel Hardt's blog post:
+        /// https://hardt.software/f-a-simple-math-formula-solver/
+        /// </summary>
+        internal static void Run3()
+        {
+            var mathPairRegex = @"(?<MathSymbol>[\\+\\-\\*\\/\\^])(?<Number>[\\-]*[0-9.]*)";
+            var allowedFormula = @"[0-9.\+\-\*\/\^ \(\)%]";
+            var isMathSymbol = @"[\+\-\*\/\^\(\)]";
+            var brackets = @"\((?<InsideBrackets>[0-9.\+\-\*\/\^]*)\)";
+            var power = @"(?<Power>[\+\-\*\/\^][0-9.]*[\^]{1}[\-]{0,1}[0-9.]*)";
+            var multiplyDivide = @"(?<MultiplyDivide>[\+\-][0-9.]*[\*\/]{1}[\-]{0,1}[0-9.]*)";
+
+
+            var input = "5+8*4^2";
+
+            var matches = Regex.Matches(input, power)
+                .Select(
+                match => match
+                )
+                .ToList();
+
+            foreach (var match in matches)
+            {
+                Console.WriteLine(match);
+            }
+
+        }
+
         internal static void Run2()
         {
             var data = "XMASAMXMASMM";

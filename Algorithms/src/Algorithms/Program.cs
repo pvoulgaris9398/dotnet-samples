@@ -1,6 +1,8 @@
 using Algorithms;
 
-//RegularExpressions.Run();
+PlotlyExample.Execute();
+
+RegularExpressions.Run3();
 
 DayFour.RunNew();
 
