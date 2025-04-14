@@ -21,6 +21,8 @@ namespace Algorithms
 #pragma warning restore CA2208 // Instantiate argument exceptions correctly
         }
 
+        public static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
+
         public static List<List<T>> Transpose<T>(this IEnumerable<IEnumerable<T>> values) =>
         values.Aggregate(
             new List<List<T>>(),
@@ -29,7 +31,7 @@ namespace Algorithms
                 var i = 0;
                 foreach (var cell in row)
                 {
-                    if (acc.Count <= i) acc.Add([]);
+                    if (acc.Count <= i) { acc.Add([]); }
                     acc[i++].Add(cell);
                 }
                 return acc;

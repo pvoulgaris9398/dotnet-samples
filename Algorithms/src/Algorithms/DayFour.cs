@@ -1,10 +1,9 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace Algorithms
 {
     internal static class DayFour
     {
-
         internal static void RunNew()
         {
             var searchTerm = "XMAS";
@@ -241,7 +240,7 @@ namespace Algorithms
             return result;
         }
 
-        internal static List<string> LoadFileData(string path) => File.OpenText(path).ReadLines().ToList();
+        internal static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
 
         internal static List<string> GetDataForTesting()
         {

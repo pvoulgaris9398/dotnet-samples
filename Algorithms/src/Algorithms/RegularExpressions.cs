@@ -12,12 +12,12 @@ namespace Algorithms
         /// </summary>
         internal static void Run3()
         {
-            var mathPairRegex = @"(?<MathSymbol>[\\+\\-\\*\\/\\^])(?<Number>[\\-]*[0-9.]*)";
-            var allowedFormula = @"[0-9.\+\-\*\/\^ \(\)%]";
-            var isMathSymbol = @"[\+\-\*\/\^\(\)]";
-            var brackets = @"\((?<InsideBrackets>[0-9.\+\-\*\/\^]*)\)";
+            //var mathPairRegex = @"(?<MathSymbol>[\\+\\-\\*\\/\\^])(?<Number>[\\-]*[0-9.]*)";
+            //var allowedFormula = @"[0-9.\+\-\*\/\^ \(\)%]";
+            //var isMathSymbol = @"[\+\-\*\/\^\(\)]";
+            //var brackets = @"\((?<InsideBrackets>[0-9.\+\-\*\/\^]*)\)";
             var power = @"(?<Power>[\+\-\*\/\^][0-9.]*[\^]{1}[\-]{0,1}[0-9.]*)";
-            var multiplyDivide = @"(?<MultiplyDivide>[\+\-][0-9.]*[\*\/]{1}[\-]{0,1}[0-9.]*)";
+            //var multiplyDivide = @"(?<MultiplyDivide>[\+\-][0-9.]*[\*\/]{1}[\-]{0,1}[0-9.]*)";
 
 
             var input = "5+8*4^2";
