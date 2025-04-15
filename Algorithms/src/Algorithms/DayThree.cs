@@ -19,12 +19,12 @@ namespace Algorithms
 
                 foreach (var (left, right) in pairs)
                 {
-                    Console.WriteLine($"({left},{right})");
+                    WriteLine($"({left},{right})");
                 }
 
                 var total = pairs.Sum(pair => pair.left * pair.right);
 
-                Console.WriteLine($"Total:{total}");
+                WriteLine($"Total:{total}");
             }
         }
 
@@ -44,16 +44,16 @@ namespace Algorithms
 
                 foreach (var (left, right) in digits)
                 {
-                    Console.WriteLine($"({left},{right})");
+                    WriteLine($"({left},{right})");
                 }
 
                 var total = digits.Sum(pair => pair.left * pair.right);
 
-                Console.WriteLine($"Total:{total}");
+                WriteLine($"Total:{total}");
 
                 foreach (var (prev, next) in pairs)
                 {
-                    Console.WriteLine($"Previous: {prev}\tNext: {next}");
+                    WriteLine($"Previous: {prev}\tNext: {next}");
                 }
             }
         }
@@ -90,12 +90,12 @@ namespace Algorithms
             int sum = instructions.OfType<Multiply>().Evaluate();
             int sumWithExclusions = instructions.Evaluate();
 
-            Console.WriteLine($"                Sum: {sum}");
-            Console.WriteLine($"Sum with exclusions: {sumWithExclusions}");
+            WriteLine($"                Sum: {sum}");
+            WriteLine($"Sum with exclusions: {sumWithExclusions}");
 
 
-            Console.WriteLine(new string('*', 80));
-            Console.WriteLine(nameof(Run));
+            WriteLine(new string('*', 80));
+            WriteLine(nameof(Run));
         }
 
         internal abstract record Instruction;

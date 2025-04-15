@@ -10,7 +10,7 @@ namespace Algorithms
         {
             (List<int> left, List<int> right) = LoadLists();
 
-            Console.WriteLine(new string('*', 80));
+            WriteLine(new string('*', 80));
 
             var totalDistance = left.Order()
                 /*  Applies a specified function to the corresponding elements of
@@ -18,13 +18,13 @@ namespace Algorithms
                  */
                 .Zip(right.Order(), (x, y) =>
                 {
-                    Console.WriteLine($"Left: {x}\tRight: {y}");
+                    WriteLine($"Left: {x}\tRight: {y}");
                     return Math.Abs(x - y);
                 }
                 )
                 .Sum();
 
-            Console.WriteLine(new string('*', 80));
+            WriteLine(new string('*', 80));
 
             /*
              * For every element in the left
@@ -40,14 +40,14 @@ namespace Algorithms
                  */
                 .Join(right, l => l, r => r, (l, r) =>
                 {
-                    Console.WriteLine($"Left: {l}\tRight: {r}");
+                    WriteLine($"Left: {l}\tRight: {r}");
                     return r;
                 })
                 .Sum();
 
-            Console.WriteLine($"Total Items: {left.Count}");
-            Console.WriteLine($"Total Distance: {totalDistance}");
-            Console.WriteLine($"Similarity Scores: {similarityScore}");
+            WriteLine($"Total Items: {left.Count}");
+            WriteLine($"Total Distance: {totalDistance}");
+            WriteLine($"Similarity Scores: {similarityScore}");
         }
 
         private static (List<int> left, List<int> right) LoadLists() =>

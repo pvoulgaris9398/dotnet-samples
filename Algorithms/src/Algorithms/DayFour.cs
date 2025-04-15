@@ -15,10 +15,10 @@ namespace Algorithms
             int count = data.GetAllStrings(rows, columns).Sum(s => s.CountWord("XMAS"));
             int xcount = data.GetAllXes(rows, columns).Count(x => Valid.Contains(x));
 
-            Console.WriteLine(new string('*', 80));
-            Console.WriteLine(nameof(RunNew));
-            Console.WriteLine($"Count of {searchTerm} in the Dataset is {count}");
-            Console.WriteLine($"Count Valid X's is {xcount}");
+            WriteLine(new string('*', 80));
+            WriteLine(nameof(RunNew));
+            WriteLine($"Count of {searchTerm} in the Dataset is {count}");
+            WriteLine($"Count Valid X's is {xcount}");
 
         }
 
@@ -39,9 +39,9 @@ namespace Algorithms
                 .Transform()
                 .CountInstancesOf(searchTerm);
 
-            Console.WriteLine(new string('*', 80));
-            Console.WriteLine(nameof(RunOriginal));
-            Console.WriteLine($"Count of {searchTerm} in the Dataset is {count}");
+            WriteLine(new string('*', 80));
+            WriteLine(nameof(RunOriginal));
+            WriteLine($"Count of {searchTerm} in the Dataset is {count}");
 
         }
         private static readonly string[] Valid = ["MASMAS", "MASSAM", "SAMMAS", "SAMSAM"];
@@ -88,23 +88,23 @@ namespace Algorithms
 
             List<string> result = [];
 
-            //Console.WriteLine(new string('*', 80));
-            //Console.WriteLine("Horizontals");
+            //WriteLine(new string('*', 80));
+            //WriteLine("Horizontals");
 
             var horizontals = data.Select((row, rowIndex) =>
             {
 #pragma warning disable IDE0305 // Simplify collection initialization
                 var result = new string(row.ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                //Console.WriteLine(result);
+                //WriteLine(result);
 
                 return result;
 
             }).ToList();
 
             // https://stackoverflow.com/questions/42172408/get-all-diagonals-in-a-2-dimensional-data-using-linq
-            //Console.WriteLine(new string('*', 80));
-            //Console.WriteLine("Left Diagonals");
+            //WriteLine(new string('*', 80));
+            //WriteLine("Left Diagonals");
             var leftDiagonals = data.SelectMany((row, rowIdx) =>
                 row.Select((x, colIdx) => new { Key = rowIdx - colIdx, Value = x }))
                     .GroupBy(x => x.Key)
@@ -114,14 +114,14 @@ namespace Algorithms
 #pragma warning disable IDE0305 // Simplify collection initialization
                         var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                        //Console.WriteLine(result);
+                        //WriteLine(result);
                         return result;
                     })
                     .ToList();
 
             // https://stackoverflow.com/questions/42172408/get-all-diagonals-in-a-2-dimensional-data-using-linq
-            //Console.WriteLine(new string('*', 80));
-            //Console.WriteLine("Right Diagonals");
+            //WriteLine(new string('*', 80));
+            //WriteLine("Right Diagonals");
             var rightDiagonalsOriginal = data
                 .SelectMany((row, rowIdx) =>
                 row.Select((x, colIdx) => new { Key = colIdx - rowIdx, Value = x }))
@@ -132,13 +132,13 @@ namespace Algorithms
 #pragma warning disable IDE0305 // Simplify collection initialization
                         var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                        //Console.WriteLine(result);
+                        //WriteLine(result);
                         return result;
                     })
                     .ToList();
 
-            //Console.WriteLine(new string('*', 80));
-            //Console.WriteLine("Verticals");
+            //WriteLine(new string('*', 80));
+            //WriteLine("Verticals");
             var verticals = data.SelectMany((row, rowIdx) =>
                 row.Select((x, colIdx) => new { Key = colIdx, Value = x }))
                     .GroupBy(x => x.Key)
@@ -148,7 +148,7 @@ namespace Algorithms
 #pragma warning disable IDE0305 // Simplify collection initialization
                         var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                        //Console.WriteLine(result);
+                        //WriteLine(result);
                         return result;
                     })
                     .ToList();
@@ -168,7 +168,7 @@ namespace Algorithms
 #pragma warning disable IDE0305 // Simplify collection initialization
                        var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                       //Console.WriteLine(result);
+                       //WriteLine(result);
                        return result;
                    })
                    .ToList();

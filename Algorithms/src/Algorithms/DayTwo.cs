@@ -26,20 +26,20 @@ namespace Algorithms
             int safeCount = allLists.Count(IsSafe);
             int tolerantSafeCount = allLists.Count(list => list.Expand().Any(IsSafe));
 
-            Console.WriteLine($"        Total count: {allLists.Count}");
-            Console.WriteLine($"         Safe count: {safeCount}");
-            Console.WriteLine($"Tolerant safe count: {tolerantSafeCount}");
+            WriteLine($"        Total count: {allLists.Count}");
+            WriteLine($"         Safe count: {safeCount}");
+            WriteLine($"Tolerant safe count: {tolerantSafeCount}");
         }
 
         internal static void Test3(List<int> list)
         {
-            Console.WriteLine(new string('*', 80));
+            WriteLine(new string('*', 80));
             var pairs = list.ToPairs();
             var pairs2 = list.ToPairs_ORIGINAL();
-            Console.WriteLine(pairs2);
+            WriteLine(pairs2);
             foreach (var (prev, next) in pairs)
             {
-                Console.WriteLine($"Previous: {prev}\tNext: {next}");
+                WriteLine($"Previous: {prev}\tNext: {next}");
             }
         }
 
@@ -49,17 +49,17 @@ namespace Algorithms
 
             foreach (var item in testData)
             {
-                Console.WriteLine(new string('*', 80));
+                WriteLine(new string('*', 80));
                 foreach (var entry in item)
                 {
-                    Console.Write($"{entry},");
+                    Write($"{entry},");
                 }
-                Console.WriteLine();
-                Console.WriteLine(new string('*', 80));
+                WriteLine();
+                WriteLine(new string('*', 80));
                 var triplets = item.ToTriplets();
                 foreach (var triplet in triplets)
                 {
-                    Console.WriteLine(triplet);
+                    WriteLine(triplet);
                 }
             }
         }
@@ -75,9 +75,9 @@ namespace Algorithms
 
             var expanded = results[0].Expand().ToList();
 
-            Console.WriteLine($"        Total count: {results.Count}");
-            Console.WriteLine($"         Safe count: {safeCount}");
-            Console.WriteLine($"Tolerant safe count: {tolerantSafeCount}");
+            WriteLine($"        Total count: {results.Count}");
+            WriteLine($"         Safe count: {safeCount}");
+            WriteLine($"Tolerant safe count: {tolerantSafeCount}");
 
         }
 
@@ -106,11 +106,17 @@ namespace Algorithms
         private static IEnumerable<(int prev, int current, int next)> ToTriplets(this List<int> values)
         {
             using var enumerator = values.GetEnumerator();
-            if (!enumerator.MoveNext()) yield break; // No _pairs_
+            if (!enumerator.MoveNext())
+            {
+                yield break; // No _pairs_
+            }
 
             int prev = enumerator.Current;
 
-            if (!enumerator.MoveNext()) yield break; // No _triplets_
+            if (!enumerator.MoveNext())
+            {
+                yield break; // No _triplets_
+            }
 
             int current = enumerator.Current;
 

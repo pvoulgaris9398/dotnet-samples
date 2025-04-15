@@ -30,7 +30,7 @@ namespace Algorithms
 
             foreach (var match in matches)
             {
-                Console.WriteLine(match);
+                WriteLine(match);
             }
 
         }
@@ -46,7 +46,7 @@ namespace Algorithms
 
             foreach (var match in matches)
             {
-                Console.WriteLine($"{match}");
+                WriteLine($"{match}");
             }
         }
 
@@ -61,7 +61,7 @@ namespace Algorithms
 
             foreach (var match in matches)
             {
-                Console.WriteLine($"{match}");
+                WriteLine($"{match}");
             }
         }
 
