@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="FileReader.fs" />
+    <Compile Include="DayOne.fs" />
+    <Compile Include="Coordinates.fs" />
     <Compile Include="Covariance.fs" />
+    <Compile Include="Plotly.fs" />
     <Compile Include="BST.fs" />
     <Compile Include="UnitsOfMeasure.fs" />
     <Compile Include="Cards.fs" />
@@ -16,6 +20,7 @@
   <ItemGroup>
     <PackageReference Include="Plotly.NET" Version="5.0.0" />
     <PackageReference Include="FSharp.Stats" Version="0.6.0" />
+    <PackageReference Include="FSharp.Data" Version="6.6.0" />
   </ItemGroup>
 
   <ItemGroup>
