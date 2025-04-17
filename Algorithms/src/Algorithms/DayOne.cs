@@ -6,9 +6,9 @@ namespace Algorithms
         /// Example/solution for advent-of-code-2024
         /// Day One
         /// </summary>
-        internal static void Run()
+        internal static void Run(bool testing = false)
         {
-            (List<int> left, List<int> right) = LoadLists();
+            (List<int> left, List<int> right) = testing ? LoadTestData() : LoadLists("..\\..\\..\\..\\..\\day1.txt");
 
             WriteLine(new string('*', 80));
 
@@ -50,7 +50,10 @@ namespace Algorithms
             WriteLine($"Similarity Scores: {similarityScore}");
         }
 
-        private static (List<int> left, List<int> right) LoadLists() =>
+        private static (List<int> a, List<int> b) LoadLists(string fileName) =>
+            CommonFuncs.LoadFileData(fileName).Select(CommonFuncs.ParseIntsNoSign).Transpose().ToPair();
+
+        private static (List<int> left, List<int> right) LoadTestData() =>
             (new List<int> { 2, 2, 3, 3, 3, 4, 7, 9 }, new List<int> { 2, 3, 3, 3, 3 });
 
     }

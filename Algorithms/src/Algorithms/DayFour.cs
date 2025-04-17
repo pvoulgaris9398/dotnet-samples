@@ -52,7 +52,7 @@ namespace Algorithms
         private static IEnumerable<(int row, int col)> GetXCenters(int rows, int cols) =>
             Enumerable.Range(1, rows - 2).SelectMany(row => Enumerable.Range(1, cols - 2).Select(col => (row, col)));
 
-        private static string GetX(this List<string> matrix, int row, int col) => new string([
+        private static string GetX(this List<string> matrix, int row, int col) => new([
         matrix[row - 1][col - 1], matrix[row][col], matrix[row + 1][col + 1],
         matrix[row - 1][col + 1], matrix[row][col], matrix[row + 1][col - 1]]);
         private static int CountWord(this string s, string word) =>

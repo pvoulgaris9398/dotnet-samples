@@ -143,7 +143,10 @@ namespace Algorithms
         private static IEnumerable<(int prev, int next)> ToPairs_ORIGINAL(this List<int> values)
         {
             using var enumerator = values.GetEnumerator();
-            if (!enumerator.MoveNext()) yield break; // No _pairs_
+            if (!enumerator.MoveNext())
+            {
+                yield break; // No _pairs_
+            }
 
             int prev = enumerator.Current;
 

@@ -1,4 +1,4 @@
 using Algorithms;
 
-DaySix.Test();
+DayOne.Run();
 
