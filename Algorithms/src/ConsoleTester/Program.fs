@@ -1,3 +1,5 @@
 ﻿DayOne.Run
 
-printfn "Done"
+DayTwo.Run
+
+printfn "\nDone"
