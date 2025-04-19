@@ -264,8 +264,15 @@ namespace Algorithms
                     continue;
                 }
 
-                if (fetchingLeft) left += next;
-                if (fetchingRight) right += next;
+                if (fetchingLeft)
+                {
+                    left += next;
+                }
+
+                if (fetchingRight)
+                {
+                    right += next;
+                }
             }
         }
 

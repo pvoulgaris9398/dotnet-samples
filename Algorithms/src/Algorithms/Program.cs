@@ -1,4 +1,4 @@
 using Algorithms;
 
-DaySixAlternate.Run();
+DaySeven.Run();
 

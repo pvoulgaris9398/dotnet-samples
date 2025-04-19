@@ -10,6 +10,11 @@ namespace Algorithms
 #pragma warning restore CA1305 // Specify IFormatProvider
 #pragma warning restore SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
 
+#pragma warning disable CA1305 // Specify IFormatProvider
+        public static List<long> ParseLongsNoSign(this string line) =>
+    [.. Regex.Matches(line, @"\d+").Select(static match => long.Parse(match.Value))];
+#pragma warning restore CA1305 // Specify IFormatProvider
+
         public static (T a, T b) ToPair<T>(this List<T> list)
         {
 #pragma warning disable CA2208 // Instantiate argument exceptions correctly

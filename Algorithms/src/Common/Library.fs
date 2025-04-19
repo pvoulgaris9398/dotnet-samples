@@ -1,6 +1,12 @@
 ﻿namespace Common
 
 open System.Runtime.CompilerServices
+open System.Collections.Generic
+open System
+
+type Pair(left: Int64, right: Int64) =
+    member this.Left = left
+    member this.Right = right
 
 [<Extension>]
 type ListExtensions =
@@ -12,3 +18,7 @@ type ListExtensions =
         list
         |> Seq.pairwise
         |> Seq.map (fun (previous, current) -> struct (previous, current))
+
+    [<Extension>]
+    static member ToPairs2(list: IEnumerable<Int64>) =
+        list |> Seq.pairwise |> Seq.map (fun (left, right) -> Pair (left, right))
