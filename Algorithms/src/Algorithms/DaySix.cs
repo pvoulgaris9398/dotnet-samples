@@ -1,4 +1,4 @@
-﻿namespace Algorithms
+namespace Algorithms
 {
     internal static class DaySix
     {
