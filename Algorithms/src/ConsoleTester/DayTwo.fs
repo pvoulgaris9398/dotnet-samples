@@ -11,7 +11,7 @@ let fileName = "..\\..\\..\\..\\..\\day2.txt"
 ///
 let Run =
 
-    printfn "Day 2 of advent of code 2024\n"
+    printfn "\nDay 2 of advent of code 2024\n"
 
     let data = FileReader.lines fileName
 
@@ -23,23 +23,35 @@ let Run =
         | _ -> true
 
     let isSafe (values: List<int>) (direction: int) =
-        List.pairwise values |> List.map (fun x -> isSafe x direction)
+        List.pairwise values 
+        |> List.map (fun x -> isSafe x direction)
+        |> List.forall(fun x -> x )
 
     let isSafe (values: List<int>) =
         let direction =
             match values with
             | [] -> None
             | x when x.Length < 2 -> None
-            | _ -> Some (values[1] - values[0])
+            | _ -> Some(Math.Sign(values[1] - values[0]))
 
         match direction with
         | Some (int) -> isSafe values direction.Value
-        | None -> []
+        | None -> false
+
+    let expand (values: List<int>) : (List<List<int>>) =
+        []
+
+    let exceptAt (values: List<int>) (index: int) : List<int> =
+        []
 
     let safeCount =
         data
-        |> Seq.map (fun line -> splitIntoArrayOfIntegers line " ")
+        |> Seq.map (fun line -> splitIntoListOfIntegers line " ")
         |> Seq.toList
+        |> List.filter (fun x -> isSafe x)
         |> List.length
 
-    ()
+    let tolerantSafeCount = 0
+
+    printfn "Safe Count: %i" safeCount
+    printfn "Tolerant Safe Count: %i" tolerantSafeCount

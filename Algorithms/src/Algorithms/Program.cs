@@ -1,4 +1,4 @@
 using Algorithms;
 
-DayOne.Run();
+DayTwo.Run();
 
