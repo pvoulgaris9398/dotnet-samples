@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Slices.fs" />
     <Compile Include="FileReader.fs" />
     <Compile Include="Common.fs" />
     <Compile Include="DayTwo.fs" />
