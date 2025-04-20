@@ -1,4 +1,3 @@
 using Algorithms;
 
-DaySeven.Run();
-
+PlotlyExample.Execute2();
