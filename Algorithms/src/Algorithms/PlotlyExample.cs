@@ -8,7 +8,7 @@ namespace Algorithms
         internal static void Execute2()
         {
             double[] y = [2, 3, 8, 16, 32, 64, 128, 256];
-            double[] x = [1, 2, 3, 4, 5, 6, 7, 8];
+            double[] x = [2, 3, 4, 5, 6, 7, 8, 9];
 
             LinearAxis xAxis = new();
             xAxis.SetValue("showgrid", false);

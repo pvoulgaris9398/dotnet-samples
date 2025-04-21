@@ -1,7 +1,4 @@
-﻿//DayOne.Run
+﻿
+DayThree.Run
 
-Slices.Run
-
-DayTwo.Run
-
-printfn "\nDone"
+printfn "********** ALL TESTS DONE **********"

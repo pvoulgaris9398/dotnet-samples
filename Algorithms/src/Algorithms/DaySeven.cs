@@ -21,7 +21,7 @@ namespace Algorithms
             //var test6 = new Equation(1691420808, [33, 720, 4, 76, 84, 66]).CanProduceResult(Addition, Multiplication);
             //var test7 = new Equation(27537, [5, 2, 2, 4, 296, 73, 89]).CanProduceResult(Addition, Multiplication);
             //var test8 = new Equation(1258023882, [4, 79, 534, 502, 61, 3, 3, 9]).CanProduceResult(Addition, Multiplication);
-            var test9 = new Equation(2430252, [58, 1, 3, 9, 47, 71, 5, 19, 418]).CanProduceResult(Addition, Multiplication);
+            //var test9 = new Equation(2430252, [58, 1, 3, 9, 47, 71, 5, 19, 418]).CanProduceResult(Addition, Multiplication);
 
             var count1 = CommonFuncs
                     .LoadFileData("..\\..\\..\\..\\..\\day7.txt")
@@ -53,8 +53,8 @@ namespace Algorithms
                 }
                 else
                 {
-                    WriteLine($"[{nameof(Addition)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
-                    return true;
+                    //WriteLine($"[{nameof(Addition)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
+                    return false;
                 }
             }).Select(x => x + b);
 
@@ -68,8 +68,8 @@ namespace Algorithms
                 }
                 else
                 {
-                    WriteLine($"[{nameof(Multiplication)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
-                    return true;
+                    //WriteLine($"[{nameof(Multiplication)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
+                    return false;
                 }
             }).Select(x => x * b);
 

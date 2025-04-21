@@ -9,15 +9,16 @@
     <Compile Include="Slices.fs" />
     <Compile Include="FileReader.fs" />
     <Compile Include="Common.fs" />
-    <Compile Include="DayTwo.fs" />
     <Compile Include="Lists.fs" />
-    <Compile Include="DayOne.fs" />
     <Compile Include="Coordinates.fs" />
     <Compile Include="Covariance.fs" />
     <Compile Include="Plotly.fs" />
     <Compile Include="BST.fs" />
     <Compile Include="UnitsOfMeasure.fs" />
     <Compile Include="Cards.fs" />
+    <Compile Include="DayThree.fs" />
+    <Compile Include="DayTwo.fs" />
+    <Compile Include="DayOne.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
