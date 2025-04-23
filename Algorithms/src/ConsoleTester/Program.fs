@@ -1,4 +1,3 @@
-﻿
-DayThree.Run
+﻿DayThree.Run
 
 printfn "********** ALL TESTS DONE **********"
