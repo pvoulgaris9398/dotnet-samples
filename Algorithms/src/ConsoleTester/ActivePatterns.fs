@@ -1,11 +1,13 @@
 ﻿module ActivePatterns
 
 open System.Text.RegularExpressions
+open Common
 
-//type Instruction
-//    |Multiply
-//    |Stop
-//    |Continue
+//multiplicand * multiplier = product
+type Instruction =
+    | Multiply of product: float * float: float
+    | Stop
+    | Continue
 
 //type Stop =
 //    class
@@ -21,7 +23,7 @@ open System.Text.RegularExpressions
 //    let m = Regex.Match (input, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)")
 
 //    if (m.Success) then
-//        Some (m.Groups.["a"].Value, m.Groups.["b"].Value)
+//        Multiply (ToInt32 m.Groups.["a"].Value ToInt32 m.Groups.["b"].Value)
 //    else
 //        None
 
@@ -42,5 +44,7 @@ open System.Text.RegularExpressions
 
 //    //m |> Seq.cast<Match> |> Seq.toList |> List.map (fun x -> x.Value >)
 //    []
+
+l
 
 let Run = printfn "ActivePatterns"

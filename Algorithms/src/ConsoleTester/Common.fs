@@ -9,7 +9,7 @@ let (|ToInt32|_|) str =
 
 let splitIntoListOfIntegers (str: string) (separator: string) : List<int> =
     str.Split ([| separator |], StringSplitOptions.RemoveEmptyEntries)
-    |> Array.map(fun x-> Int32.Parse x)
+    |> Array.map (fun x -> Int32.Parse x)
     |> Array.toList
 
 let splitIntoArrayOfIntegers (str: string) (separator: string) (index: int) : int =
