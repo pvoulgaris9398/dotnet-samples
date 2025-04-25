@@ -2,31 +2,33 @@
 
 open System.Text.RegularExpressions
 open FileReader
+open Common
 
-type Instruction = interface end
+type Instruction =
+    | Multiply of product: int * int: int
+    | Stop
+    | Continue
 
-type Multiply(left: int, right: int) =
-    class
-        interface Instruction
-    end
+let (|ParseRegex|_|) regex str =
+   let m = Regex(regex).Match(str)
+   if m.Success
+   then Some (List.tail [ for x in m.Groups -> x.Value ])
+   else None
 
-    member this.Left = left
-    member this.Right = right
-
-type Stop =
-    class
-        interface Instruction
-    end
-
-type Continue =
-    class
-        interface Instruction
-    end
+let parseInstruction str =
+    match str with
+    | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [_; ToInt32 left; ToInt32 right] ->
+        Multiply(left, right)
+    | ParseRegex @"(?<dont>don't)\(\)" [_]->
+        Stop
+    | ParseRegex @"(?<do>do)\(\)" [_]->
+        Continue
+    | _ -> failwith "Unable to parse!"
 
 [<Literal>]
 let fileName = "..\\..\\..\\..\\..\\day3.txt"
 
-let getAllTokens (fileName: string) : (List<string>) =
+let getAllTokens (fileName: string) : (List<Instruction>) =
     let rx =
         Regex (@"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
 
@@ -35,32 +37,22 @@ let getAllTokens (fileName: string) : (List<string>) =
     https://thesharperdev.com/snippets/fsharp-seq-cast/
     The `Seq.cast<Match>` usage below is key here
     *)
-    m |> Seq.cast<Match> |> Seq.map (fun m -> m.Value) |> Seq.toList
-
-let (|ToMultiply|_|) (input: string) ((a: int), (b: int)) =
-    let m = Regex.Match (input, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)")
-
-    if (m.Success) then
-        Some (m.Groups.["a"].Value, m.Groups.["b"].Value)
-    else
-        None
-
-
-
-//let (|Multiply|Stop|Continue|None|)  (input:string) =
-//   let toMultiply = Regex ""
-//   let toStop = Regex ""
-//   let toContinue = Regex ""
-//   fun input ->
-//       if toMultiply.IsMatch input then Multiply
-//       elif toStop.IsMatch input the Stop
-//       elif toContinue.IsMatch input then Continue
-//       else None
+    m |> Seq.cast<Match> 
+    |> Seq.map (fun m -> m.Value) 
+    |> Seq.map (fun x-> parseInstruction x)
+    |> Seq.toList
 
 let Run =
     printfn "\nDay 3 of advent of code 2024\n"
 
     let allTokens = getAllTokens fileName
-    allTokens |> List.iter (fun x -> printfn "%s" x)
+    allTokens |> List.iter (fun x -> printfn "%A" x)
+
+    (*
+    TODO:
+    Work through the following:
+    https://fsharpforfunandprofit.com/posts/recursive-types-and-folds-1b/#series-toc
+    https://fsharpforfunandprofit.com/posts/conciseness-extracting-boilerplate/
+    *)
 
     printfn "\nDayThree - DONE\n"

@@ -6,6 +6,9 @@ dotnet_diagnostic.IDE0320.severity = suggestion
 # Remove unused parameter (IDE0060)
 dotnet_diagnostic.IDE0060.severity = suggestion
 
+# IDE0051: Remove unused private member
+dotnet_diagnostic.IDE0051.severity = warning
+
 csharp_using_directive_placement = outside_namespace:silent
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_prefer_braces = true:silent

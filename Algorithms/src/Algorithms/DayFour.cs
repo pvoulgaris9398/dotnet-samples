@@ -58,30 +58,15 @@ namespace Algorithms
         private static int CountWord(this string s, string word) =>
         Regex.Matches(s, Regex.Escape(word)).Count;
 
-        private static IEnumerable<string> GetAllStrings(this IEnumerable<string> data, int rows, int cols) =>
+        public static IEnumerable<string> GetAllStrings(this List<string> data) => data.GetAllStrings();
+        public static IEnumerable<string> GetAllStrings(this IEnumerable<string> data, int rows, int cols) =>
         data.Rows().Concat(data.Columns(cols)).Concat(data.Diagonals(rows, cols)).Concat(data.Antidiagonals(rows, cols)).TwoWay();
         private static IEnumerable<string> TwoWay(this IEnumerable<string> strings) =>
 #pragma warning disable IDE0305 // Simplify collection initialization
        strings.SelectMany(s => new[] { s, new string(s.Reverse().ToArray()) });
 #pragma warning restore IDE0305 // Simplify collection initialization
-        private static IEnumerable<string> Rows(this IEnumerable<string> data) => data;
 
-        private static IEnumerable<string> Columns(this IEnumerable<string> data, int cols) =>
-#pragma warning disable IDE0305 // Simplify collection initialization
-        Enumerable.Range(0, cols).Select(i => new string(data.Select(row => row[i]).ToArray()));
-#pragma warning restore IDE0305 // Simplify collection initialization
 
-        private static IEnumerable<string> Diagonals(this IEnumerable<string> data, int rows, int cols) =>
-        Enumerable.Range(0, cols).Select(col => data.Diagonal(0, col, cols))
-            .Concat(Enumerable.Range(1, rows - 1).Select(row => data.Diagonal(row, 0, cols)));
-
-        private static IEnumerable<string> Antidiagonals(this IEnumerable<string> data, int rows, int cols) =>
-            data.Reverse().Diagonals(rows, cols);
-
-        private static string Diagonal(this IEnumerable<string> data, int startRow, int startCol, int cols) =>
-#pragma warning disable IDE0305 // Simplify collection initialization
-            new(data.Skip(startRow).Take(cols - startCol).Select((row, i) => row[startCol + i]).ToArray());
-#pragma warning restore IDE0305 // Simplify collection initialization
 
         internal static List<string> Transform(this List<List<char>> data)
         {

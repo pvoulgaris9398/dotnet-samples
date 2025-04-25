@@ -2,49 +2,54 @@
 
 open System.Text.RegularExpressions
 open Common
+open System
 
 //multiplicand * multiplier = product
 type Instruction =
-    | Multiply of product: float * float: float
+    | Multiply of product: int * int: int
     | Stop
     | Continue
 
-//type Stop =
-//    class
-//        interface Instruction
-//    end
+let (|Integer|_|) (str: string) =
+   let mutable intvalue = 0
+   if System.Int32.TryParse(str, &intvalue) then Some(intvalue)
+   else None
 
-//type Continue =
-//    class
-//        interface Instruction
-//    end
+let (|ParseRegex|_|) regex str =
+   let m = Regex(regex).Match(str)
+   if m.Success
+   then Some (List.tail [ for x in m.Groups -> x.Value ])
+   else None
 
-//let (|ToMultiply|) (input: string) ((a: int), (b: int)) =
-//    let m = Regex.Match (input, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)")
+let parseInstruction str =
+    match str with
+    | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [_; Integer left; Integer right] ->
+        Multiply(left, right)
+    | ParseRegex @"(?<dont>don't)\(\)" [_]->
+        Stop
+    | ParseRegex @"(?<do>do)\(\)" [_]->
+        Continue
+    | _ -> failwith "Unable to parse!"
 
-//    if (m.Success) then
-//        Multiply (ToInt32 m.Groups.["a"].Value ToInt32 m.Groups.["b"].Value)
-//    else
-//        None
+let parseDate str =
+   match str with
+   | ParseRegex "(\d{1,2})/(\d{1,2})/(\d{1,2})$" [Integer m; Integer d; Integer y]
+          -> new System.DateTime(y + 2000, m, d)
+   | ParseRegex "(\d{1,2})/(\d{1,2})/(\d{3,4})" [Integer m; Integer d; Integer y]
+          -> new System.DateTime(y, m, d)
+   | ParseRegex "(\d{1,4})-(\d{1,2})-(\d{1,2})" [Integer y; Integer m; Integer d]
+          -> new System.DateTime(y, m, d)
+   | _ -> new System.DateTime()
 
-//let test1 (str: string) : (Instruction) =
-//    match str with
-//    | ToMultiply str -> Multiply a b
-//    | _ -> failwith "Error!"
+let dt1 = parseDate "12/22/08"
+let dt2 = parseDate "1/1/2009"
+let dt3 = parseDate "2008-1-15"
+let dt4 = parseDate "1995-12-28"
 
-//let getAllTokens2 (fileName: string) : (List<Instruction>) =
-//    let rx =
-//        Regex (@"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
+printfn "%s %s %s %s" (dt1.ToString()) (dt2.ToString()) (dt3.ToString()) (dt4.ToString())
 
-//    (*
-//    https://thesharperdev.com/snippets/fsharp-seq-cast/
-//    The `Seq.cast<Match>` usage below is key here
-//    *)
-//    let m = rx.Matches <| allText fileName
+let data = ["mul(229,919)";"do()";"don't()";"mul(797,721)"]
 
-//    //m |> Seq.cast<Match> |> Seq.toList |> List.map (fun x -> x.Value >)
-//    []
-
-l
+data |> List.map parseInstruction |> List.iter(fun x -> printfn "%A" x)
 
 let Run = printfn "ActivePatterns"
