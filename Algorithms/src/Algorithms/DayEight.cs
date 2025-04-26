@@ -1,5 +1,3 @@
-using System.Text.RegularExpressions;
-
 namespace Algorithms
 {
     internal static class DayEight
@@ -22,34 +20,69 @@ namespace Algorithms
             WriteLine($"{nameof(DayEight)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
-            //var pattern = @"([0-9]|[A-Z]|[a-z]){2}";
-            //var pattern = @"\d{2}";
-            var pattern = @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)";
-            var line = "mul(229,919)do()don't()mul(797,721)";
+            var data = CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day8.txt");
 
-            var matches = Regex.Matches(line, pattern);
-
-            foreach (var match in matches)
-            {
-                WriteLine(match);
-            }
-
-            var data = CommonFuncs
-                .LoadFileData("..\\..\\..\\..\\..\\day8.txt");
             int rows = data.Count;
             int columns = data[0].Length;
 
-            var count1 = data.GetAllStrings(rows, columns)
-                .Sum(CountOfAntinodes);
+            var count1 = data.GetAllLines()
+                .SelectMany(Antinodes)
+                .Sum();
 
-            WriteLine($"Count: {count1}");
+            WriteLine($"Count of Antinodes: {count1}");
 
-            foreach (var item in data)
-            {
-                WriteLine(item);
-            }
+            var tester = "....O........r....O...e....e.....Wt...............";
+
+            var count2 = tester.Antinodes().Sum();
+
+            WriteLine($"Count2: {count2}");
+
         }
 
-        private static int CountOfAntinodes(this string line) => 0;
+        private static List<string> GetAllLines(this List<string> data) => data;
+
+        private static IEnumerable<int> FindIndicesOf(this string data, char c)
+        {
+            int index = 0;
+            foreach (var character in data)
+            {
+                if (character == c)
+                {
+                    yield return index;
+                }
+
+                index++;
+            }
+            yield break;
+        }
+
+        private static IEnumerable<int> Antinodes(this string data)
+        {
+            var temp = Antennas.Where(data.Contains).Select(vc => vc).ToList();
+
+            foreach (var c in temp)
+            {
+                if (data.FindIndicesOf(c).ToList() is var result &&
+                    result.Count == 2)
+                {
+                    var distance = Math.Abs(result[0] - result[1]);
+                    if (result[0] - distance >= 0 && result[1] + distance <= data.Length)
+                    {
+                        yield return 2;
+                    }
+                }
+            }
+
+            yield break;
+        }
+
+        /// <summary>
+        /// TODO: Come up with a better way, of course.
+        /// </summary>
+        internal static char[] Antennas = [
+            'a', 'b', 'c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+            ,'A','B', 'C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+            ,'1','2','3','4','5','6','7','8','9','0'
+            ];
     }
 }
