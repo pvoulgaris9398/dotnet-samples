@@ -1,3 +1,7 @@
 using Algorithms;
 
-DayEight.Run();
+//DayEight.Test1();
+//DayEight.Test2();
+//DayEight.Test3();
+
+DayEight.Run(true);
