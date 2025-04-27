@@ -18,128 +18,97 @@ namespace Algorithms
             ];
 
         private static List<string> RealData => CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day8.txt");
-        internal static void Test1()
+
+        /// <summary>
+        /// With thanks to Zoran for pointing me in the right direction...
+        /// </summary>
+        /// <param name="testing"></param>
+        public static void Run(bool testing = false)
         {
-            foreach (var antenna in TestData.ToList().Antennas()) { WriteLine(antenna); }
-        }
-
-        internal static void Test2()
-        {
-            var line = new Line(new Point(1, 28), new Point(1, 35));
-
-            foreach (var antinode in line.AntinodesFor([.. TestData])) { WriteLine(antinode); }
-
-        }
-
-        internal static void Test3()
-        {
-            foreach (var point in RealData.ToList().Antennas().Lines().Antinodes(RealData)) { WriteLine(point); }
-        }
-
-        internal static void Run(bool testing = false)
-        {
-            /*
-             * lowercase letter, uppercase letter, or digit
-             * 
-             * Horizontal, Vertical, Diagonal checks
-             * Pattern is same letter (antenna) in row, 
-             * with "antinode" double the distance on either side of antenna
-             * Need to know distance between them, then check if either end has antinode or is off the grid
-             * Count all instances of valid antinodes
-             * antinodes can occur at locations of other antennas
-             * Can antinodes (of different antennas) overlap? Do they get counted more than once?
-             */
 
             WriteLine(new string('*', 80));
             WriteLine($"{nameof(DayEight)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             var data = testing ? [.. TestData] : RealData;
+            char[][] map = data.ReadMap();
 
-            int rows = data.Count;
-            int columns = data[0].Length;
+            var antennas = GetAntennas(map).ToList();
 
-            var count1 = data.ToList().Antennas().Lines().Antinodes(data).Count();
+            var count1 = antennas
+                .SelectMany(a => a.GetAntinodes(map, NonResonatingAntinodes))
+                .Distinct()
+                .Count();
 
-            WriteLine($"Count: {count1}");
+            var count2 = antennas
+                .SelectMany(a => a.GetAntinodes(map, ResonatingAntinodes))
+                .Distinct()
+                .Count();
 
+            WriteLine($"{nameof(count1)}: {count1}");
+            WriteLine($"R{nameof(count2)}: {count2}");
         }
 
-        internal static IEnumerable<Line> Lines(this IEnumerable<Antenna> antennas)
-        {
-            var frequencies = antennas.Select(a => a.Frequency).Distinct().ToList();
+        private static bool IsInside(this char[][] map, Position position) =>
+            position.Row >= 0 && position.Row < map.Length &&
+            position.Col >= 0 && position.Col < map[0].Length;
 
-            foreach (var f in frequencies)
+        private static IEnumerable<Position> GetAntinodes(this AntennaSet antennas, char[][] map, AntinodeGenerator antinodeGenerator) =>
+            antennas.GetPositionPairs().SelectMany(pair => map.GetAntinodes(pair.a1, pair.a2, antinodeGenerator));
+
+        private static IEnumerable<Position> NonResonatingAntinodes(this char[][] map, Position antenna, int rowDiff, int colDiff)
+        {
+            var position = new Position(antenna.Row + rowDiff, antenna.Col + colDiff);
+            if (map.IsInside(position))
             {
-                var temp = antennas.Where(a => a.Frequency == f)
-                    .Select(a => a.Point)
-                    .ToList();
-
-                var temp2 = temp.SelectMany((prev, index) => temp[(index + 1)..].Select(next => new Line(prev, next))).ToList();
-
-                foreach (var element in temp2)
-                {
-                    yield return element;
-                }
-
+                yield return position;
             }
-
-            yield break;
         }
 
-        internal static IEnumerable<Antenna> Antennas(this List<string> data)
+        private static IEnumerable<Position> ResonatingAntinodes(this char[][] map, Position antenna, int rowDiff, int colDiff)
         {
-            return data.SelectMany((row, rowIndex) =>
-                Enumerable.Range(0, row.Length)
-                    .Where(columnIndex => Frequencies.Contains(row[columnIndex]))
-                    .Select(columnIndex => new Antenna(new Point(rowIndex, columnIndex), row[columnIndex])));
-        }
-
-        internal sealed record Antenna(Point Point, char Frequency);
-
-        internal static IEnumerable<Point> Antinodes(this IEnumerable<Line> lines, List<string> data)
-            => lines.SelectMany(line => line.AntinodesFor(data));
-
-        internal static IEnumerable<Point> AntinodesFor(this Line line, List<string> data)
-        {
-            var deltaX = Math.Abs(line.First.X - line.Second.X);
-            var deltaY = Math.Abs(line.First.Y - line.Second.Y);
-
-            var antinode1 = new Point(line.First.X - deltaX, line.First.Y - deltaY);
-            var antinode2 = new Point(line.Second.X + deltaX, line.Second.Y + deltaY);
-
-            if (antinode1.OnGrid(data) && antinode2.OnGrid(data))
+            yield return antenna;
+            var position = antenna;
+            while (map.IsInside(position))
             {
-                yield return antinode1;
-                yield return antinode2;
+                yield return position;
+                position = new(position.Row + rowDiff, position.Col + colDiff);
             }
-
-            yield break;
-
         }
 
-        internal static bool OnGrid(this Point point, List<string> data) => point.X >= 0 && point.X < data[0].Length && point.X <= data.Count && point.Y <= data[point.X].Length;
-
-        internal sealed record Line(Point First, Point Second)
+        private static IEnumerable<Position> GetAntinodes(
+            this char[][] map, Position antenna1, Position antenna2,
+            AntinodeGenerator antinodeGenerator)
         {
-            internal double Distance()
-            {
-                var deltaX = Math.Abs(First.X - Second.X);
-                var deltaY = Math.Abs(First.Y - Second.Y);
-                return Math.Sqrt(deltaX - deltaY);
-            }
+            int rowDiff = antenna1.Row - antenna2.Row;
+            int colDiff = antenna1.Col - antenna2.Col;
 
+            return antinodeGenerator(map, antenna1, rowDiff, colDiff)
+                .Concat(antinodeGenerator(map, antenna2, -rowDiff, -colDiff));
         }
 
-        internal sealed record Point(int X, int Y);
+        internal delegate IEnumerable<Position> AntinodeGenerator(char[][] map, Position antenna, int rowDiff, int colDiff);
 
-        /// <summary>
-        /// TODO: Come up with a better way, of course.
-        /// </summary>
-        internal static char[] Frequencies = [
-            'a', 'b', 'c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
-            ,'A','B', 'C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
-            ,'1','2','3','4','5','6','7','8','9','0'
-            ];
+        private static IEnumerable<(Position a1, Position a2)> GetPositionPairs(this AntennaSet antennas) =>
+            antennas.Positions.SelectMany((pos1, index1) =>
+                antennas.Positions.Skip(index1 + 1).Select(pos2 => (pos1, pos2)));
+
+        private static IEnumerable<AntennaSet> GetAntennas(this char[][] map) =>
+            map.GetIndividualAntennas().GroupBy(
+                antenna => antenna.Frequency,
+                (frequency, antennas) => new AntennaSet(frequency, [.. antennas.Select(antenna => antenna.Position)]));
+
+        private static IEnumerable<Antenna> GetIndividualAntennas(this char[][] map) =>
+            map.SelectMany((row, rowIndex) =>
+                row.Select((content, colIndex) => (content, rowIndex, colIndex))
+                .Where(cell => cell.content != '.')
+                .Select(cell => new Antenna(cell.content, new(cell.rowIndex, cell.colIndex))));
+
+        internal sealed record AntennaSet(char Frequency, List<Position> Positions);
+        internal sealed record Antenna(char Frequency, Position Position);
+        internal sealed record Position(int Row, int Col);
+
+        private static char[][] ReadMap(this List<string> lines) =>
+            [.. lines.Select(line => line.ToCharArray())];
     }
 }

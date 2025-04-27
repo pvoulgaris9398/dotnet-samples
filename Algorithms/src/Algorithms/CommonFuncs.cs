@@ -46,6 +46,8 @@ Enumerable.Range(0, cols).Select(i => new string(data.Select(row => row[i]).ToAr
 
         public static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
 
+
+
         public static List<List<T>> Transpose<T>(this IEnumerable<IEnumerable<T>> values) =>
         values.Aggregate(
             new List<List<T>>(),
