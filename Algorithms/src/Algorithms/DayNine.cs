@@ -145,15 +145,94 @@ namespace Algorithms
             WriteLine($"{nameof(DayNine)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
-            var data = testing ? TestData1 : RealData;
+            string data = testing ? TestData1 : RealData;
 
-            var checksum = data
-                            .Select(i => long.Parse(i.ToString(), CultureInfo.InvariantCulture))
-                            .Generate()
-                            .MoveBlocks()
-                            .CalculateChecksum();
+            var disk = data.ReadDisk().ToArray();
+
+            long checksum = disk.Compact(MoveBlocks).Sum(file => file.Checksum);
+
+            long filesMoveChecksum = disk.Compact(MoveFiles).Sum(file => file.Checksum);
 
             WriteLine($"{nameof(checksum)}: {checksum}");
+            WriteLine($"{nameof(filesMoveChecksum)}: {filesMoveChecksum}");
         }
+
+        private static int MoveBlocks(FileSection file) => 0;
+
+        private static int MoveFiles(FileSection file) => file.Length;
+
+        private static IEnumerable<Fragment> ReadDisk(this string text)
+        {
+            int position = 0;
+            foreach ((int? fileId, int blocks) in text.ReadSpec())
+            {
+                // Each type of item here keeps track of it's position
+                yield return fileId.HasValue ? new FileSection(fileId.Value, position, blocks) : new Gap(position, blocks);
+                position += blocks;
+            }
+        }
+
+        private static IEnumerable<FileSection> Compact(this IEnumerable<Fragment> fragments, BlocksConstraint blocksConstraint)
+        {
+            var files = fragments.OfType<FileSection>().OrderByDescending(file => file.Position).ToList();
+            var gaps = fragments.OfType<Gap>().OrderBy(gap => gap.Position).ToList();
+
+            foreach (FileSection file in files)
+            {
+                var remainingGaps = new List<Gap>();
+                int pendingBlocks = file.Length;
+
+                foreach (var gap in gaps.Where(gap => gap.Position < file.Position))
+                {
+                    int move = Math.Min(pendingBlocks, gap.Length);
+
+                    if (move < blocksConstraint(file))
+                    {
+                        remainingGaps.Add(gap);
+                        continue;
+                    }
+
+                    if (move > 0)
+                    {
+                        yield return file with { Position = gap.Position, Length = move };
+                    }
+
+                    pendingBlocks -= move;
+
+                    if (gap.Remove(move) is Gap remainder)
+                    {
+                        remainingGaps.Add(remainder);
+                    }
+                }
+
+                if (pendingBlocks > 0)
+                {
+                    yield return file with { Length = pendingBlocks };
+                }
+
+                gaps = remainingGaps;
+            }
+        }
+
+        private delegate int BlocksConstraint(FileSection file);
+
+        private abstract record Fragment(int Position, int Length);
+
+        private record FileSection(int FileId, int Position, int Length) : Fragment(Position, Length)
+        {
+            public long Checksum => (long)FileId * Length * ((2 * Position) + Length - 1) / 2;
+        }
+
+        private record Gap(int Position, int Length) : Fragment(Position, Length)
+        {
+            public Gap? Remove(int blocks) =>
+                blocks >= Length ? null : new Gap(Position + blocks, Length - blocks);
+        }
+
+        private static IEnumerable<(int? fileId, int blocks)> ReadSpec(this string text) =>
+        //text.Select(c => (int)(c - '0'))
+            text.Select(c => c - '0')
+            .Select((int value, int i) => (i % 2 == 0 ? (int?)(i / 2) : null, value));
+
     }
 }
