@@ -1,4 +1,3 @@
-using System.Data;
 using System.Globalization;
 
 namespace Algorithms
@@ -45,7 +44,7 @@ namespace Algorithms
             return half.Current;
         }
 
-        internal static bool IsCorrectlySorted(this List<int> pages, IComparer<int> comparer) =>
+        private static bool IsCorrectlySorted(this List<int> pages, IComparer<int> comparer) =>
         pages.SelectMany((prev, index) => pages[(index + 1)..].Select(next => (prev, next)))
             .All(pair => comparer.Compare(pair.prev, pair.next) <= 0);
 
@@ -59,7 +58,7 @@ namespace Algorithms
             .TakeWhile(line => !string.IsNullOrWhiteSpace(line))
             .Select(ToSortRules);
 
-        internal static (int before, int after) ToSortRules(this string line)
+        private static (int before, int after) ToSortRules(this string line)
         {
             var parts = line.Split('|');
             return (int.Parse(parts[0], CultureInfo.InvariantCulture), int.Parse(parts[1], CultureInfo.InvariantCulture));

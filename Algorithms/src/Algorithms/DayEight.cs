@@ -87,7 +87,7 @@ namespace Algorithms
                 .Concat(antinodeGenerator(map, antenna2, -rowDiff, -colDiff));
         }
 
-        internal delegate IEnumerable<Position> AntinodeGenerator(char[][] map, Position antenna, int rowDiff, int colDiff);
+        private delegate IEnumerable<Position> AntinodeGenerator(char[][] map, Position antenna, int rowDiff, int colDiff);
 
         private static IEnumerable<(Position a1, Position a2)> GetPositionPairs(this AntennaSet antennas) =>
             antennas.Positions.SelectMany((pos1, index1) =>
@@ -104,9 +104,12 @@ namespace Algorithms
                 .Where(cell => cell.content != '.')
                 .Select(cell => new Antenna(cell.content, new(cell.rowIndex, cell.colIndex))));
 
-        internal sealed record AntennaSet(char Frequency, List<Position> Positions);
-        internal sealed record Antenna(char Frequency, Position Position);
-        internal sealed record Position(int Row, int Col);
+        // ReSharper disable once NotAccessedPositionalProperty.Local
+        private sealed record AntennaSet(char Frequency, List<Position> Positions);
+
+        private sealed record Antenna(char Frequency, Position Position);
+
+        private sealed record Position(int Row, int Col);
 
         private static char[][] ReadMap(this List<string> lines) =>
             [.. lines.Select(line => line.ToCharArray())];
