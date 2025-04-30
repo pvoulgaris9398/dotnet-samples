@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Reactive.fsx" />
     <Compile Include="Catamorphism.fs" />
     <Compile Include="Common.fs" />
     <Compile Include="ActivePatterns.fs" />
@@ -15,8 +16,10 @@
     <Compile Include="FileReader.fs" />
     <Compile Include="Lists.fs" />
     <Compile Include="Coordinates.fs" />
+    <None Include="TypeProviders.fsx" />
     <Compile Include="Covariance.fs" />
     <Compile Include="Plotly.fs" />
+    <None Include="Sales.fsx" />
     <Compile Include="BST.fs" />
     <Compile Include="UnitsOfMeasure.fs" />
     <Compile Include="Cards.fs" />
@@ -24,7 +27,10 @@
     <Compile Include="DayTwo.fs" />
     <Compile Include="DayOne.fs" />
     <Compile Include="Program.fs" />
+    <None Include="Plotly2.fsx" />
   </ItemGroup>
+
+  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Plotly.NET" Version="5.0.0" />
