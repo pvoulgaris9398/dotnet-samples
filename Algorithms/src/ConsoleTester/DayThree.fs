@@ -10,19 +10,18 @@ type Instruction =
     | Continue
 
 let (|ParseRegex|_|) regex str =
-   let m = Regex(regex).Match(str)
-   if m.Success
-   then Some (List.tail [ for x in m.Groups -> x.Value ])
-   else None
+    let m = Regex(regex).Match (str)
+
+    if m.Success then
+        Some (List.tail [ for x in m.Groups -> x.Value ])
+    else
+        None
 
 let parseInstruction str =
     match str with
-    | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [_; ToInt32 left; ToInt32 right] ->
-        Multiply(left, right)
-    | ParseRegex @"(?<dont>don't)\(\)" [_]->
-        Stop
-    | ParseRegex @"(?<do>do)\(\)" [_]->
-        Continue
+    | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [ _; ToInt32 left; ToInt32 right ] -> Multiply (left, right)
+    | ParseRegex @"(?<dont>don't)\(\)" [ _ ] -> Stop
+    | ParseRegex @"(?<do>do)\(\)" [ _ ] -> Continue
     | _ -> failwith "Unable to parse!"
 
 [<Literal>]
@@ -37,10 +36,28 @@ let getAllTokens (fileName: string) : (List<Instruction>) =
     https://thesharperdev.com/snippets/fsharp-seq-cast/
     The `Seq.cast<Match>` usage below is key here
     *)
-    m |> Seq.cast<Match> 
-    |> Seq.map (fun m -> m.Value) 
-    |> Seq.map (fun x-> parseInstruction x)
+    m
+    |> Seq.cast<Match>
+    |> Seq.map (fun m -> m.Value)
+    |> Seq.map (fun x -> parseInstruction x)
     |> Seq.toList
+
+//let test2 (total: int, stop: bool) x =
+//    match (total, stop), x with
+//    (*Resets to allow subsequent multiplications to be included*)
+//    | (total, _), Continue -> (total, false)
+//    (*Causes summing to stop for subsequent multiplications*)
+//    | (total, _), Stop -> (total, true)
+//    (*  Only include when the "include" flag is set to true
+//    *)
+//    | ((total, _), Multiply) -> (total * x, stop)
+//    (* Otherwise, don't include...as default case, just return the current sum
+//     *)
+//    | (_, _), _ -> total
+
+//let test1 =
+//    let allTokens = getAllTokens fileName
+//    allTokens |> List.fold (fun (total: int, stop: bool) x -> total + x) (0, false)
 
 let Run =
     printfn "\nDay 3 of advent of code 2024\n"

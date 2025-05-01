@@ -88,9 +88,9 @@ namespace Algorithms
             WriteLine();
         }
 
-
-
+#pragma warning disable IDE0051 // Remove unused private members
         private static IEnumerable<long?> MoveBlocks(this IEnumerable<long?> data)
+#pragma warning restore IDE0051 // Remove unused private members
         {
             var blankCount = data.Count(i => i == null) - 1;
             var copy = data;
@@ -218,12 +218,12 @@ namespace Algorithms
 
         private abstract record Fragment(int Position, int Length);
 
-        private record FileSection(int FileId, int Position, int Length) : Fragment(Position, Length)
+        private sealed record FileSection(int FileId, int Position, int Length) : Fragment(Position, Length)
         {
             public long Checksum => (long)FileId * Length * ((2 * Position) + Length - 1) / 2;
         }
 
-        private record Gap(int Position, int Length) : Fragment(Position, Length)
+        private sealed record Gap(int Position, int Length) : Fragment(Position, Length)
         {
             public Gap? Remove(int blocks) =>
                 blocks >= Length ? null : new Gap(Position + blocks, Length - blocks);

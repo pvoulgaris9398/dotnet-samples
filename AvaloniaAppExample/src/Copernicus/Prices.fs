@@ -2,5 +2,6 @@
 
 type Currency = private Currency of string
 
-type Price = private Price of decimal
-
+type Price = 
+   |Value of decimal
+   | Security of string
