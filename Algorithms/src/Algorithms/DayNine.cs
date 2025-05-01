@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Globalization;
 
 namespace Algorithms
@@ -145,15 +146,19 @@ namespace Algorithms
             WriteLine($"{nameof(DayNine)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
-            string data = testing ? TestData1 : RealData;
+            Stopwatch stopwatch1 = Stopwatch.StartNew();
+
+            string data = testing ? TestData2 : RealData;
 
             var disk = data.ReadDisk().ToArray();
 
             long checksum = disk.Compact(MoveBlocks).Sum(file => file.Checksum);
 
+            stopwatch1.Stop();
+
             long filesMoveChecksum = disk.Compact(MoveFiles).Sum(file => file.Checksum);
 
-            WriteLine($"{nameof(checksum)}: {checksum}");
+            WriteLine($"{nameof(checksum)}: {checksum} in {stopwatch1} ms");
             WriteLine($"{nameof(filesMoveChecksum)}: {filesMoveChecksum}");
         }
 
@@ -184,32 +189,39 @@ namespace Algorithms
 
                 foreach (var gap in gaps.Where(gap => gap.Position < file.Position))
                 {
-                    int move = Math.Min(pendingBlocks, gap.Length);
+                    int countOfBlocksToBeMoved = Math.Min(pendingBlocks, gap.Length);
 
-                    if (move < blocksConstraint(file))
+                    // Handles case where we want to move entire files rather than block-by-block
+                    if (countOfBlocksToBeMoved < blocksConstraint(file))
                     {
                         remainingGaps.Add(gap);
                         continue;
                     }
 
-                    if (move > 0)
+                    // Move whatever we can move, update the existing fileId with new position and length
+                    if (countOfBlocksToBeMoved > 0)
                     {
-                        yield return file with { Position = gap.Position, Length = move };
+                        yield return file with { Position = gap.Position, Length = countOfBlocksToBeMoved };
                     }
 
-                    pendingBlocks -= move;
+                    // Any remaining blocks?
+                    pendingBlocks -= countOfBlocksToBeMoved;
 
-                    if (gap.Remove(move) is Gap remainder)
+                    // If we did NOT use-up the entire Gap, cache it for next iteration
+                    if (gap.Remove(countOfBlocksToBeMoved) is Gap remainder)
                     {
                         remainingGaps.Add(remainder);
                     }
                 }
 
+                // If we STILL have any pending blocks that can't be moved, return the new length
+                // but don't change it's _Position_
                 if (pendingBlocks > 0)
                 {
                     yield return file with { Length = pendingBlocks };
                 }
 
+                // Reset gaps to what remains
                 gaps = remainingGaps;
             }
         }

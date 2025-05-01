@@ -1,3 +1,3 @@
 using Algorithms;
 
-DayNine.Run(true);
+DayTen.Run(true);
