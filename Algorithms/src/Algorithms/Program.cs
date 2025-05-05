@@ -1,8 +1,10 @@
 using Algorithms;
 
-DayTenAlternate.Run(false);
+Day10Research.Run();
 
-DayTen.Run(false);
+//DayTenAlternate.Run(false);
+
+//DayTen.Run(false);
 
 DayTen.Test0();
 
