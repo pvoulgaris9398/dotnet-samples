@@ -25,9 +25,9 @@ namespace Algorithms
 
             WriteLine($"{nameof(result)}: {result}");
 
-            var temp2 = (testing ? TestData : InputData).Blink2(75).ToList();
+            var temp2 = (testing ? TestData : InputData).Blink2(25).Sum();
 
-            var result2 = temp2.Count;
+            var result2 = temp2;
 
             WriteLine($"{nameof(result2)}: {result2}");
 
@@ -35,14 +35,27 @@ namespace Algorithms
 
         private static IEnumerable<long> Blink2(this IEnumerable<long> stones, int times)
         {
-            var arrangement = stones.ToList();
-            var summary = stones.ToList();
-            foreach (var index in Enumerable.Range(0, times))
+            foreach (var stone in stones)
             {
-                var next = NextArrangement(arrangement);
-                summary = [.. next];
+                yield return stone.Count(times);
             }
-            return summary;
+
+            yield break;
+        }
+
+        private static long Count(this long stone, int times)
+        {
+            List<long> arrangement = [stone];
+            Dictionary<(long, long), long> cache = [];
+
+
+
+            foreach (var _ in Enumerable.Range(0, times))
+            {
+                arrangement = [.. NextArrangement(arrangement)];
+            }
+            cache.Add((stone, times), arrangement.Count);
+            return arrangement.Count;
         }
 
         private static IEnumerable<long> Blink(this IEnumerable<long> stones, int times)
