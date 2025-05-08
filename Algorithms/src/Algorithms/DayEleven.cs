@@ -4,7 +4,6 @@ namespace Algorithms
 {
     internal static class DayEleven
     {
-
         private static IEnumerable<long> InputData => "890 0 1 935698 68001 3441397 7221 27"
             .Split(" ")
             .Select(long.Parse);
@@ -19,57 +18,29 @@ namespace Algorithms
             WriteLine($"{nameof(DayEleven)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
-            var temp = (testing ? TestData : InputData).Blink(25).ToList();
+            var result = (testing ? TestData : InputData).Count(25);
 
-            var result = temp.Count;
+            WriteLine($"{nameof(result)}: {result:#,###}");
 
-            WriteLine($"{nameof(result)}: {result}");
-
-            var temp2 = (testing ? TestData : InputData).Blink2(25).Sum();
+            var temp2 = (testing ? TestData : InputData).Count(75);
 
             var result2 = temp2;
 
-            WriteLine($"{nameof(result2)}: {result2}");
+            WriteLine($"{nameof(result2)}: {result2:#,###}");
 
         }
 
-        private static IEnumerable<long> Blink2(this IEnumerable<long> stones, int times)
-        {
-            foreach (var stone in stones)
-            {
-                yield return stone.Count(times);
-            }
+        private static readonly Dictionary<(long, long), long> Cache = [];
 
-            yield break;
-        }
+        private static long Count(this IEnumerable<long> stones, int times) =>
+        stones.Sum(number => number.Count(times));
 
-        private static long Count(this long stone, int times)
-        {
-            List<long> arrangement = [stone];
-            Dictionary<(long, long), long> cache = [];
+        private static long Count(this long stone, int times) =>
+        Cache.TryGetValue((stone, times), out long count) ? count
+        : Cache[(stone, times)] = stone.CountAll(times);
 
-
-
-            foreach (var _ in Enumerable.Range(0, times))
-            {
-                arrangement = [.. NextArrangement(arrangement)];
-            }
-            cache.Add((stone, times), arrangement.Count);
-            return arrangement.Count;
-        }
-
-        private static IEnumerable<long> Blink(this IEnumerable<long> stones, int times)
-        {
-            var arrangement = stones;
-            foreach (var index in Enumerable.Range(0, times))
-            {
-                arrangement = [.. NextArrangement(arrangement)];
-            }
-            return arrangement;
-        }
-
-        private static IEnumerable<long> NextArrangement(this IEnumerable<long> stones)
-            => stones.SelectMany(NextStone);
+        private static long CountAll(this long number, int times) =>
+            times == 0 ? 1 : Count(number.NextStone(), times - 1);
 
         private static IEnumerable<long> NextStone(this long input)
         {
