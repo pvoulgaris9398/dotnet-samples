@@ -110,8 +110,5 @@ namespace Algorithms
         private sealed record Antenna(char Frequency, Position Position);
 
         private sealed record Position(int Row, int Col);
-
-        private static char[][] ReadMap(this List<string> lines) =>
-            [.. lines.Select(line => line.ToCharArray())];
     }
 }

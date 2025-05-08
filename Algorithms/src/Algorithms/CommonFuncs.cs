@@ -4,6 +4,9 @@ namespace Algorithms
 {
     public static class CommonFuncs
     {
+        public static char[][] ReadMap(this List<string> lines) =>
+           [.. lines.Select(line => line.ToCharArray())];
+
         public static IEnumerable<string> Antidiagonals(this IEnumerable<string> data, int rows, int cols) =>
     data.Reverse().Diagonals(rows, cols);
 
