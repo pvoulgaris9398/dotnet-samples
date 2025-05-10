@@ -1,6 +1,6 @@
 namespace Algorithms
 {
-    internal static class DayOne
+    internal static class Day01
     {
         /// <summary>
         /// Example/solution for advent-of-code-2024

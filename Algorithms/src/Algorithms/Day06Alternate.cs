@@ -8,7 +8,7 @@ namespace Algorithms
     /// (So I can move on to the next challenge:
     /// Note, I completed the first part by myself)
     /// </summary>
-    internal static class DaySixAlternate
+    internal static class Day06Alternate
     {
         public static void Run()
         {

@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Algorithms
 {
-    internal static class DayFive
+    internal static class Day05
     {
         internal static void Run()
         {

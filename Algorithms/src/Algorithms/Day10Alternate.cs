@@ -1,6 +1,6 @@
 using Algorithms;
 
-internal static class DayTenAlternate
+internal static class Day10Alternate
 {
     internal static List<string> TestDataSet3()
     {

@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Algorithms
 {
-    internal static class DayEleven
+    internal static class Day11
     {
         private static IEnumerable<long> InputData => "890 0 1 935698 68001 3441397 7221 27"
             .Split(" ")
@@ -15,7 +15,7 @@ namespace Algorithms
         public static void Run(bool testing = false)
         {
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(DayEleven)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day11)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             var result = (testing ? TestData : InputData).Count(25);

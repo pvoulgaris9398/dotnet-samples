@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Algorithms
 {
-    internal static class DayNineAlternate
+    internal static class Day09Alternate
     {
 #pragma warning disable IDE0051 // Remove unused private members
         private static string TestData1 => "12345";
@@ -19,7 +19,7 @@ namespace Algorithms
         {
 
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(DayNineAlternate)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day09Alternate)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             Stopwatch stopwatch1 = Stopwatch.StartNew();

@@ -7,7 +7,7 @@ namespace Algorithms
     /// Sunday, 4/6/25 WIP
     /// Advent of Code: Day3
     /// </summary>
-    internal static class DayThree
+    internal static class Day03
     {
         internal static class Attempt2
         {

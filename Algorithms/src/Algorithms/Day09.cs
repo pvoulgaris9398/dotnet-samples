@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Algorithms
 {
-    internal static class DayNine
+    internal static class Day09
     {
         private static string TestData1 => "12345";
         private static string TestData2 => "2333133121414131402";
@@ -143,7 +143,7 @@ namespace Algorithms
         public static void Run(bool testing = false)
         {
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(DayNine)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day09)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             Stopwatch stopwatch1 = Stopwatch.StartNew();

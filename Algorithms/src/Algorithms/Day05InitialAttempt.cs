@@ -1,6 +1,6 @@
 ﻿namespace Algorithms
 {
-    internal static class DayFiveInitialAttempt
+    internal static class Day05InitialAttempt
     {
 
         internal static void Run(bool test = false)

@@ -1,6 +1,6 @@
 namespace Algorithms
 {
-    internal static class DayTen
+    internal static class Day10
     {
         private static string TestData1 => "12345";
         private static string TestData2 => "2333133121414131402";
@@ -86,7 +86,7 @@ namespace Algorithms
         public static void Run(bool testing = false)
         {
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(DayTen)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day10)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             var map = testing ? LoadTestData(TestDataSet2()) : LoadFileData("..\\..\\..\\..\\..\\day10.txt");

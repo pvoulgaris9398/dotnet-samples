@@ -2,7 +2,7 @@ using System.Globalization;
 
 namespace Algorithms
 {
-    internal static class DaySeven
+    internal static class Day07
     {
         /*
          * 
@@ -11,7 +11,7 @@ namespace Algorithms
         {
 
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(DaySeven)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day07)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             //var test2 = new Equation(190, [10, 19]).CanProduceResult(Addition, Multiplication);

@@ -1,6 +1,6 @@
 namespace Algorithms
 {
-    internal static class DayEight
+    internal static class Day08
     {
         private static string[] TestData => [
 "............",
@@ -27,7 +27,7 @@ namespace Algorithms
         {
 
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(DayEight)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day08)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             var data = testing ? [.. TestData] : RealData;

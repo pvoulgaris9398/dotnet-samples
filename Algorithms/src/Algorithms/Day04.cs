@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Algorithms
 {
-    internal static class DayFour
+    internal static class Day04
     {
         internal static void RunNew()
         {

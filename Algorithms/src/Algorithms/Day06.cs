@@ -1,6 +1,6 @@
 namespace Algorithms
 {
-    internal static class DaySix
+    internal static class Day06
     {
 
         internal static bool Testing { get; private set; }

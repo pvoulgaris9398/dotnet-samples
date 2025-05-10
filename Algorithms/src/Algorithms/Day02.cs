@@ -4,7 +4,7 @@ namespace Algorithms
     /// <summary>
     /// WIP: Saturday, 4/5/25
     /// </summary>
-    internal static class DayTwo
+    internal static class Day02
     {
         internal static void Run()
         {
