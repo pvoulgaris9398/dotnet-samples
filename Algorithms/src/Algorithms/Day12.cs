@@ -39,6 +39,9 @@ namespace Algorithms
             WriteLine(new string('*', 80));
 
             Test1(testing); //1370258 is the correct answer for Part 1!
+            // Part 2 was 805814
+
+            Day12Alternate.Run();
 
         }
 
