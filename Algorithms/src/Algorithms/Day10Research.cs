@@ -75,7 +75,6 @@ namespace Algorithms
                         pathsCount[neighbor] = pathsCount[current];
                         queue.Enqueue(neighbor);
                     }
-
                 }
 
             }

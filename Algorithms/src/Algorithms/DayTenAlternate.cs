@@ -100,6 +100,4 @@ internal static class DayTenAlternate
         where map[row][col] == '0'
         select (row, col);
 
-    private static char[][] ReadMap(this TextReader text) =>
-        [.. text.ReadLines().Select(line => line.ToCharArray())];
 }

@@ -122,8 +122,6 @@ namespace Algorithms
 
         }
 
-
-
         private static List<Stack<Position>> Routes(this IEnumerable<Position> positions)
         {
             List<Stack<Position>> routes = [];
@@ -161,7 +159,6 @@ namespace Algorithms
                 var tester = routes.ToList();
 
             }
-
 
             return routes;
         }

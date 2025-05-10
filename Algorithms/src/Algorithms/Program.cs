@@ -1,3 +1,3 @@
 using Algorithms;
 
-Day12.Run(false);
+Day12.Run();
