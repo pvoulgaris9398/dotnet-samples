@@ -1,4 +1,5 @@
-﻿module DayTwo
+﻿module Day02
+
 
 open Common
 open System
@@ -17,9 +18,9 @@ let Run =
 
     let isSafe ((previous: int), (current: int)) (direction: int) =
         match current, previous, direction with
-        | (current, previous, _) when Math.Abs (current - previous) < 1 -> false
-        | (current, previous, _) when Math.Abs (current - previous) > 3 -> false
-        | (current, previous, direction) when Math.Sign (current - previous) <> direction -> false
+        | (current, previous, _) when Math.Abs(current - previous) < 1 -> false
+        | (current, previous, _) when Math.Abs(current - previous) > 3 -> false
+        | (current, previous, direction) when Math.Sign(current - previous) <> direction -> false
         | _ -> true
 
     let isSafe (values: List<int>) (direction: int) =
@@ -32,10 +33,10 @@ let Run =
             match values with
             | [] -> None
             | x when x.Length < 2 -> None
-            | _ -> Some (Math.Sign (values[1] - values[0]))
+            | _ -> Some(Math.Sign(values[1] - values[0]))
 
         match direction with
-        | Some (int) -> isSafe values direction.Value
+        | Some(int) -> isSafe values direction.Value
         | None -> false
 
     let exceptAt (values: List<int>) (index: int) =

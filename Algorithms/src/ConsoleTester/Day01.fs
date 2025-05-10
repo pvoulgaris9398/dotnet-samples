@@ -1,4 +1,4 @@
-﻿module DayOne
+﻿module Day01
 
 open Common
 open System
@@ -28,7 +28,7 @@ let Run =
         |> List.sort
 
     let distance =
-        List.map2 (fun (left: int) (right: int) -> Math.Abs (left - right)) left right
+        List.map2 (fun (left: int) (right: int) -> Math.Abs(left - right)) left right
         |> List.sum
 
     let similarity = List.filter (fun x -> List.contains x left) right |> List.sum

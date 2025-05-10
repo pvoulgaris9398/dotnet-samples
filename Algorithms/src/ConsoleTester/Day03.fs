@@ -1,4 +1,4 @@
-﻿module DayThree
+﻿module Day03
 
 open System.Text.RegularExpressions
 open FileReader
@@ -10,16 +10,16 @@ type Instruction =
     | Continue
 
 let (|ParseRegex|_|) regex str =
-    let m = Regex(regex).Match (str)
+    let m = Regex(regex).Match(str)
 
     if m.Success then
-        Some (List.tail [ for x in m.Groups -> x.Value ])
+        Some(List.tail [ for x in m.Groups -> x.Value ])
     else
         None
 
 let parseInstruction str =
     match str with
-    | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [ _; ToInt32 left; ToInt32 right ] -> Multiply (left, right)
+    | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [ _; ToInt32 left; ToInt32 right ] -> Multiply(left, right)
     | ParseRegex @"(?<dont>don't)\(\)" [ _ ] -> Stop
     | ParseRegex @"(?<do>do)\(\)" [ _ ] -> Continue
     | _ -> failwith "Unable to parse!"
@@ -29,7 +29,7 @@ let fileName = "..\\..\\..\\..\\..\\day3.txt"
 
 let getAllTokens (fileName: string) : (List<Instruction>) =
     let rx =
-        Regex (@"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
+        Regex(@"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
 
     let m = rx.Matches <| allText fileName
     (*

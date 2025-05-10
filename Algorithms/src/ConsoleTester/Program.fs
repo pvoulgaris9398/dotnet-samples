@@ -1,4 +1,4 @@
-﻿DayThree.Run
+﻿Day03.Run
 
 Catamorphism.Run
 
