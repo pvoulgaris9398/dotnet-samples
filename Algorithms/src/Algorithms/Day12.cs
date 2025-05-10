@@ -58,7 +58,9 @@ namespace Algorithms
             var plots = map.ToGardenPlots();
             var regions = plots.DistinctRegions();
 
-            var totalPrice = regions
+            var totalPrice = map
+                .ToGardenPlots()
+                .DistinctRegions()
                 .SelectMany(region => region.ContiguousRegions())
                 .Sum(region => region.Price);
 
@@ -95,7 +97,6 @@ namespace Algorithms
 
             yield break;
         }
-
 
         private static bool HasLinksToAny(this IEnumerable<GardenPlot> left, IEnumerable<GardenPlot> right)
         {
