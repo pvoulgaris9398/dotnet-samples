@@ -9,14 +9,6 @@ type Instruction =
     | Stop
     | Continue
 
-let (|ParseRegex|_|) regex str =
-    let m = Regex(regex).Match(str)
-
-    if m.Success then
-        Some(List.tail [ for x in m.Groups -> x.Value ])
-    else
-        None
-
 let parseInstruction str =
     match str with
     | ParseRegex @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)" [ _; ToInt32 left; ToInt32 right ] -> Multiply(left, right)
@@ -60,7 +52,7 @@ let getAllTokens (fileName: string) : (List<Instruction>) =
 //    allTokens |> List.fold (fun (total: int, stop: bool) x -> total + x) (0, false)
 
 let Run =
-    printfn "\nDay 3 of advent of code 2024\n"
+    printfn "\nDay03 of advent of code 2024\n"
 
     let allTokens = getAllTokens fileName
     allTokens |> List.iter (fun x -> printfn "%A" x)
@@ -72,4 +64,4 @@ let Run =
     https://fsharpforfunandprofit.com/posts/conciseness-extracting-boilerplate/
     *)
 
-    printfn "\nDayThree - DONE\n"
+    printfn "\nDay03 - DONE\n"

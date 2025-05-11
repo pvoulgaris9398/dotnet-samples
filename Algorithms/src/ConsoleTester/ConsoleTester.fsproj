@@ -23,14 +23,13 @@
     <Compile Include="BST.fs" />
     <Compile Include="UnitsOfMeasure.fs" />
     <Compile Include="Cards.fs" />
+    <Compile Include="Day13.fs" />
     <Compile Include="Day03.fs" />
     <Compile Include="Day02.fs" />
     <Compile Include="Day01.fs" />
     <Compile Include="Program.fs" />
     <None Include="Plotly2.fsx" />
   </ItemGroup>
-
-  <ItemGroup />
 
   <ItemGroup>
     <PackageReference Include="Plotly.NET" Version="5.0.0" />

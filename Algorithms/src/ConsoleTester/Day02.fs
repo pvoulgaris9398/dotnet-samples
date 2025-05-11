@@ -12,7 +12,7 @@ let fileName = "..\\..\\..\\..\\..\\day2.txt"
 ///
 let Run =
 
-    printfn "\nDay 2 of advent of code 2024\n"
+    printfn "\nDay02 of advent of code 2024\n"
 
     let data = FileReader.lines fileName
 
