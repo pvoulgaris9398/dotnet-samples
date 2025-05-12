@@ -27,6 +27,9 @@ let Run =
         |> Seq.toList
         |> List.sort
 
+    let distance2 =
+        List.zip left right |> List.map (fun (a, b) -> abs (a - b)) |> List.sum
+
     let distance =
         List.map2 (fun (left: int) (right: int) -> Math.Abs(left - right)) left right
         |> List.sum
@@ -34,5 +37,7 @@ let Run =
     let similarity = List.filter (fun x -> List.contains x left) right |> List.sum
 
     printfn "Distance: %i" distance
+
+    printfn "Distance: %i" distance2
 
     printfn "Similarity: %i" similarity

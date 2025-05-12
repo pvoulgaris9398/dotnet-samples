@@ -51,6 +51,9 @@ let getAllTokens (fileName: string) : (List<Instruction>) =
 //    let allTokens = getAllTokens fileName
 //    allTokens |> List.fold (fun (total: int, stop: bool) x -> total + x) (0, false)
 
+///
+/// Day 3 of: https://adventofcode.com/2024
+///
 let Run =
     printfn "\nDay03 of advent of code 2024\n"
 
