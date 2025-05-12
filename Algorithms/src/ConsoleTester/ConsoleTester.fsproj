@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="ComputationExpression1.fs" />
+    <Compile Include="ComputationExpression2.fs" />
+    <Compile Include="WebRequest.fs" />
+    <Compile Include="Interpreter2.fs" />
+    <Compile Include="Interpreter.fs" />
     <None Include="Reactive.fsx" />
     <Compile Include="Catamorphism.fs" />
     <Compile Include="Common.fs" />
@@ -27,8 +32,8 @@
     <Compile Include="Day03.fs" />
     <Compile Include="Day02.fs" />
     <Compile Include="Day01.fs" />
-    <Compile Include="Program.fs" />
     <None Include="Plotly2.fsx" />
+    <Compile Include="Runner.fs" />
   </ItemGroup>
 
   <ItemGroup>

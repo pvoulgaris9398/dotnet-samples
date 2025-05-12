@@ -20,7 +20,7 @@ type AsyncBuilder with
     member _.BindReturn(x: 'a Async, f: 'a -> 'b) : 'b Async =
         // this is the same as:
         // async { return f v }
-        async.Bind (x, fun v -> async.Return (f v))
+        async.Bind(x, fun v -> async.Return(f v))
 
     member _.MergeSources(x: 'a Async, y: 'b Async) : ('a * 'b) Async =
         // this is the same as:
@@ -31,18 +31,18 @@ type AsyncBuilder with
         //    let! yv = ya  // wait y value
         //    return xv, yv // pair values
         // }
-        async.Bind (
+        async.Bind(
             Async.StartChild x,
             fun xa ->
-                async.Bind (
+                async.Bind(
                     Async.StartChild y,
                     fun ya ->
-                        async.Bind (
+                        async.Bind(
                             xa,
                             fun xv ->
-                                async.Bind (
+                                async.Bind(
                                     ya,
-                                    fun yv -> async.Return (xv, yv)
+                                    fun yv -> async.Return(xv, yv)
 
                                 )
                         )
