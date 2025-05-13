@@ -34,13 +34,10 @@ let getAllTokens (fileName: string) : (List<Instruction>) =
     |> Seq.map (fun x -> parseInstruction x)
     |> Seq.toList
 
-let initVal = (0L, true)
-
-let calculate1 (total: int64, includeNext: bool) instruction =
+let calculate1 (total: int64) instruction =
     match instruction with
-    | Multiply(x, y) -> (total + x * y, includeNext)
-    | Stop -> (total, false)
-    | Continue -> (total, true)
+    | Multiply(x, y) -> (total + x * y)
+    | _ -> total
 
 let calculate2 (total: int64, includeNext: bool) instruction =
     match instruction with
@@ -62,11 +59,11 @@ let Run testing =
     if testing then
         allTokens |> List.iter (fun x -> printfn "%A" x)
 
-    let (sum1, _) = allTokens |> List.fold calculate1 initVal
+    let sum1 = allTokens |> List.fold calculate1 0L
 
     printfn "The sum is: %i" sum1
 
-    let (sum2, _) = allTokens |> List.fold calculate2 initVal
+    let (sum2, _) = allTokens |> List.fold calculate2 (0L, true)
 
     printfn "The sum is: %i" sum2
 
