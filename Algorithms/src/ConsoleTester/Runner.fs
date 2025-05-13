@@ -1,14 +1,12 @@
 ﻿module Program
 
+
 [<EntryPoint>]
 let main args =
 
-    do printfn "This is a 'do' binding example..."
-
-    printfn "\n"
     printfn "********** STARTING TESTS **********"
 
-    Day13.Test1
+    Day03.Run false
 
     printfn "********** ALL TESTS DONE **********"
 

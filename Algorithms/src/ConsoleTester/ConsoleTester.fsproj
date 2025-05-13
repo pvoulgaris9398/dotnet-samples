@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="FoldExample.fs" />
     <Compile Include="ComputationExpression1.fs" />
     <Compile Include="ComputationExpression2.fs" />
     <Compile Include="WebRequest.fs" />

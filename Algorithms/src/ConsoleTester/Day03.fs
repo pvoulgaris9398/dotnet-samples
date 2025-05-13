@@ -5,7 +5,7 @@ open FileReader
 open Common
 
 type Instruction =
-    | Multiply of product: int * int: int
+    | Multiply of product: int64 * int: int64
     | Stop
     | Continue
 
@@ -34,37 +34,47 @@ let getAllTokens (fileName: string) : (List<Instruction>) =
     |> Seq.map (fun x -> parseInstruction x)
     |> Seq.toList
 
-//let test2 (total: int, stop: bool) x =
-//    match (total, stop), x with
-//    (*Resets to allow subsequent multiplications to be included*)
-//    | (total, _), Continue -> (total, false)
-//    (*Causes summing to stop for subsequent multiplications*)
-//    | (total, _), Stop -> (total, true)
-//    (*  Only include when the "include" flag is set to true
-//    *)
-//    | ((total, _), Multiply) -> (total * x, stop)
-//    (* Otherwise, don't include...as default case, just return the current sum
-//     *)
-//    | (_, _), _ -> total
+let initVal = (0L, true)
 
-//let test1 =
-//    let allTokens = getAllTokens fileName
-//    allTokens |> List.fold (fun (total: int, stop: bool) x -> total + x) (0, false)
+let calculate1 (total: int64, includeNext: bool) instruction =
+    match instruction with
+    | Multiply(x, y) -> (total + x * y, includeNext)
+    | Stop -> (total, false)
+    | Continue -> (total, true)
+
+let calculate2 (total: int64, includeNext: bool) instruction =
+    match instruction with
+    | Multiply(x, y) ->
+        match includeNext with
+        | true -> (total + x * y, includeNext)
+        | false -> (total, includeNext)
+    | Stop -> (total, false)
+    | Continue -> (total, true)
 
 ///
 /// Day 3 of: https://adventofcode.com/2024
 ///
-let Run =
+let Run testing =
     printfn "\nDay03 of advent of code 2024\n"
 
     let allTokens = getAllTokens fileName
-    allTokens |> List.iter (fun x -> printfn "%A" x)
+
+    if testing then
+        allTokens |> List.iter (fun x -> printfn "%A" x)
+
+    let (sum1, _) = allTokens |> List.fold calculate1 initVal
+
+    printfn "The sum is: %i" sum1
+
+    let (sum2, _) = allTokens |> List.fold calculate2 initVal
+
+    printfn "The sum is: %i" sum2
 
     (*
     TODO:
     Work through the following:
-    https://fsharpforfunandprofit.com/posts/recursive-types-and-folds-1b/#series-toc
     https://fsharpforfunandprofit.com/posts/conciseness-extracting-boilerplate/
+    https://dev.to/shimmer/series/4422
     *)
 
     printfn "\nDay03 - DONE\n"
