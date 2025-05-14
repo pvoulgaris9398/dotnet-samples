@@ -6,7 +6,7 @@ let main args =
 
     printfn "********** STARTING TESTS **********"
 
-    Day03.Run false
+    Day04.Run false
 
     printfn "********** ALL TESTS DONE **********"
 
