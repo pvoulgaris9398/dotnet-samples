@@ -22,7 +22,7 @@ namespace Algorithms
         public static IEnumerable<string> Rows(this IEnumerable<string> data) => data;
 
         public static IEnumerable<string> Columns(this IEnumerable<string> data, int cols) =>
-            Enumerable.Range(0, cols).Select(i => new string(data.Select(row => row[i]).ToArray()));
+            Enumerable.Range(0, cols).Select(i => new string([.. data.Select(row => row[i])]));
 
 
 #pragma warning disable SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.

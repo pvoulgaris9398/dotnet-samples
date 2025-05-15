@@ -3,30 +3,26 @@
 [<Literal>]
 let fileName = "..\\..\\..\\..\\..\\day4.txt"
 
-(*
-[<Literal>]
-let testData1 =
-    [ [ "A"; "B"; "C"; "D" ]
-      [ "A"; "B"; "C"; "D" ]
-      [ "A"; "B"; "C"; "D" ]
-      [ "A"; "B"; "C"; "D" ] ]
-*)
+
+let testData1: seq<string> =
+    seq {
+        yield "ABCD"
+        yield "ABCD"
+        yield "ABCD"
+        yield "ABCD"
+    }
+
+
 let toRows lines = lines
 
 let toColumn (lines: seq<string>) i =
-    lines
-    |> Seq.map (fun row -> row[i])
-    |> Seq.toArray
+    lines |> Seq.map (fun row -> string row[i])
 
-(*
-TODO: Figure out how to make this logic work while keeping the
-lines parameter a seq<string>
-*)
-let toColumns (lines: seq<string>) (columnCount: int) =
+let toColumns (lines: seq<string>) =
     let columnCount =
         match Seq.toList lines with
         | [] -> 0
-        | x -> x[0].Length
+        | x -> x[0].Length - 1
 
     [ 0..columnCount ] |> Seq.collect (toColumn lines)
 
@@ -39,16 +35,19 @@ let getInputData = FileReader.lines fileName
 ///
 /// Day 4 of: https://adventofcode.com/2024
 ///
-let Run testing =
+let Run (testing: bool) =
     printfn "\nDay04 of advent of code 2024\n"
 
-    let data = FileReader.lines fileName
+    let data =
+        match testing with
+        | true -> testData1
+        | false -> getInputData
 
     let rows = data |> toRows
 
-    printfn "%A" data
+    printfn "%A" rows
 
-    let columns = data |> Seq.toList |> toColumns
+    let columns = data |> Seq.toList |> toColumns |> Seq.toList
 
     printfn "%A" columns
 
