@@ -9,7 +9,6 @@
     <Compile Include="FoldExample.fs" />
     <Compile Include="ComputationExpression1.fs" />
     <Compile Include="ComputationExpression2.fs" />
-    <Compile Include="WebRequest.fs" />
     <Compile Include="Interpreter2.fs" />
     <Compile Include="Interpreter.fs" />
     <None Include="Reactive.fsx" />
