@@ -54,7 +54,7 @@ namespace Algorithms
             CommonFuncs.LoadFileData(fileName).Select(CommonFuncs.ParseIntsNoSign).Transpose().ToPair();
 
         private static (List<int> left, List<int> right) LoadTestData() =>
-            (new List<int> { 2, 2, 3, 3, 3, 4, 7, 9 }, new List<int> { 2, 3, 3, 3, 3 });
+            ([2, 2, 3, 3, 3, 4, 7, 9], [2, 3, 3, 3, 3]);
 
     }
 }

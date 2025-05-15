@@ -19,7 +19,7 @@ let parseInstruction str =
 [<Literal>]
 let fileName = "..\\..\\..\\..\\..\\day3.txt"
 
-let getAllTokens (fileName: string) : (List<Instruction>) =
+let getAllTokens (fileName: string) : List<Instruction> =
     let rx =
         Regex(@"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
 
@@ -30,8 +30,8 @@ let getAllTokens (fileName: string) : (List<Instruction>) =
     *)
     m
     |> Seq.cast<Match>
-    |> Seq.map (fun m -> m.Value)
-    |> Seq.map (fun x -> parseInstruction x)
+    |> Seq.map _.Value
+    |> Seq.map parseInstruction
     |> Seq.toList
 
 let calculate1 (total: int64) instruction =
@@ -57,15 +57,15 @@ let Run testing =
     let allTokens = getAllTokens fileName
 
     if testing then
-        allTokens |> List.iter (fun x -> printfn "%A" x)
+        allTokens |> List.iter (fun x -> printfn $"%A{x}")
 
     let sum1 = allTokens |> List.fold calculate1 0L
 
-    printfn "The sum is: %i" sum1
+    printfn $"The sum is: %i{sum1}"
 
-    let (sum2, _) = allTokens |> List.fold calculate2 (0L, true)
+    let sum2, _ = allTokens |> List.fold calculate2 (0L, true)
 
-    printfn "The sum is: %i" sum2
+    printfn $"The sum is: %i{sum2}"
 
     (*
     TODO:

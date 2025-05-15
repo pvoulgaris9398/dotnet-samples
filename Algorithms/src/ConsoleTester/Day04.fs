@@ -3,9 +3,32 @@
 [<Literal>]
 let fileName = "..\\..\\..\\..\\..\\day4.txt"
 
+(*
+[<Literal>]
+let testData1 =
+    [ [ "A"; "B"; "C"; "D" ]
+      [ "A"; "B"; "C"; "D" ]
+      [ "A"; "B"; "C"; "D" ]
+      [ "A"; "B"; "C"; "D" ] ]
+*)
 let toRows lines = lines
 
-let toColumns lines = lines |> List.transpose
+let toColumn (lines: seq<string>) i =
+    lines
+    |> Seq.map (fun row -> row[i])
+    |> Seq.toArray
+
+(*
+TODO: Figure out how to make this logic work while keeping the
+lines parameter a seq<string>
+*)
+let toColumns (lines: seq<string>) (columnCount: int) =
+    let columnCount =
+        match Seq.toList lines with
+        | [] -> 0
+        | x -> x[0].Length
+
+    [ 0..columnCount ] |> Seq.collect (toColumn lines)
 
 let toHorizontal verticals = ()
 
@@ -25,8 +48,8 @@ let Run testing =
 
     printfn "%A" data
 
-    //let columns = data |> toColumns
+    let columns = data |> Seq.toList |> toColumns
 
-    //printfn "%A" columns
+    printfn "%A" columns
 
     printfn "\nDay04 - DONE\n"

@@ -17,7 +17,7 @@ namespace Algorithms
              *      Levels are either "all increasing" or "all decreasing"
              *      Any two adjacent levels differ by _at least one_ AND
              *      _at most three_
-             *      
+             *
              */
 
 
@@ -161,12 +161,12 @@ namespace Algorithms
 
         private static IEnumerable<List<int>> LoadTestData()
         {
-            yield return new List<int> { 11, 10, 9, 7, 6, 4, 2, 1 };
-            yield return new List<int> { 1, 2, 7, 8, 9, 11, 14, 14 };
-            yield return new List<int> { 17, 15, 12, 9, 7, 6, 2, 1 };
-            yield return new List<int> { 1, 3, 2, 4, 5, 9, 12 };
-            yield return new List<int> { 13, 11, 10, 8, 6, 4, 4, 1 };
-            yield return new List<int> { 1, 3, 6, 7, 9, 9, 12 };
+            yield return [11, 10, 9, 7, 6, 4, 2, 1];
+            yield return [1, 2, 7, 8, 9, 11, 14, 14];
+            yield return [17, 15, 12, 9, 7, 6, 2, 1];
+            yield return [1, 3, 2, 4, 5, 9, 12];
+            yield return [13, 11, 10, 8, 6, 4, 4, 1];
+            yield return [1, 3, 6, 7, 9, 9, 12];
         }
     }
 }

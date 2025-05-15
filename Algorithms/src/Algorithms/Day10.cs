@@ -1,14 +1,17 @@
+// ReSharper disable UnusedVariable
 namespace Algorithms
 {
     internal static class Day10
     {
+        // ReSharper disable once UnusedMember.Local
         private static string TestData1 => "12345";
+        // ReSharper disable once UnusedMember.Local
         private static string TestData2 => "2333133121414131402";
 
         /// <summary>
         /// 0..111....22222
         /// </summary>
-        /// 
+        ///
 
         internal static List<string> TestDataSet1()
         {
@@ -24,6 +27,7 @@ namespace Algorithms
 
         }
 
+        // ReSharper disable once MemberCanBePrivate.Global
         internal static List<string> TestDataSet2()
         {
             return [
@@ -93,28 +97,26 @@ namespace Algorithms
 
             var positions = map.ToPositions().ToList();
 
-            var sixes = positions.Where(p => p.Height == 6).ToList();
-
             var routes = positions.Routes().ToList();
-            /* 
+            /*
              * 5/3/25:
              * 1518 is too high
-             * 
+             *
              * 1115 is too high also
-             * 
+             *
              * 84 is too low
              */
             var total = routes.Count;
 
-            var first = routes.Where(p => p.Contains(new Position(0, 2, 0))).ToList();
-            var second = routes.Where(p => p.Contains(new Position(0, 4, 0))).ToList();
-            var third = routes.Where(p => p.Contains(new Position(2, 4, 0))).ToList();
-            var fourth = routes.Where(p => p.Contains(new Position(4, 6, 0))).ToList();
-            var fifth = routes.Where(p => p.Contains(new Position(5, 2, 0))).ToList();
-            var sixth = routes.Where(p => p.Contains(new Position(5, 5, 0))).ToList(); //xxx
-            var seventh = routes.Where(p => p.Contains(new Position(6, 0, 0))).ToList();
-            var eighth = routes.Where(p => p.Contains(new Position(6, 6, 0))).ToList();
-            var ninth = routes.Where(p => p.Contains(new Position(7, 1, 0))).ToList();
+            var first = routes.Where(p => p.Contains(new(0, 2, 0))).ToList();
+            var second = routes.Where(p => p.Contains(new(0, 4, 0))).ToList();
+            var third = routes.Where(p => p.Contains(new(2, 4, 0))).ToList();
+            var fourth = routes.Where(p => p.Contains(new(4, 6, 0))).ToList();
+            var fifth = routes.Where(p => p.Contains(new(5, 2, 0))).ToList();
+            var sixth = routes.Where(p => p.Contains(new(5, 5, 0))).ToList(); //xxx
+            var seventh = routes.Where(p => p.Contains(new(6, 0, 0))).ToList();
+            var eighth = routes.Where(p => p.Contains(new(6, 6, 0))).ToList();
+            var ninth = routes.Where(p => p.Contains(new(7, 1, 0))).ToList();
 
             var last = routes.GroupBy(r => r.Select(p => p)).Distinct().ToList(); //exact
 
@@ -140,12 +142,8 @@ namespace Algorithms
             var startHeight = enumerator.Current;
             foreach (var height in positions.Where(p => p.Height == startHeight).ToList())
             {
-                if (height == null)
-                {
-                    continue;
-                }
                 var stack = new Stack<Position>();
-                stack.Push(height ?? new Position(-1, -1, -1));
+                stack.Push(height);
 
                 routes.Add(stack);
             }
@@ -174,11 +172,7 @@ namespace Algorithms
 
                 var near = next.Where(p => p.NextTo(position)).ToList();
 
-                if (near.Count == 0)
-                {
-                    continue;
-                }
-                else if (near.Count == 1)
+                if (near.Count == 1)
                 {
                     stack.Push(near.Skip(0).First());
                     yield return stack;
@@ -230,7 +224,6 @@ namespace Algorithms
 
         private sealed record Position(int RowIndex, int ColumnIndex, long Height)
         {
-            public bool StartingPosition => Height == 0;
             public bool NextTo(Position other) =>
                 (other.RowIndex == RowIndex
                 && Math.Abs(other.ColumnIndex - ColumnIndex) == 1)
@@ -238,6 +231,5 @@ namespace Algorithms
                 (other.ColumnIndex == ColumnIndex
                  && Math.Abs(other.RowIndex - RowIndex) == 1);
         }
-
     }
 }

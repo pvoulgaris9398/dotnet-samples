@@ -95,10 +95,8 @@ namespace Algorithms
                     }
                 }
 
-                yield return new Region(all.Plant, [.. currentRegion]);
+                yield return new(all.Plant, [.. currentRegion]);
             }
-
-            yield break;
         }
 
         private static bool HasLinksToAny(this IEnumerable<GardenPlot> left, IEnumerable<GardenPlot> right)

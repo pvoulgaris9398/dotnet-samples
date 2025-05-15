@@ -118,10 +118,10 @@ namespace Algorithms
         private static Point Step(this Point point, char direction) =>
             direction switch
             {
-                '^' => new Point(point.Row - 1, point.Column),
-                '>' => new Point(point.Row, point.Column + 1),
-                'v' => new Point(point.Row + 1, point.Column),
-                _ => new Point(point.Row, point.Column - 1),
+                '^' => new(point.Row - 1, point.Column),
+                '>' => new(point.Row, point.Column + 1),
+                'v' => new(point.Row + 1, point.Column),
+                _ => new(point.Row, point.Column - 1),
             };
 
         private static Position FindStartingPosition(this char[][] map) =>
