@@ -49,20 +49,31 @@ let toColumn (lines: seq<string>) i =
 
 let toColumns (lines: seq<string>) =
     let columnCount = getColumnCount lines
-    [ 0..columnCount-1 ] |> Seq.map (toColumn lines)
+    [ 0 .. columnCount - 1 ] |> Seq.map (toColumn lines)
 
 let toDiagonal (lines: seq<string>) startRow startColumn columnCount =
-    lines |> Seq.skip startRow |> Seq.take (columnCount-startColumn) 
-    |> Seq.mapi (fun i row -> row[startColumn+i])
-    |> Seq.toArray|> (fun x -> new string (x))
+    lines
+    |> Seq.skip startRow
+    |> Seq.take (columnCount - startColumn)
+    |> Seq.mapi (fun i row -> row[startColumn + i])
+    |> Seq.toArray
+    |> (fun x -> new string (x))
 
 let toDiagonals (lines: seq<string>) =
     let rowCount = getRowCount lines
     let columnCount = getColumnCount lines
-    let temp1 = [ 0..columnCount-1 ]  |> Seq.map (fun columnIndex -> toDiagonal lines 0 columnIndex columnCount)
-    //let temp2 = [ 1..rowCount-1 ]  |> Seq.map (fun rowIndex -> toDiagonal lines rowIndex 0 columnCount)
-    temp1
-    //Seq.append temp1 temp2
+
+    //let temp1 =
+    //    [ 0 .. columnCount - 1 ]
+    //    |> Seq.map (fun columnIndex -> toDiagonal lines 0 columnIndex columnCount)
+
+    let temp2 =
+        [ 1 .. rowCount - 1 ]
+        |> Seq.map (fun rowIndex -> toDiagonal lines rowIndex 0 rowCount)
+
+    temp2
+
+//Seq.append temp1 temp2
 
 let toHorizontal verticals = ()
 
@@ -136,3 +147,38 @@ module internal Tests =
 
         if testing then
             printfn $"toColumns2\t%A{result}"
+
+    let test3 testing =
+
+        let data3 =
+            match testing with
+            | true -> testData1
+            | false -> getInputData
+
+        let toDiagonal3 (lines: seq<string>) startRow startColumn columnCount =
+            let temp = lines |> Seq.toList
+
+            temp
+            |> Seq.skip startRow
+            |> Seq.take (columnCount - startColumn)
+            |> Seq.mapi (fun i row -> row[startColumn + i])
+            |> Seq.toArray
+            |> (fun x -> new string (x))
+
+        let toDiagonals3 (lines: seq<string>) =
+            let rowCount = getRowCount lines
+            let columnCount = getColumnCount lines
+
+            //let temp1 =
+            //    [ 0 .. columnCount - 1 ]
+            //    |> Seq.map (fun columnIndex -> toDiagonal lines 0 columnIndex columnCount)
+
+            let temp2 =
+                [ 1 .. rowCount - 1 ]
+                |> Seq.map (fun rowIndex -> toDiagonal3 lines rowIndex 0 (rowCount - 1))
+
+            temp2
+
+        let diagonals3 = data3 |> toDiagonals3 |> Seq.toList
+
+        printfn $"Diagonals3\n%A{diagonals3}"
