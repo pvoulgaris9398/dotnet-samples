@@ -165,19 +165,29 @@ module internal Tests =
             |> Seq.toArray
             |> (fun x -> new string (x))
 
+        //let toDiagonal3A (lines: seq<string>) startRow startColumn columnCount =
+        //    let temp = lines |> Seq.toList
+
+        //    temp
+        //    |> Seq.skip startRow
+        //    |> Seq.take (columnCount - startColumn)
+        //    |> Seq.mapi (fun i row -> row[startColumn + i])
+        //    |> Seq.toArray
+        //    |> (fun x -> new string (x))
+
         let toDiagonals3 (lines: seq<string>) =
             let rowCount = getRowCount lines
             let columnCount = getColumnCount lines
 
-            //let temp1 =
-            //    [ 0 .. columnCount - 1 ]
-            //    |> Seq.map (fun columnIndex -> toDiagonal lines 0 columnIndex columnCount)
+            let temp1 =
+                [ 0 .. columnCount - 1 ]
+                |> Seq.map (fun idx -> toDiagonal3 lines 0 idx columnCount)
 
             let temp2 =
                 [ 1 .. rowCount - 1 ]
-                |> Seq.map (fun rowIndex -> toDiagonal3 lines rowIndex 0 (rowCount - 1))
+                |> Seq.map (fun idx -> toDiagonal3 lines idx idx columnCount)
 
-            temp2
+            temp1 |> Seq.append temp2
 
         let diagonals3 = data3 |> toDiagonals3 |> Seq.toList
 

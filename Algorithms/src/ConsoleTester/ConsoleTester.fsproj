@@ -34,6 +34,7 @@
     <Compile Include="Day03.fs" />
     <Compile Include="Day04.fs" />
     <Compile Include="Day13.fs" />
+    <Compile Include="Day14.fs" />
     <Compile Include="Runner.fs" />
     <None Include="Scratch.fsx" />
   </ItemGroup>

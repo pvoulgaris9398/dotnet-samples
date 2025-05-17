@@ -79,10 +79,15 @@ let testData1 =
 /// Day 13 of: https://adventofcode.com/2024
 ///
 let Run =
+
+    printfn "\nDay13 of advent of code 2024\n"
+
     let chunks = File.ReadAllText fileName |> trim |> split "\r\n\r\n" |> Array.toList
     let machines = chunks |> List.map parseMachine
     machines |> List.choose calculate1 |> List.sum |> printfn "%d"
     machines |> List.choose calculate2 |> List.sum |> printfn "%d"
+
+    printfn "\nDay13 - DONE\n"
 
 let Test1 =
     let chunks = testData1 |> trim |> split "\r\n\r\n" |> Array.toList

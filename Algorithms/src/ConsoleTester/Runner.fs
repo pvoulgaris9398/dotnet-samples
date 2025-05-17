@@ -6,7 +6,7 @@ let main args =
 
     printfn "********** STARTING TESTS **********"
 
-    Day04.Tests.test3 true
+    Day14.Run true
 
     //Day04.Run true
 
