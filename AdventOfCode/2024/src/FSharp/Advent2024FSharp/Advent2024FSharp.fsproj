@@ -8,7 +8,6 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="FileReader.fs" />
-    <Compile Include="Coordinates.fs" />
     <Compile Include="Day01.fs" />
     <Compile Include="Day02.fs" />
     <Compile Include="Day03.fs" />
