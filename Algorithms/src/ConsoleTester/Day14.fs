@@ -13,45 +13,50 @@ let testData1 = "p=2,4 v=2,-3\r\n"
 [<Literal>]
 let testData2 = $"p=0,4 v=-23,7p=12,33 v=11,-19\r\n"
 
-type Location = { x: int64; y: int64 }
-
-type Velocity = { dx: int64; dy: int64 }
+let (width, height) = (101, 103)
 
 type Robot =
-    { currentLocation: Location
-      velocity: Velocity }
+    { Current: int * int
+      Velocity: int * int }
 
 let parseData pattern str =
     match str with
     | ParseRegex pattern [ ToInt32 x; ToInt32 y; ToInt32 dx; ToInt32 dy ] ->
-        { currentLocation = { x = x; y = y }
-          velocity = { dx = dx; dy = dy } }
+        { Current = (x, y)
+          Velocity = (dx, dy) }
 
     | _ -> failwith "Unable to parse!"
 
 let newLocation xmax ymax robot : Robot =
-    let deltax = robot.currentLocation.x + robot.velocity.dx
-    let deltay = robot.currentLocation.y + robot.velocity.dy
+    let (x, y) = robot.Current
+    let (dx, dy) = robot.Velocity
+    let deltax = x + dx
+    let deltay = y + dy
 
     let newx =
         match deltax with
-        | x when deltax < 0 -> xmax + deltax
+        | x when deltax > xmax -> deltax - xmax
+        | x when deltax < 0 -> deltax + xmax
         | x when deltax >= 0 -> deltax
         | _ -> deltax
 
     let newy =
         match deltay with
-        | x when deltay < 0 -> ymax + deltay
-        | x when deltay >= 0 -> deltay
+        | y when deltay > ymax -> deltay - ymax
+        | y when deltay < 0 -> deltay + ymax
+        | y when deltay >= 0 -> deltay
         | _ -> deltay
 
-    { currentLocation = { x = newx; y = newy }
-      velocity = robot.velocity }
+    { robot with Current = (newx, newy) }
 
-let moveOneFor (newLocation: Robot -> Robot) (iterations: int) (robot: Robot) : Robot =
-    [ 1..iterations ] |> Seq.fold (fun x _ -> newLocation x) robot
+let getRobotPositionIn time width height robot =
+    let cx, cy = robot.Current
+    let vx, vy = robot.Velocity
 
-let moveAllFor (moveOneFor: Robot -> Robot) (robots: seq<Robot>) = robots |> Seq.map moveOneFor
+    let newPos =
+        ((cx + time * (vx + width)) % width, (cy + time * (vy + height)) % height)
+
+    { robot with Current = newPos }
 
 let getAllTokens (data: string) : List<Robot> =
     let pattern = @"p=(?<x>\d+),(?<y>\d+) v=(?<dx>-?\d+),(?<dy>-?\d+)\r\n"
@@ -67,6 +72,54 @@ let getAllTokens (data: string) : List<Robot> =
     |> Seq.map (fun x -> parseData pattern x)
     |> Seq.toList
 
+let quadrant (robot: Robot) =
+    let halfx = width / 2
+    let halfy = height / 2
+
+    let result =
+        match robot.Current with
+        | (x, y) when x > 0 && x < halfx && y > 0 && y < halfy -> 1
+        | (x, y) when x > halfx && x <= width && y > 0 && y < halfy -> 2
+        | (x, y) when x > 0 && x < halfx && y > halfy && y <= height -> 3
+        | (x, y) when x > halfx && x <= width && y > halfy && y <= height -> 4
+        | _ -> 0
+
+    result
+
+let quadrant2 (robot: Robot) =
+    let xHalf = width / 2
+    let yHalf = height / 2
+    let (x, y) = robot.Current
+    x < xHalf, y < yHalf
+
+let safetyFactor (quadrant: Robot -> int) (robots: seq<Robot>) =
+    robots
+    |> Seq.groupBy (fun x -> quadrant x)
+    |> Seq.map (fun (key, items) -> key, Seq.length items)
+    |> Seq.filter (fun (key, _) -> key > 0)
+    |> Seq.map snd
+    |> Seq.toList
+    |> Seq.fold (fun x state -> x * state) 1
+
+let safetyFactor2 (robots: seq<Robot>) =
+    let xHalf = width / 2
+    let yHalf = height / 2
+
+    let getQuadrant robot =
+        let x, y = robot.Current
+        x < xHalf, y < yHalf
+
+    Seq.filter
+        (fun robot ->
+            let (x, y) = robot.Current
+            x <> xHalf && y <> yHalf)
+        robots
+    |> Seq.groupBy getQuadrant
+    |> Seq.map (fun ((l, r), robots) ->
+        printfn "%b %b %A" l r (Seq.length robots)
+        Seq.length robots)
+    |> Seq.reduce (fun x y -> x * y)
+
 ///
 /// Day 14 of: https://adventofcode.com/2024
 ///
@@ -76,42 +129,21 @@ let Run (testing: bool) =
 
     let data = if testing then testData2 else allText fileName
 
-    let allTokens = getAllTokens data
+    let allRobots = getAllTokens data
 
     if testing then
-        allTokens |> List.iter (fun x -> printfn $"%A{x}")
+        allRobots |> List.iter (fun x -> printfn $"%A{x}")
 
-    let newLocationConfigured = newLocation 101 103
-    let moveOneForConfigured = moveOneFor newLocationConfigured 100
+    let movements = List.map (getRobotPositionIn 100 width height) allRobots
 
-    let locations =
-        allTokens |> List.toSeq |> moveAllFor (fun x -> moveOneForConfigured x)
+    if testing then
+        movements |> Seq.iter (fun x -> printfn $"%A{x}")
 
-    locations |> Seq.iter (fun x -> printfn $"%A{x}")
+    let sf1 = safetyFactor2 movements
 
-    (*
-    TODO: Calculate how many are in each quadrant,
-    multiply these four (4) sums by each other to calculate
-    (Any robots along the center lines (horizontal/vertical) do not count
-    the "Safety Factor"
-    *)
+    printfn $"Safety Factor 1: %A{sf1}"
 
     printfn "\nDay14 - DONE\n"
-
-let test2 =
-    let data = testData1
-
-    let newLocationConfigured = newLocation 11 7
-
-    let allTokens = getAllTokens data
-
-    let robot = allTokens.Head
-
-    let final = moveOneFor newLocationConfigured 4 robot
-
-    printfn $"final: %A{final}"
-
-    ()
 
 let test1 testing =
 
