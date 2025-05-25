@@ -1,6 +1,7 @@
+using Advent2024;
 using System.Text.RegularExpressions;
 
-namespace Algorithms
+namespace Advent2024
 {
     internal static class Day04
     {
@@ -204,25 +205,6 @@ namespace Algorithms
 
             return data;
 
-        }
-
-        internal static char[,] ToArray_OLD()
-        {
-            var lines = GetDataForTesting();
-            int m = lines[0].Length;
-            int n = lines.Count;
-            char[,] result = new char[m, n];
-
-            for (int i = 0; i < m; i++)
-            {
-                var lineArray = lines[i].ToArray();
-                for (int j = 0; j < n; j++)
-                {
-                    result[i, j] = lineArray[j];
-                }
-            }
-
-            return result;
         }
 
         internal static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];

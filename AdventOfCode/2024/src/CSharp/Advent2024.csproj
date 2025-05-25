@@ -6,15 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <NoWarn>$(NoWarn);SYSLIB1045</NoWarn>
+    <RootNamespace>Advent2024</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AnalysisMode>all</AnalysisMode>
   </PropertyGroup>
 
   <ItemGroup>
     <Using Static="true" Include="System.Console" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Plotly.NET" Version="5.1.0" />
-    <PackageReference Include="Plotly.NET.CSharp" Version="0.13.0" />
   </ItemGroup>
 
 </Project>

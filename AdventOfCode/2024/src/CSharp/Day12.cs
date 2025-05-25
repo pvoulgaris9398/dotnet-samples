@@ -1,4 +1,4 @@
-namespace Algorithms
+namespace Advent2024
 {
     internal static class Day12
     {

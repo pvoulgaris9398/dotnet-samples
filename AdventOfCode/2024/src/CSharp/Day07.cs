@@ -1,6 +1,7 @@
 using System.Globalization;
+using Advent2024;
 
-namespace Algorithms
+namespace Advent2024
 {
     internal static class Day07
     {

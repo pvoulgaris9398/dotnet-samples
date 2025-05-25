@@ -1,4 +1,4 @@
-using Algorithms;
+namespace Advent2024;
 
 internal static class Day10Alternate
 {

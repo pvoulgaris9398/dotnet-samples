@@ -1,4 +1,6 @@
-﻿namespace Algorithms
+using Advent2024;
+
+namespace Advent2024
 {
     internal static class Day05InitialAttempt
     {

@@ -1,11 +1,9 @@
 // ReSharper disable UnusedVariable
-namespace Algorithms
+namespace Advent2024
 {
     internal static class Day10
     {
-        // ReSharper disable once UnusedMember.Local
         private static string TestData1 => "12345";
-        // ReSharper disable once UnusedMember.Local
         private static string TestData2 => "2333133121414131402";
 
         /// <summary>
@@ -152,7 +150,7 @@ namespace Algorithms
 
                 var next = positions.Where(p => p.Height == enumerator.Current).ToList();
 
-                routes = routes.AddNext(next).ToList();
+                routes = [.. routes.AddNext(next)];
 
                 var tester = routes.ToList();
 

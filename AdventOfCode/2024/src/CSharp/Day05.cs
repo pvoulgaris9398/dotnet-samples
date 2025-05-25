@@ -1,6 +1,7 @@
+using Advent2024;
 using System.Globalization;
 
-namespace Algorithms
+namespace Advent2024
 {
     internal static class Day05
     {
@@ -50,7 +51,7 @@ namespace Algorithms
 
         internal static IEnumerable<List<int>> ToPages(this List<string> text) =>
             text
-                .Where(line => line.Contains(','))
+                .Where(line => line.Contains(',', StringComparison.InvariantCulture))
                 .Select(CommonFuncs.ParseIntsNoSign);
 
         internal static IEnumerable<(int before, int after)> ToSortRules(this List<string> text) =>

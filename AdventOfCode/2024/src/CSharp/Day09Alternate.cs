@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using System.Globalization;
 
-namespace Algorithms
+namespace Advent2024
 {
     internal static class Day09Alternate
     {

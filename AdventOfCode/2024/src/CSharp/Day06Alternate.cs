@@ -1,6 +1,7 @@
+using Advent2024;
 using System.Diagnostics;
 
-namespace Algorithms
+namespace Advent2024
 {
     /// <summary>
     /// Adapted from Zoran's Implementation
@@ -113,7 +114,7 @@ namespace Algorithms
             position with { Orientation = position.Orientation.TurnRight() };
 
         private static char TurnRight(this char orientation) =>
-            Orientations[(Orientations.IndexOf(orientation) + 1) % Orientations.Length];
+            Orientations[(Orientations.IndexOf(orientation, StringComparison.InvariantCulture) + 1) % Orientations.Length];
 
         private static Point Step(this Point point, char direction) =>
             direction switch
@@ -126,7 +127,7 @@ namespace Algorithms
 
         private static Position FindStartingPosition(this char[][] map) =>
             map.AllPoints()
-                .Where(point => Orientations.Contains(map.At(point)))
+                .Where(point => Orientations.Contains(map.At(point), StringComparison.InvariantCulture))
                 .Select(point => new Position(point, map.At(point)))
                 .First();
 
@@ -138,7 +139,7 @@ namespace Algorithms
         private static char At(this char[][] map, Point point) =>
             map[point.Row][point.Column];
 
-        private static readonly string Orientations = "^>v<";
+        private const string Orientations = "^>v<";
 
         private record struct Position(Point Point, char Orientation);
 

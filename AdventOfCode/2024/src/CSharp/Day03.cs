@@ -1,7 +1,6 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
-using Common;
-namespace Algorithms
+namespace Advent2024
 {
     /// <summary>
     /// Sunday, 4/6/25 WIP
@@ -136,13 +135,11 @@ namespace Algorithms
 
         private static IEnumerable<Instruction> ParseV4(this string data)
         {
-#pragma warning disable SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
             return Regex.Matches(data, @"(?<mul>mul)\((?<a>\d+),(?<b>\d+)\)|(?<dont>don't)\(\)|(?<do>do)\(\)")
                     .Select(match =>
                         match.Groups["dont"].Success ? new Stop() as Instruction
                         : match.Groups["do"].Success ? new Continue()
                         : new Multiply(int.Parse(match.Groups["a"].Value, CultureInfo.InvariantCulture.NumberFormat), int.Parse(match.Groups["b"].Value, CultureInfo.InvariantCulture.NumberFormat)));
-#pragma warning restore SYSLIB1045 // Convert to 'GeneratedRegexAttribute'.
         }
 
         private static IEnumerable<(long left, long right)> ParseV3(this string data)
@@ -159,7 +156,7 @@ namespace Algorithms
                 .Select(match => match.ToString())
                 .Select(s =>
                 {
-                    var input = s.Replace("mul(", "").Replace(")", "");
+                    var input = s.Replace("mul(", "", StringComparison.InvariantCulture).Replace(")", "", StringComparison.InvariantCulture);
                     return input.Split(',') is string[] elements &&
                     elements.Length == 2
                         ? (long.Parse(elements[0], CultureInfo.InvariantCulture.NumberFormat), long.Parse(elements[1], CultureInfo.InvariantCulture.NumberFormat))

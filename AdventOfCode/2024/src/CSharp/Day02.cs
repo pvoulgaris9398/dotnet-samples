@@ -1,5 +1,4 @@
-using Common;
-namespace Algorithms
+namespace Advent2024
 {
     /// <summary>
     /// WIP: Saturday, 4/5/25

@@ -1,4 +1,6 @@
-﻿namespace Algorithms
+using Advent2024;
+
+namespace Advent2024
 {
     static class Day12Alternate
     {
