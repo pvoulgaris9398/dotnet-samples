@@ -6,29 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="FoldExample.fs" />
-    <Compile Include="ComputationExpression1.fs" />
-    <Compile Include="ComputationExpression2.fs" />
-    <Compile Include="Interpreter2.fs" />
-    <Compile Include="Interpreter.fs" />
-    <None Include="Reactive.fsx" />
-    <Compile Include="Catamorphism.fs" />
     <Compile Include="Common.fs" />
-    <Compile Include="ActivePatterns.fs" />
-    <Compile Include="QueryBuilderExtensions.fs" />
-    <Compile Include="MatchExpressions.fs" />
-    <Compile Include="Slices.fs" />
     <Compile Include="FileReader.fs" />
-    <Compile Include="Lists.fs" />
     <Compile Include="Coordinates.fs" />
-    <None Include="TypeProviders.fsx" />
-    <Compile Include="Covariance.fs" />
-    <Compile Include="Plotly.fs" />
-    <None Include="Sales.fsx" />
-    <Compile Include="BST.fs" />
-    <Compile Include="UnitsOfMeasure.fs" />
-    <Compile Include="Cards.fs" />
-    <None Include="Plotly2.fsx" />
     <Compile Include="Day01.fs" />
     <Compile Include="Day02.fs" />
     <Compile Include="Day03.fs" />
@@ -37,13 +17,6 @@
     <Compile Include="Day14.fs" />
     <Compile Include="Day15.fs" />
     <Compile Include="Runner.fs" />
-    <None Include="Scratch.fsx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Plotly.NET" Version="5.0.0" />
-    <PackageReference Include="FSharp.Stats" Version="0.6.0" />
-    <PackageReference Include="FSharp.Data" Version="6.6.0" />
   </ItemGroup>
 
   <ItemGroup>

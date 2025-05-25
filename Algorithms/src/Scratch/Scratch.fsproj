@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ActivePatterns.fs" />
+    <Compile Include="BST.fs" />
+    <Compile Include="Cards.fs" />
+    <Compile Include="Catamorphism.fs" />
+    <Compile Include="ComputationExpression1.fs" />
+    <Compile Include="ComputationExpression2.fs" />
+    <Compile Include="Covariance.fs" />
+    <Compile Include="FoldExample.fs" />
+    <Compile Include="Interpreter.fs" />
+    <Compile Include="Interpreter2.fs" />
+    <Compile Include="Lists.fs" />
+    <Compile Include="MatchExpressions.fs" />
+    <Compile Include="Plotly.fs" />
+    <Compile Include="QueryBuilderExtensions.fs" />
+    <Compile Include="Slices.fs" />
+    <Compile Include="UnitsOfMeasure.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Plotly2.fsx" />
+    <None Include="Reactive.fsx" />
+    <None Include="Sales.fsx" />
+    <None Include="Scratch.fsx" />
+    <None Include="TypeProviders.fsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Plotly.NET" Version="5.0.0" />
+    <PackageReference Include="FSharp.Stats" Version="0.6.0" />
+    <PackageReference Include="FSharp.Data" Version="6.6.0" />
+  </ItemGroup>
+
+</Project>

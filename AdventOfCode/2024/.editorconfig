@@ -16,7 +16,7 @@ dotnet_diagnostic.CA2000.severity = suggestion
 
 # CA2208: Instantiate argument exceptions correctly
 dotnet_diagnostic.CA2208.severity = suggestion
-
+S
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = none
 
@@ -56,7 +56,7 @@ csharp_style_expression_bodied_lambdas = true:silent
 csharp_style_expression_bodied_local_functions = false:silent
 csharp_indent_labels = no_change
 
-[*.{cs,vb}]
+[*.{cs}]
 #### Naming styles ####
 
 # Naming rules
