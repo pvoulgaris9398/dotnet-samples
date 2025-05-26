@@ -72,27 +72,13 @@ let filterArray map pred =
     }
     |> Seq.choose id
 
-let getPoints data =
-    seq {
-        for y in 0 .. (Array2D.length2 data - 1) do
-            for x in 0 .. (Array2D.length1 data - 1) do
-                let result =
-                    match data.[x, y] with
-                    | '#' -> Wall(x, y)
-                    | '@' -> Robot(x, y)
-                    | '.' -> Empty(x, y)
-                    | 'O' -> Box(x, y)
-                    | _ -> failwith "Invalid character!"
-
-                yield result
-    }
-
-let getPoints2 (data: seq<string>) : (seq<Point>) =
+let getPoints (data: seq<string>) : (seq<Point>) =
     seq {
         let columnCount = Seq.item 0 data |> String.length
 
         for rowIndex in 0 .. Seq.length data - 1 do
             for columnIndex in 0 .. columnCount - 1 do
+
                 let row = Seq.item rowIndex data
                 let cell = Seq.item columnIndex row
 
@@ -107,6 +93,25 @@ let getPoints2 (data: seq<string>) : (seq<Point>) =
                 yield result
     }
 
+type Tester =
+    | Tester of int * int
+
+    member inline this.x =
+        match this with
+        | Tester(x, _) -> x
+
+    member inline this.y =
+        match this with
+        | Tester(_, y) -> y
+
+let Test0 =
+    let tester = Tester(11, 17)
+    printfn $"%O{tester}"
+
+    //let (x, y) = tester
+
+    ()
+
 ///
 /// Day 14 of: https://adventofcode.com/2024
 ///
@@ -120,7 +125,7 @@ let Run (testing: bool) =
     //let data2 = listTo2DArray testData2 columns
 
     let points =
-        getPoints2 testData2 |> Seq.toList |> Seq.iter (fun m -> printfn $"%A{m}")
+        getPoints testData2 |> Seq.toList |> Seq.iter (fun m -> printfn $"%A{m}")
 
     printfn "\nDay14 - DONE\n"
 
