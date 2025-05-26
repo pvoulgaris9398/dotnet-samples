@@ -10,7 +10,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AnalysisMode>all</AnalysisMode>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>All</AnalysisMode>
   </PropertyGroup>
 
   <ItemGroup>

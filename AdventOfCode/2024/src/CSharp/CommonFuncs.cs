@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Advent2024
 {
-    public static class CommonFuncs
+    internal static class CommonFuncs
     {
         /// <summary>
         /// TODO: Properly implement
