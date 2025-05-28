@@ -6,6 +6,33 @@ open System
 [<Literal>]
 let fileName = "..\\..\\..\\..\\..\\day1.txt"
 
+let split (on: string) (line: string) =
+    let a =
+        on.Split(line, StringSplitOptions.RemoveEmptyEntries ||| StringSplitOptions.TrimEntries)
+        |> Seq.map (_.Trim())
+        |> List.ofSeq
+
+    a
+
+module Tuple =
+    let ofList2 =
+        function
+        | [ a; b ] -> (a, b)
+        | _ -> failwith "Wrong-size array!"
+
+let f2 foo (x, y) = foo x y
+
+let f3 (a: list<int>) (b: list<int>) : list<int> * list<int> = List.sort a, List.sort b
+
+let rec zipTwo (x: int list) (y: int list) : ((int * int) list) option =
+    match x, y with
+    | ([], []) -> Some []
+    | (xhd :: xtl, yhd :: ytl) ->
+        match zipTwo xtl ytl with
+        | None -> None
+        | Some lst -> Some((xhd, yhd) :: lst)
+    | (_, _) -> None
+
 ///
 /// Day 1 of: https://adventofcode.com/2024
 ///

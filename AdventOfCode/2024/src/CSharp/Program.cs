@@ -1,5 +1,5 @@
 using Advent2024;
 
-Day13.Run();
+Day15.Run();
 
-Day13.Test1();
+Day15.Test1();
