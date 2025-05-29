@@ -69,6 +69,47 @@
         private static Point Move(this Point current, Point direction, char[][] map)
         {
             var nextMove = current + direction;
+            var stack = new Stack<Point>();
+            stack.Push(nextMove);
+
+            while (stack.Count > 0)
+            {
+                if (nextMove.IsAtWall(map)) break;
+
+                if (nextMove.IsAllowed(map))
+                {
+                    var first = map[current.X][current.Y];
+                    var second = map[nextMove.X][nextMove.Y];
+
+                    /* Swap them*/
+                    map[current.X][current.Y] = second;
+                    map[nextMove.X][nextMove.Y] = first;
+
+                    // Walk back up the stack
+                    nextMove = stack.Pop();
+                }
+                else
+                {
+                    nextMove = nextMove + direction;
+                    stack.Push(nextMove);
+                }
+                if (stack.Count > 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    return nextMove;
+                }
+            }
+            return current;
+        }
+
+
+
+        private static Point Move2(this Point current, Point direction, char[][] map)
+        {
+            var nextMove = current + direction;
 
             if (nextMove.IsAtWall(map))
             {
