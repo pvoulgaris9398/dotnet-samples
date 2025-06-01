@@ -90,6 +90,7 @@
                 }
                 else
                 {
+                    current = nextMove;
                     nextMove = nextMove + direction;
                     stack.Push(nextMove);
                 }

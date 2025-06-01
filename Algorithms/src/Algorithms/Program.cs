@@ -1,3 +1,5 @@
-using Algorithms;
+using Algorithms.ProjectEuler;
 
-PlotlyExample.Execute2();
+Puzzle001.Run();
+
+//PlotlyExample.Execute2();
