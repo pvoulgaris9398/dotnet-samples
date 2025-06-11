@@ -1,8 +1,8 @@
 ﻿namespace Algorithms
 {
-    internal class Graph
+    internal sealed class Graph
     {
-        public record Edge(int From, int To, int Weight);
+        internal sealed record Edge(int From, int To, int Weight);
         public static void Run()
         {
             List<Edge> edges = [];

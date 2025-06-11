@@ -16,9 +16,8 @@ namespace Algorithms
             //var allowedFormula = @"[0-9.\+\-\*\/\^ \(\)%]";
             //var isMathSymbol = @"[\+\-\*\/\^\(\)]";
             //var brackets = @"\((?<InsideBrackets>[0-9.\+\-\*\/\^]*)\)";
-            var power = @"(?<Power>[\+\-\*\/\^][0-9.]*[\^]{1}[\-]{0,1}[0-9.]*)";
             //var multiplyDivide = @"(?<MultiplyDivide>[\+\-][0-9.]*[\*\/]{1}[\-]{0,1}[0-9.]*)";
-
+            var power = @"(?<Power>[\+\-\*\/\^][0-9.]*[\^]{1}[\-]{0,1}[0-9.]*)";
 
             var input = "5+8*4^2";
 
@@ -78,6 +77,7 @@ namespace Algorithms
         }
     }
     internal abstract record Token;
+
     /// <summary>
     /// error CA1852: Type '****' can be sealed because it has no subtypes in its containing assembly 
     /// and is not externally visible
@@ -86,7 +86,9 @@ namespace Algorithms
     /// <param name="Value"></param>
     internal sealed record Anything(string Value) : Token;
     internal sealed record Why(string Value) : Token;
+    internal sealed record Multiply(int Left, int Right) : Token;
+#pragma warning disable CA1812
     internal sealed record When(string Value) : Token;
     internal sealed record Select(string Value) : Token;
-    internal sealed record Multiply(int Left, int Right) : Token;
+#pragma warning restore CA1812
 }

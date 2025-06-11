@@ -3,7 +3,9 @@ using System.Diagnostics;
 
 namespace Algorithms.ProjectEuler
 {
-    internal class Puzzle002
+#pragma warning disable CA1812
+    internal sealed class Puzzle002
+#pragma warning restore CA1812
     {
         public static void Run()
         {
@@ -15,7 +17,11 @@ namespace Algorithms.ProjectEuler
             {
                 i++;
                 var temp = f.Calculate1(i);
+#pragma warning disable IDE0059
+#pragma warning disable S1481
                 var temp2 = f.Calculate3(i);
+#pragma warning restore S1481
+#pragma warning restore IDE0059
                 if (temp >= 4000000) break;
                 if (temp % 2 == 0) sum += temp;
             }
@@ -49,7 +55,7 @@ namespace Algorithms.ProjectEuler
 
             foreach (long i in Enumerable.Range(0, number))
             {
-                var result = await f.Calculate2(i);
+                var result = await f.Calculate2(i).ConfigureAwait(false);
                 if (logIntermediate) WriteLine($"{result}");
             }
 
@@ -77,9 +83,9 @@ namespace Algorithms.ProjectEuler
             WriteLine($"Ellapsed time for {nameof(Fibonacci.Calculate2)} was {stopWatch.Elapsed}");
         }
 
-        private class Fibonacci
+        private sealed class Fibonacci
         {
-            private ConcurrentDictionary<long, long> _cache = new()
+            private readonly ConcurrentDictionary<long, long> _cache = new()
             {
                 [0] = 0,
                 [1] = 1
@@ -87,7 +93,7 @@ namespace Algorithms.ProjectEuler
 
             internal long Calculate1(long number)
             {
-                if (_cache.ContainsKey(number)) return _cache[number];
+                if (_cache.TryGetValue(number, out long value)) return value;
 
                 return _cache[number] = Calculate1(number - 1) + Calculate1(number - 2);
             }
@@ -99,14 +105,15 @@ namespace Algorithms.ProjectEuler
             /// <returns></returns>
             internal async Task<long> Calculate2(long number)
             {
-                if (_cache.ContainsKey(number)) return _cache[number];
+                if (_cache.TryGetValue(number, out long value)) return value;
 
                 var task1 = Task.Run(() => Calculate2(number - 1));
                 var task2 = Task.Run(() => Calculate2(number - 2));
 
-                await Task.WhenAll(task1, task2);
-
+                await Task.WhenAll(task1, task2).ConfigureAwait(false);
+#pragma warning disable CA1849
                 return _cache[number] = task1.Result + task2.Result;
+#pragma warning restore CA1849
             }
 
             /// <summary>
