@@ -5,6 +5,8 @@ dotnet_diagnostic.FS3261.severity = none
 
 [*.cs]
 
+dotnet_diagnostic.CA1303.severity = none
+
 dotnet_diagnostic.CA1822.severity = none
 
 # IDE0320: Make anonymous function static
