@@ -1,7 +1,6 @@
-using Algorithms.ProjectEuler;
+using Algorithms;
 
-Puzzle004.Run();
+WriteLine($"{Change.getJointProbability([.4, .5, .2], 3)}");
 
-//Puzzle002.Test3(100, true);
 
-//PlotlyExample.Execute2();
+
