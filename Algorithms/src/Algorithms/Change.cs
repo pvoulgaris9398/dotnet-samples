@@ -2,13 +2,13 @@
 {
     internal static class Change
     {
-        private static Dictionary<(decimal, int), int> countCache = new() { { (0.00M, 0), 1 } };
-        internal static int countChangeMemoized(decimal amount, params decimal[] coins) =>
+        private static readonly Dictionary<(decimal, int), int> countCache = new() { { (0.00M, 0), 1 } };
+        internal static int CountChangeMemoized(decimal amount, params decimal[] coins) =>
     countCache.TryGetValue((amount, coins.Length), out int value) ? value
     : amount < 0 || coins.Length == 0 ? 0
-    : countCache[(amount, coins.Length)] = countChangeMemoized(amount, coins[..^1]) + countChangeMemoized(amount - coins[^1], coins);
+    : countCache[(amount, coins.Length)] = CountChangeMemoized(amount, coins[..^1]) + CountChangeMemoized(amount - coins[^1], coins);
 
-        internal static int countChangeTabulated(decimal amount, params decimal[] coins)
+        internal static int CountChangeTabulated(decimal amount, params decimal[] coins)
         {
             decimal unit = coins.Min();
 
@@ -28,8 +28,9 @@
             return counts[^1];
         }
 
-        internal static double getJointProbability(double[] eventProbabilities, int k)
+        internal static double GetJointProbability(double[] eventProbabilities)
         {
+            int k = eventProbabilities.Length;
             double[] p = new double[k + 1];
             p[0] = 1.0;
 

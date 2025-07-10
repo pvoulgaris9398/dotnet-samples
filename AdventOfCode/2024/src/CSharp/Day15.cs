@@ -7,27 +7,27 @@
             public static Point operator +(Point p1, Point p2) => new(p1.X + p2.X, p1.Y + p2.Y);
         }
 
-        private record Robot(Point Current);
+        private sealed record Robot(Point Current);
 
-        private record Box(Point Current)
+        private sealed record Box(Point Current)
         {
             public char Symbol = 'O';
         }
 
-        private record Wall(Point Point)
+        private sealed record Wall(Point Point)
         {
             public char Symbol = '#';
         }
 
-        private record Empty(Point Point)
+        private sealed record Empty(Point Point)
         {
             public char Symbol = '.';
         }
 
-        private record Left() : Point(0, -1);
-        private record Right() : Point(0, +1);
-        private record Up() : Point(-1, 0);
-        private record Down() : Point(+1, 0);
+        private sealed record Left() : Point(0, -1);
+        private sealed record Right() : Point(0, +1);
+        private sealed record Up() : Point(-1, 0);
+        private sealed record Down() : Point(+1, 0);
 
         private static List<string> RealData => CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\data\\day15.txt");
 
@@ -91,7 +91,7 @@
                 else
                 {
                     current = nextMove;
-                    nextMove = nextMove + direction;
+                    nextMove += direction;
                     stack.Push(nextMove);
                 }
                 if (stack.Count > 0)

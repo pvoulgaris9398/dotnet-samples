@@ -119,9 +119,9 @@
             Enumerable.Range(0, box.Size)
             .Select(i => (new Point(box.Position.Row, box.Position.Column + i), box));
 
-        record State(Point Robot, Boxes Boxes, HashSet<Point> Walls);
+        private sealed record State(Point Robot, Boxes Boxes, HashSet<Point> Walls);
 
-        record Boxes(Dictionary<Point, Box> Index);
+        private sealed record Boxes(Dictionary<Point, Box> Index);
 
         record struct Box(Point Position, int Size);
 

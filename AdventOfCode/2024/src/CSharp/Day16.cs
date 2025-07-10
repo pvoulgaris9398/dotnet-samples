@@ -23,7 +23,7 @@ namespace Advent2024
         private static ReachedState ToReachedState(this Point point) =>
             new(0, [point]);
 
-        internal record ReachedState(int Cost, ImmutableList<Point> Steps);
+        internal sealed record ReachedState(int Cost, ImmutableList<Point> Steps);
 
         private static ReachedState Add(this ReachedState reached, Point point, int cost) =>
         new(0, reached.Steps.Add(point));
@@ -104,9 +104,9 @@ namespace Advent2024
         private static bool IsEnd(this char[][] maze, Point point) =>
             maze.At(point) == 'E';
 
-        internal record State(Point Position, Direction Orientation);
-        internal record Direction(int RowStep, int ColumnStep);
-        internal record Point(int Row, int Column);
+        internal sealed record State(Point Position, Direction Orientation);
+        internal sealed record Direction(int RowStep, int ColumnStep);
+        internal sealed record Point(int Row, int Column);
 
         private static char[][] ReadMaze(this TextReader text) =>
             [.. text.ReadLines().Select(line => line.ToCharArray())];

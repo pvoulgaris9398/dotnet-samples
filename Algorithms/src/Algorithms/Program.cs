@@ -1,6 +1,16 @@
-using Algorithms;
 
-WriteLine($"{Change.getJointProbability([.4, .5, .2], 3)}");
+var quotient = 8;
+
+//foreach (var i in Enumerable.Range(0, 100))
+//{
+//    Console.WriteLine($"{nameof(i)} modulo {quotient} = {i % quotient}");
+//}
+
+foreach (var i in Enumerable.Range(0, 100))
+{
+    Console.WriteLine($"{nameof(i)} modulo {quotient} = {i & (quotient - 1)}");
+}
+
 
 
 
