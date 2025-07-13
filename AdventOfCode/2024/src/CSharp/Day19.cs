@@ -2,24 +2,65 @@
 {
     internal static class Day19
     {
+
         private const string Prod = "..\\..\\..\\..\\..\\data\\day19.txt";
 
         private const string Test1 = "..\\..\\..\\..\\..\\data\\day19-test.txt";
-        internal static void Run(bool testing = true)
+
+        internal static (IEnumerable<string>, IEnumerable<string>) Data(bool testing = false)
+        {
+            TextReader file = File.OpenText(testing ? Test1 : Prod);
+            var towels = file.ReadTowels();
+            var pattterns = file.ReadPatterns();
+            return (towels.ToList(), pattterns.ToList());
+        }
+
+        public static void Run((IEnumerable<string>, IEnumerable<string>) data)
         {
             WriteLine(new string('*', 80));
-            WriteLine($"{nameof(Day07)}.{nameof(Run)}");
+            WriteLine($"{nameof(Day19)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
-            TextReader file = File.OpenText(testing ? Test1 : Prod);
+            var (towels, patterns) = data;
 
-            var towels = file.ReadTowels().ToList();
+            var pathCount = patterns.Count(p => p.Paths(towels) > 0);
+            var totalCount = patterns.Sum(p => p.Paths(towels));
 
-            var patterns = file.ReadPatterns().ToList();
+            WriteLine($"{nameof(pathCount)}: {pathCount}");
+            WriteLine($"{nameof(totalCount)}: {totalCount}");
+        }
 
-            WriteLine(towels.Count);
+        internal static void Benchmark()
+        {
+            string[] towels = ["r", "wr", "b", "g", "bwu", "rb", "gb", "br"];
 
-            WriteLine(patterns.Count);
+            //WriteLine("bbrgwb".Paths(towels));
+
+            WriteLine("brwrr".Paths(towels));
+
+            WriteLine("ubwu".Paths(towels));
+
+        }
+
+        internal static long Paths(this string pattern, IEnumerable<string> towels)
+        {
+            long[] counts = new long[pattern.Length + 1];
+            counts[0] = 1;
+
+            for (int i = 0; i < pattern.Length; i++)
+            {
+                if (counts[i] == 0) continue;
+
+                //string slice = pattern.AsSpan().Slice(i, pattern.Length - i).ToString();
+                string slice = pattern.Substring(i);
+                foreach (string towel in towels.Where(slice.StartsWith))
+                {
+                    counts[i + towel.Length] += counts[i];
+                }
+            }
+
+            return counts[pattern.Length];
+
         }
 
         private static IEnumerable<string> ReadTowels(this TextReader text) =>
