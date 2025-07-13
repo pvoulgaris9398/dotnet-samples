@@ -1,68 +1,143 @@
-﻿namespace Algorithms.ProjectEuler
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
+
+namespace Algorithms.ProjectEuler
 {
-    internal static class Puzzle002
+#pragma warning disable CA1812
+    internal sealed class Puzzle002
+#pragma warning restore CA1812
     {
         public static void Run()
         {
-            var n = 10;
-            var result = Enumerable.Range(0, n).Select(i => Calculate(i)).ToList();
-            foreach (var num in result)
+            var f = new Fibonacci();
+            var sum = 0L;
+            var i = -1;
+
+            while (true)
             {
-                WriteLine($"{num}");
+                i++;
+                var temp = f.Calculate1(i);
+#pragma warning disable IDE0059
+#pragma warning disable S1481
+                var temp2 = f.Calculate3(i);
+#pragma warning restore S1481
+#pragma warning restore IDE0059
+                if (temp >= 4000000) break;
+                if (temp % 2 == 0) sum += temp;
             }
 
-            WriteLine(new string('*', 80));
-
-            var result2 = Generate(n).ToList();
-            foreach (var num2 in result2)
-            {
-                WriteLine($"{num2}");
-            }
-
+            WriteLine($"Result: {sum}");
         }
 
-        public static IEnumerable<int> Generate(int n)
+        public static void Test1(int number, bool logIntermediate = false)
         {
-            var prev = 0;
-            var nxt = 1;
+            var f = new Fibonacci();
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
 
-            if (n < 2)
+            foreach (long i in Enumerable.Range(0, number))
             {
-                yield return n;
+                var result = f.Calculate1(i);
+                if (logIntermediate) WriteLine($"{result}");
             }
 
-            for (int i = 2; i < n; i++)
-            {
-                prev = nxt;
-                nxt = prev + nxt;
-            }
-            yield return nxt;
+            stopWatch.Stop();
+
+            WriteLine($"Ellapsed time for {nameof(Fibonacci.Calculate1)} was {stopWatch.Elapsed}");
         }
 
-        public static int Calculate2(int n)
+        public async static Task Test2(int number, bool logIntermediate = false)
         {
-            var prev = 0;
-            var nxt = 1;
+            var f = new Fibonacci();
 
-            if (n < 2)
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            foreach (long i in Enumerable.Range(0, number))
             {
-                return n;
+                var result = await f.Calculate2(i).ConfigureAwait(false);
+                if (logIntermediate) WriteLine($"{result}");
             }
 
-            for (int i = 2; i < n; i++)
-            {
-                prev = nxt;
-                nxt = prev + nxt;
-            }
-            return nxt;
+            stopWatch.Stop();
+
+            WriteLine($"Ellapsed time for {nameof(Fibonacci.Calculate2)} was {stopWatch.Elapsed}");
         }
 
-        public static int Calculate(int n)
+        public static void Test3(int number, bool logIntermediate = false)
         {
-            if (n < 2)
-                return n;
-            else
-                return Calculate(n - 1) + Calculate(n - 2);
+            var f = new Fibonacci();
+
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+
+            foreach (long i in Enumerable.Range(0, number))
+            {
+                var result1 = f.Calculate1(i);
+                var result3 = f.Calculate3(i);
+                if (logIntermediate) WriteLine($"Iteration # {i}:\t{nameof(result1)}: {result1}\t{nameof(result3)}: {result3}");
+            }
+
+            stopWatch.Stop();
+
+            WriteLine($"Ellapsed time for {nameof(Fibonacci.Calculate2)} was {stopWatch.Elapsed}");
+        }
+
+        private sealed class Fibonacci
+        {
+            private readonly ConcurrentDictionary<long, long> _cache = new()
+            {
+                [0] = 0,
+                [1] = 1
+            };
+
+            internal long Calculate1(long number)
+            {
+                if (_cache.TryGetValue(number, out long value)) return value;
+
+                return _cache[number] = Calculate1(number - 1) + Calculate1(number - 2);
+            }
+
+            /// <summary>
+            /// Actually, slower than Calculate1
+            /// </summary>
+            /// <param name="number"></param>
+            /// <returns></returns>
+            internal async Task<long> Calculate2(long number)
+            {
+                if (_cache.TryGetValue(number, out long value)) return value;
+
+                var task1 = Task.Run(() => Calculate2(number - 1));
+                var task2 = Task.Run(() => Calculate2(number - 2));
+
+                await Task.WhenAll(task1, task2).ConfigureAwait(false);
+#pragma warning disable CA1849
+                return _cache[number] = task1.Result + task2.Result;
+#pragma warning restore CA1849
+            }
+
+            /// <summary>
+            /// Resources:
+            /// https://en.wikipedia.org/wiki/Golden_ratio
+            /// https://mathworld.wolfram.com/GoldenRatio.html
+            /// https://mathworld.wolfram.com/BinetsFormula.html
+            /// Between number 71 and 72, Binet's Formula is inaccurate
+            /// See: https://www.geeksforgeeks.org/find-nth-fibonacci-number-using-binets-formula/
+            /// TODO: Figure out what can be done about this?
+            /// </summary>
+            /// <param name="number"></param>
+            /// <returns></returns>
+            internal long Calculate3(long number)
+            {
+                var PHI = ((1 + Math.Sqrt(5)) / 2);
+                var PSI = ((1 - Math.Sqrt(5)) / 2);
+                var numerator = Math.Pow(PHI, number) - Math.Pow(PSI, number);
+                var denominator = Math.Sqrt(5);
+
+                var result = numerator / denominator;
+
+                return (long)result;
+            }
         }
     }
 }

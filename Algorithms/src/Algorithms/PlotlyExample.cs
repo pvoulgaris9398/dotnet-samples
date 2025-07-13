@@ -40,7 +40,7 @@ namespace Algorithms
         internal static void Execute1()
         {
             double[] x = [.. Enumerable.Range(1, 1000).Select(i => (double)i / 100f)];
-            double[] y = [.. Enumerable.Range(1, 1000).Select(i => (double)Math.Pow(i / 100f, 2))];
+            double[] y = [.. Enumerable.Range(1, 1000).Select(i => Math.Pow(i / 100f, 2))];
 
             LinearAxis xAxis = new();
             xAxis.SetValue("title", "xAxis");

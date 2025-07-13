@@ -1,5 +1,8 @@
 using Advent2024;
 
-Day15.Run();
+Day19.Run(Day19.Data());
 
-Day15.Test1();
+/*
+using BenchmarkDotNet.Running;
+var summary = BenchmarkRunner.Run<Day19Benchmark>();
+*/

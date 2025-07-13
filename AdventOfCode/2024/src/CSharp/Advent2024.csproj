@@ -7,12 +7,17 @@
     <Nullable>enable</Nullable>
     <NoWarn>$(NoWarn);SYSLIB1045</NoWarn>
     <RootNamespace>Advent2024</RootNamespace>
+    <UserSecretsId>58ce8774-3948-4917-8cb0-5d503cbb8672</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>All</AnalysisMode>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.15.2" />
+  </ItemGroup>
 
   <ItemGroup>
     <Using Static="true" Include="System.Console" />

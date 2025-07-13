@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Algorithms
 {
-    public static class CommonFuncs
+    internal static class CommonFuncs
     {
         public static char[][] ReadMap(this List<string> lines) =>
             [.. lines.Select(line => line.ToCharArray())];
@@ -49,9 +49,9 @@ namespace Algorithms
             };
 #pragma warning restore CA2208 // Instantiate argument exceptions correctly
         }
-
+#pragma warning disable CA2000
         public static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
-
+#pragma warning restore CA2000
 
         public static List<List<T>> Transpose<T>(this IEnumerable<IEnumerable<T>> values) =>
             values.Aggregate(
@@ -74,6 +74,7 @@ namespace Algorithms
 
         public static IEnumerable<string> ReadLines(this TextReader reader)
         {
+            ArgumentNullException.ThrowIfNull(reader);
             while (reader.ReadLine() is string line)
             {
                 yield return line;

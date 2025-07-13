@@ -12,7 +12,7 @@ dotnet_diagnostic.CA1851.severity = suggestion
 
 # TODO: Fix these
 # CA2000: Dispose objects before losing scope
-dotnet_diagnostic.CA2000.severity = suggestion
+dotnet_diagnostic.CA2000.severity = none
 
 # CA2208: Instantiate argument exceptions correctly
 dotnet_diagnostic.CA2208.severity = suggestion
@@ -24,16 +24,13 @@ dotnet_diagnostic.CA1303.severity = none
 dotnet_diagnostic.CA1823.severity = suggestion
 
 # Remove unused parameter (IDE0060)
-dotnet_code_quality_unused_parameters.severity = suggestion
+dotnet_code_quality_unused_parameters.severity = none
 
 # IDE0320: Make anonymous function static
 dotnet_diagnostic.IDE0320.severity = suggestion
 
-# Remove unused parameter (IDE0060)
-dotnet_diagnostic.IDE0060.severity = suggestion
-
 # IDE0051: Remove unused private member
-dotnet_diagnostic.IDE0051.severity = suggestion
+dotnet_diagnostic.IDE0051.severity = none
 
 # Use collection expression for fluent
 dotnet_diagnostic.IDE0305.severity = error

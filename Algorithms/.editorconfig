@@ -1,6 +1,13 @@
 ﻿root = true
 
+[*.fs]
+dotnet_diagnostic.FS3261.severity = none
+
 [*.cs]
+
+dotnet_diagnostic.CA1303.severity = none
+
+dotnet_diagnostic.CA1822.severity = none
 
 # IDE0320: Make anonymous function static
 dotnet_diagnostic.IDE0320.severity = suggestion
@@ -22,7 +29,7 @@ csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 csharp_style_prefer_primary_constructors = true:suggestion
 csharp_prefer_system_threading_lock = true:suggestion
-csharp_style_expression_bodied_methods = when_on_single_line
+csharp_style_expression_bodied_methods = false:silent
 csharp_style_expression_bodied_constructors = false:silent
 csharp_style_expression_bodied_operators = false:silent
 csharp_style_expression_bodied_properties = true:silent
