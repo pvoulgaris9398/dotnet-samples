@@ -1,5 +1,5 @@
 using Algorithms.ProjectEuler;
 
-Puzzle001.Run();
+Puzzle002.Run();
 
 //PlotlyExample.Execute2();
