@@ -8,7 +8,9 @@ React to user input and call appropriate option
 */
 
 (Func<string>, Action)[] tasks = [
-    (DemonstrateObservable.Description,
+    (ExpressionExample.Description,
+        ExpressionExample.Execute)
+    ,(DemonstrateObservable.Description,
         DemonstrateObservable.Execute)
     ,(BasicObservableExample.Description,
         BasicObservableExample.Execute)

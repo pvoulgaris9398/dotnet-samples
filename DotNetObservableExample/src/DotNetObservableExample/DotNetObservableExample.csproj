@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Investments\Investments.fsproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Expressions\" />
+  </ItemGroup>
+
 </Project>
