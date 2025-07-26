@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
     <None Include="Plotly2.fsx" />
     <None Include="Reactive.fsx" />
     <None Include="Sales.fsx" />
@@ -41,7 +42,7 @@
 
   <ItemGroup>
     <PackageReference Include="Plotly.NET" />
-    <PackageReference Include="FSharp.Stats"/>
+    <PackageReference Include="FSharp.Stats" />
     <PackageReference Include="FSharp.Data" />
   </ItemGroup>
 

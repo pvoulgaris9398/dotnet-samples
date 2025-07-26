@@ -1,4 +1,4 @@
-﻿namespace Algorithms
+namespace Algorithms
 {
     internal sealed class Graph
     {
@@ -29,6 +29,7 @@
         /// <summary>
         /// Breadth-First Search
         /// </summary>
+        /// <param name="edges"></param>
         /// <param name="start"></param>
         /// <returns></returns>
         public static IEnumerable<(int, int)> Search(List<Edge> edges, int start)

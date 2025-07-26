@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
 namespace Algorithms.ProjectEuler
@@ -46,7 +46,7 @@ namespace Algorithms.ProjectEuler
             WriteLine($"Ellapsed time for {nameof(Fibonacci.Calculate1)} was {stopWatch.Elapsed}");
         }
 
-        public async static Task Test2(int number, bool logIntermediate = false)
+        public static async Task Test2(int number, bool logIntermediate = false)
         {
             var f = new Fibonacci();
 
@@ -91,12 +91,7 @@ namespace Algorithms.ProjectEuler
                 [1] = 1
             };
 
-            internal long Calculate1(long number)
-            {
-                if (_cache.TryGetValue(number, out long value)) return value;
-
-                return _cache[number] = Calculate1(number - 1) + Calculate1(number - 2);
-            }
+            internal long Calculate1(long number) => _cache.TryGetValue(number, out long value) ? value : (_cache[number] = Calculate1(number - 1) + Calculate1(number - 2));
 
             /// <summary>
             /// Actually, slower than Calculate1
@@ -110,7 +105,7 @@ namespace Algorithms.ProjectEuler
                 var task1 = Task.Run(() => Calculate2(number - 1));
                 var task2 = Task.Run(() => Calculate2(number - 2));
 
-                await Task.WhenAll(task1, task2).ConfigureAwait(false);
+                _ = await Task.WhenAll(task1, task2).ConfigureAwait(false);
 #pragma warning disable CA1849
                 return _cache[number] = task1.Result + task2.Result;
 #pragma warning restore CA1849
@@ -129,8 +124,8 @@ namespace Algorithms.ProjectEuler
             /// <returns></returns>
             internal long Calculate3(long number)
             {
-                var PHI = ((1 + Math.Sqrt(5)) / 2);
-                var PSI = ((1 - Math.Sqrt(5)) / 2);
+                var PHI = (1 + Math.Sqrt(5)) / 2;
+                var PSI = (1 - Math.Sqrt(5)) / 2;
                 var numerator = Math.Pow(PHI, number) - Math.Pow(PSI, number);
                 var denominator = Math.Sqrt(5);
 

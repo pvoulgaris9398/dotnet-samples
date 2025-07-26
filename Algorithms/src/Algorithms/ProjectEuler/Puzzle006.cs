@@ -1,4 +1,4 @@
-﻿namespace Algorithms.ProjectEuler
+namespace Algorithms.ProjectEuler
 {
     internal static class Puzzle006
     {
@@ -8,8 +8,7 @@
             Func<int, long> square = n => n * n;
 
             var sumOfSquares = Enumerable.Range(1, 100)
-                .Select(square)
-                .Sum();
+                .Sum(square);
 
             var squareOfSum = square(Enumerable.Range(1, 100)
                 .Sum());

@@ -1,4 +1,4 @@
-﻿namespace Algorithms.ProjectEuler
+namespace Algorithms.ProjectEuler
 {
     internal static class Puzzle004
     {
@@ -7,15 +7,17 @@
 
         internal static void Run()
         {
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
             WriteLine($"{nameof(Puzzle004)}");
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
             // C# records do not implement IComparable
             WriteLine(LargestPalindromic(numberOfDigits: 2).Max(x => x.Product));
             WriteLine(LargestPalindromic(numberOfDigits: 3).Max(x => x.Product));
 
             // Interesting
-            WriteLine((int.MaxValue).ToFactors());
-            WriteLine((0).ToFactors());
+            WriteLine(int.MaxValue.ToFactors());
+            WriteLine(0.ToFactors());
             WriteLine((-445).ToFactors());
 
             WriteLine(IsPalindromic(6570756));
@@ -26,7 +28,7 @@
         internal static IEnumerable<Result> LargestPalindromic(int numberOfDigits)
         {
             // Sanity Check
-            if (numberOfDigits < 0 || numberOfDigits > 5)
+            if (numberOfDigits is < 0 or > 5)
             {
                 yield break;
             }
@@ -34,6 +36,7 @@
             var (start, stop) = ToFactors(numberOfDigits);
 
             for (var first = start; first >= stop; first--)
+            {
                 for (var second = start; second >= stop; second--)
                 {
                     var product = first * second;
@@ -42,6 +45,7 @@
                         yield return new(first, second, product);
                     }
                 }
+            }
         }
 
         internal static (int, int) ToFactors(this int numberOfDigits) => ((int)Math.Pow(10, numberOfDigits) - 1, (int)Math.Pow(10, numberOfDigits - 1));
@@ -71,7 +75,7 @@
             while (number > 0)
             {
                 yield return number % 10;
-                number = number / 10;
+                number /= 10;
             }
         }
     }

@@ -1,15 +1,15 @@
-﻿namespace Algorithms
+namespace Algorithms
 {
     internal static class Fibonacci
     {
-        private static Dictionary<int, int> cache = new() { { 0, 0 }, { 1, 1 } };
+        private static readonly Dictionary<int, int> Cache = new() { { 0, 0 }, { 1, 1 } };
 
 
         /*  Memoized version
          */
         internal static int fibMemoized(int n) =>
-            cache.TryGetValue(n, out int value) ? value
-            : cache[n] = fibMemoized(n - 1) + fibMemoized(n - 2);
+            Cache.TryGetValue(n, out int value) ? value
+            : Cache[n] = fibMemoized(n - 1) + fibMemoized(n - 2);
 
         /*  Dynamic Programming with tabulation
          */
