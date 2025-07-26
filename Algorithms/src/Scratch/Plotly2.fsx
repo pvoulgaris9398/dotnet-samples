@@ -1,3 +1,4 @@
+#!/usr/bin/env -S dotnet fsi
 #r "nuget:FSharp.Data"
 #r "nuget: Plotly.NET, 3.0.1"
 
