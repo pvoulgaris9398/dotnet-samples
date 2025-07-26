@@ -10,15 +10,6 @@
     <PackageReference Include="Plotly.NET.CSharp" />
   </ItemGroup>
 
-  <!--
-  <ItemGroup Label="Code Analysis">
-    <PackageReference Include="SonarAnalyzer.CSharp">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-  -->
-
   <ItemGroup>
     <Using Static="true" Include="System.Console" />
   </ItemGroup>
