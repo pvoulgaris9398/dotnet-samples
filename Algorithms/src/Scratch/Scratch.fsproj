@@ -30,7 +30,6 @@
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
     <None Include="Plotly2.fsx" />
-    <None Include="Reactive.fsx" />
     <None Include="Sales.fsx" />
     <None Include="Scratch.fsx" />
     <None Include="TypeProviders.fsx" />
