@@ -1,1 +1,2 @@
-﻿printfn "Hello!"
+﻿
+Puzzle008.run

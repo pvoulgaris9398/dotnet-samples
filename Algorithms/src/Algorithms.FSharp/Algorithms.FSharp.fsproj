@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FSharp.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ProjectEuler\Puzzle008.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

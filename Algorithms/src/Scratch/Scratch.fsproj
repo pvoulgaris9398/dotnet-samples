@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="LargestProduct.fs" />
     <Compile Include="ActivePatterns.fs" />
     <Compile Include="BST.fs" />
     <Compile Include="Cards.fs" />
