@@ -2,11 +2,18 @@ namespace Algorithms
 {
     internal static class Change
     {
+
+        internal static void Test()
+        {
+            WriteLine($"{nameof(CountChangeTabulated)}: {CountChangeTabulated(10.00M, 0.01M, 0.05M, .10M, .25M, 0.50M, 1.00M):#,##0}");
+            WriteLine($"{nameof(CountChangeMemoized)}: {CountChangeMemoized(10.00M, 0.01M, 0.05M, .10M, .25M, 0.50M, 1.00M):#,##0}");
+        }
+
         private static readonly Dictionary<(decimal, int), int> CountCache = new() { { (0.00M, 0), 1 } };
         internal static int CountChangeMemoized(decimal amount, params decimal[] coins) =>
-    CountCache.TryGetValue((amount, coins.Length), out int value) ? value
-    : amount < 0 || coins.Length == 0 ? 0
-    : CountCache[(amount, coins.Length)] = CountChangeMemoized(amount, coins[..^1]) + CountChangeMemoized(amount - coins[^1], coins);
+            CountCache.TryGetValue((amount, coins.Length), out int value) ? value
+            : amount < 0 || coins.Length == 0 ? 0
+            : CountCache[(amount, coins.Length)] = CountChangeMemoized(amount, coins[..^1]) + CountChangeMemoized(amount - coins[^1], coins);
 
         internal static int CountChangeTabulated(decimal amount, params decimal[] coins)
         {

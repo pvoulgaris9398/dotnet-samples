@@ -1,6 +1,6 @@
 using Advent2024;
 
-Day19.Run(Day19.Data());
+Day20.Run(true);
 
 /*
 using BenchmarkDotNet.Running;
