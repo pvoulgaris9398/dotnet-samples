@@ -16,14 +16,33 @@
 
             char[][] maze = File.OpenText(data).ReadMaze();
 
-            var stepCount = maze.Walk().Count();
+            var paths = maze.Walk().ToArray();
+
+            var stepCount = paths.Length - 1;
+
+            int cheatingPaths2 = maze.FindSaves(paths, 2).Count(saved => saved >= 100);
 
             WriteLine($"{nameof(stepCount)}: {stepCount}");
-
-            var cheats = maze.Cheats().ToList();
-
+            WriteLine($"Cheating paths: {cheatingPaths2}");
 
         }
+
+        private static IEnumerable<int> FindSaves(this char[][] maze, Point[] path, int maxCut)
+        {
+            for (int i = 0; i < path.Length - 1; i++)
+            {
+                for (int j = i + 1; j < path.Length; j++)
+                {
+                    int distance = path[i].DistanceTo(path[j]);
+                    if (distance > maxCut) continue;
+                    if (distance >= j - i) continue;
+                    yield return j - i - distance;
+                }
+            }
+        }
+
+        private static int DistanceTo(this Point a, Point b) =>
+            Math.Abs(a.Row - b.Row) + Math.Abs(a.Column - b.Column);
 
         private static char[][] ReadMaze(this TextReader text) =>
             [.. text.ReadLines().Select(line => line.ToCharArray())];
@@ -81,6 +100,7 @@
         {
             Point next = map.GetStartPosition();
             Point end = map.GetEndPosition();
+            yield return next;
             while (true)
             {
                 Visited.Add((next.Row, next.Column));
