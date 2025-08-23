@@ -3,6 +3,8 @@
   "editor.formatOnSave": true,
   "editor.minimap.enabled": false,
   "editor.stickyScroll.enabled": false,
+  "debug.console.closeOnEnd":true,
+  "debug.openDebug":"openOnDebugBreak",
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "[fsharp]": {
     "diffEditor.ignoreTrimWhitespace": false,
