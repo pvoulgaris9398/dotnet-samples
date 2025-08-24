@@ -7,6 +7,6 @@ let convertToPigLatin (str: string) =
     else
         str.[1..] + string firstChar + "ay"
 
-convertToPigLatin "Peter"
-convertToPigLatin "Cecil"
-convertToPigLatin "Apple"
+printfn "%A" (convertToPigLatin "Peter")
+printfn "%A" (convertToPigLatin "Cecil")
+printfn "%A" (convertToPigLatin "Apple")
