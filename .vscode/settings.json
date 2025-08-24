@@ -1,7 +1,7 @@
 {
     "window.zoomLevel": 2,
     "terminal.integrated.defaultProfile.windows": "Git Bash",
-    "editor.minimap.autohide": true,
+    "editor.minimap.autohide": "mouseover",
     "files.exclude": {
         "**/bin": true,
         "**/obj": true,
