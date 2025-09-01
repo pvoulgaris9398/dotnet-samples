@@ -19,7 +19,7 @@ namespace Algorithms.ProjectEuler
                 var temp = f.Calculate1(i);
 #pragma warning disable IDE0059
 #pragma warning disable S1481
-                var temp2 = f.Calculate3(i);
+                var temp2 = Fibonacci.Calculate3(i);
 #pragma warning restore S1481
 #pragma warning restore IDE0059
                 if (temp >= 4000000) break;
@@ -74,7 +74,7 @@ namespace Algorithms.ProjectEuler
             foreach (long i in Enumerable.Range(0, number))
             {
                 var result1 = f.Calculate1(i);
-                var result3 = f.Calculate3(i);
+                var result3 = Puzzle002.Fibonacci.Calculate3(i);
                 if (logIntermediate) WriteLine($"Iteration # {i}:\t{nameof(result1)}: {result1}\t{nameof(result3)}: {result3}");
             }
 
@@ -122,7 +122,7 @@ namespace Algorithms.ProjectEuler
             /// </summary>
             /// <param name="number"></param>
             /// <returns></returns>
-            internal long Calculate3(long number)
+            internal static long Calculate3(long number)
             {
                 var PHI = (1 + Math.Sqrt(5)) / 2;
                 var PSI = (1 - Math.Sqrt(5)) / 2;

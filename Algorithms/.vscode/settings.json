@@ -1,0 +1,18 @@
+{
+  "window.zoomLevel": 2,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "editor.minimap.autohide": "mouseover",
+  "editor.formatOnSave": true,
+  "[jsonc]": {
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace",
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.exclude": {
+    "**/bin": true,
+    "**/obj": true,
+    "**/.vs": true
+  }
+}
