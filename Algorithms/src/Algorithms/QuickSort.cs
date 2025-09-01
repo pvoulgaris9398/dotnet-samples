@@ -1,8 +1,6 @@
 
 internal static class QuickSort
 {
-    // private static int[] _array = [52, 96, 67, 71, 42, 38, 39, 40, 14];
-
     internal static int[] Sort(int[] array, int leftIndex, int rightIndex)
     {
         var i = leftIndex;

@@ -5,6 +5,7 @@
     "esbenp.prettier-vscode",
     "ms-dotnettools.vscodeintellicode-csharp",
     "ms-dotnettools.csharp",
-    "ms-dotnettools.csdevkit"
+    "ms-dotnettools.csdevkit",
+    "ms-azuretools.vscode-containers"
   ]
 }

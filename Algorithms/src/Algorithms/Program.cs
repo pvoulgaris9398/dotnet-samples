@@ -10,10 +10,10 @@ foreach (var item in result1)
     WriteLine(item);
 }
 
-WriteLine("QuickSort Test 2");
+WriteLine("QuickSort2 Test 2");
 
 int[] array2 = [5, 4, 3, 5, 7, 6, 9, 4, 1, 1, 3, 4, 50, 56, 3, 41, 3];
-var result2 = QuickSort.Sort(array2, 0, array2.Length - 1);
+var result2 = QuickSort2.Sort(array2);
 
 foreach (var item in result2)
 {
