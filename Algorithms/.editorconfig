@@ -8,4 +8,7 @@ dotnet_diagnostic.CA1823.severity = none
 # CA1805: Do not initialize unnecessarily
 dotnet_diagnostic.CA1805.severity = none
 
+# CA1303: Do not pass literals as localized parameters
+dotnet_diagnostic.CA1303.severity = none
+
 dotnet_analyzer_diagnostic.severity = none
