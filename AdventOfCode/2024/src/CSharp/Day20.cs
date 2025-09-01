@@ -16,6 +16,11 @@
 
             char[][] maze = File.OpenText(data).ReadMaze();
 
+            var r1 = maze.HorizontalCheats().Distinct()
+                .Where(i => i.Start.Row == 1 && i.Start.Column == 8
+                || i.Finish.Row == 1 && i.Finish.Column == 8)
+                .ToList();
+
             var stepCount = maze.Walk().Count();
 
             WriteLine($"{nameof(stepCount)}: {stepCount}");
@@ -24,6 +29,8 @@
 
 
         }
+
+
 
         private static char[][] ReadMaze(this TextReader text) =>
             [.. text.ReadLines().Select(line => line.ToCharArray())];
@@ -50,19 +57,58 @@
         private static IEnumerable<(Point Start, Point Finish)> Cheats(this char[][] maze) =>
             maze.HorizontalCheats().Concat(maze.VerticalCheats());
 
-        private static IEnumerable<(Point Start, Point Finish)> VerticalCheats(this char[][] maze) =>
-            Enumerable.Range(0, maze[0].Length)
-                .Select(columnIndex => maze.AllPoints().Where(p => p.Column == columnIndex).ToList())
-                .Take(3)
-                .Where(x => x[0].Value == '.' && x[1].Value == '#' && x[2].Value == '.')
-                .Select(x => (x[0], x[2]));
+        private static IEnumerable<(Point Start, Point Finish)> VerticalCheats(this char[][] maze) => [];
 
         private static IEnumerable<(Point Start, Point Finish)> HorizontalCheats(this char[][] maze) =>
-            Enumerable.Range(0, maze.Length)
-                .Select(rowIndex => maze.AllPoints().Where(p => p.Row == rowIndex).ToList())
-                .Take(3)
-                .Where(x => x[0].Value == '.' && x[1].Value == '#' && x[2].Value == '.')
-                .Select(x => (x[0], x[2]));
+        Enumerable.Range(0, maze.Length - 1).SelectMany(i => maze.SelectMany(c => c.HorizontalCheats(i)));
+
+        private static IEnumerable<(Point Start, Point Finish)> HorizontalCheats(this char[] row, int rowIndex)
+        {
+            if (row.Length < 3) yield break;
+            for (int i = 0; i < row.Length - 3; i++)
+            {
+                char prev = row[i];
+                char middle = row[i + 1];
+                char next = row[i + 2];
+
+                if (prev == '.' && middle == '#' && next == '.')
+                {
+                    yield return (new Point(rowIndex, i, prev), new Point(rowIndex, i + 2, next));
+                }
+            }
+            yield break;
+        }
+
+        private static IEnumerable<(Point Start, Point Finish)> ToTest(this List<Point> values)
+        {
+            using var enumerator = values.GetEnumerator();
+            if (!enumerator.MoveNext())
+            {
+                yield break; // No _pairs_
+            }
+
+            Point prev = enumerator.Current;
+
+            if (!enumerator.MoveNext())
+            {
+                yield break; // No _triplets_
+            }
+
+            Point middle = enumerator.Current;
+
+            while (enumerator.MoveNext())
+            {
+                var next = enumerator.Current;
+                if (prev.Value == '.' && middle.Value == '#' && next.Value == '.')
+                {
+                    yield return (prev, next);
+                }
+
+                prev = middle;
+                middle = next;
+            }
+            yield break;
+        }
 
         private static Point Next(this Point point, char[][] maze) =>
             new[]
