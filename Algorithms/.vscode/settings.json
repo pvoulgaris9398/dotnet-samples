@@ -1,8 +1,21 @@
 {
   "window.zoomLevel": 2,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "editor.minimap.autohide": "mouseover",
+  "editor.stickyScroll.enabled": false,
+  "editor.minimap.enabled": false,
   "editor.formatOnSave": true,
+  "debug.console.closeOnEnd": true,
+  "debug.openDebug": "openOnDebugBreak",
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.fixAll": "always"
+    }
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[jsonc]": {
     "editor.quickSuggestions": {
       "strings": true

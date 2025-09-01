@@ -1,7 +1,9 @@
 {
   "recommendations": [
-    "github.vscode-github-actions",
+    "editorconfig.editorconfig",
+    "pkief.material-icon-theme",
     "esbenp.prettier-vscode",
+    "ms-dotnettools.vscodeintellicode-csharp",
     "ms-dotnettools.csharp",
     "ms-dotnettools.csdevkit"
   ]
