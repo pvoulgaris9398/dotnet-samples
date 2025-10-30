@@ -2,6 +2,13 @@
 
 set -e
 
+if [ $# -lt 1]; then
+    echo "Please provide the path you want to clean as an argument"
+    exit 1
+else
+    echo "Cleaning directory: '$1'"
+fi
+
 # Find and display directories to be deleted
 find . \( -iname "bin" -o -iname "obj" \) -type d -print
 
