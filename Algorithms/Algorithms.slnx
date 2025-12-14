@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/CSharp/">
+    <Project Path="src/Algorithms.Tests/Algorithms.Tests.csproj" Id="bfd1d485-0f22-4801-aa38-ae97c41b2b39" />
     <Project Path="src/Algorithms/Algorithms.csproj" />
   </Folder>
   <Folder Name="/FSharp/">

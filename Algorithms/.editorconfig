@@ -8,7 +8,7 @@ end_of_line = normal
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
-end_of_line = lf
+end_of_line = crlf
 
 dotnet_analyzer_diagnostic.severity = error
 dotnet_diagnostic.severity = error
@@ -17,6 +17,9 @@ csharp_diagnostic.severity = error
 
 dotnet_style_prefer_single_blank_line = true
 dotnet_style_prefer_single_blank_line.severity = error
+
+# CA1031: Do not catch general exception types
+dotnet_diagnostic.CA2201.severity = warning
 
 # CA1823: Avoid unused private fields
 dotnet_diagnostic.CA1823.severity = none
@@ -31,6 +34,9 @@ dotnet_diagnostic.CA1303.severity = none
 
 # IDE0055
 csharp_new_line_before_open_brace = all
+
+# Namespace declaration preferences (IDE0160 and IDE0161)
+csharp_style_namespace_declarations = file_scoped:error
 
 # Use expression body for methods (IDE0022)
 csharp_style_expression_bodied_methods = true

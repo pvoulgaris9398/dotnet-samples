@@ -13,4 +13,8 @@
     <Using Static="true" Include="System.Console" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Algorithms.Tests" />
+  </ItemGroup>
+
 </Project>

@@ -1,46 +1,45 @@
-﻿namespace Algorithms
+﻿namespace Algorithms;
+
+internal static class SieveOfErastothenes
 {
-    internal static class SieveOfErastothenes
+    // Nope! :-)
+    public static IEnumerable<int> FindCandidatePrimes2(int limit) =>
+        Enumerable.Range(2, limit)
+            .Where(i => i % 2 == 0)
+            .Where(i => i % 3 == 0);
+
+    public static IEnumerable<int> FindCandidatePrimes(int limit)
     {
-        // Nope! :-)
-        public static IEnumerable<int> FindCandidatePrimes2(int limit) =>
-            Enumerable.Range(2, limit)
-                .Where(i => i % 2 == 0)
-                .Where(i => i % 3 == 0);
+        bool[] isPrime = [.. Enumerable.Repeat(true, limit + 1)];
 
-        public static IEnumerable<int> FindCandidatePrimes(int limit)
+        for (int p = 2; p * p <= limit; p++)
         {
-            bool[] isPrime = [.. Enumerable.Repeat(true, limit + 1)];
-
-            for (int p = 2; p * p <= limit; p++)
+            if (isPrime[p])
             {
-                if (isPrime[p])
+                for (int i = p * p; i <= limit; i += p)
                 {
-                    for (int i = p * p; i <= limit; i += p)
-                    {
-                        isPrime[i] = false;
-                    }
-                }
-
-            }
-            for (int i = 2; i <= limit; i++)
-            {
-                if (isPrime[i])
-                {
-                    yield return i;
+                    isPrime[i] = false;
                 }
             }
-        }
 
-        internal static void Run(int limit)
+        }
+        for (int i = 2; i <= limit; i++)
         {
-            WriteLine($"Prime numbers up to {limit}:");
-            foreach (int prime in FindCandidatePrimes(limit))
+            if (isPrime[i])
             {
-                WriteLine(prime);
+                yield return i;
             }
-            WriteLine();
         }
-
     }
+
+    internal static void Run(int limit)
+    {
+        WriteLine($"Prime numbers up to {limit}:");
+        foreach (int prime in FindCandidatePrimes(limit))
+        {
+            WriteLine(prime);
+        }
+        WriteLine();
+    }
+
 }
