@@ -15,15 +15,27 @@ internal sealed class UnionFind
         }
     }
 
+    /// <summary>
+    /// Returns the representative item of the set containing 'item'.
+    /// The "parent" of "item"
+    /// </summary>
     public int Find(int item)
     {
         if (Parents[item] != item)
         {
+            // Path compression optimization:
             Parents[item] = Find(Parents[item]);
         }
         return Parents[item];
     }
 
+    /// <summary>
+    /// Combines two disjoint sets containing 'item1' and 'item2'.
+    /// Attaches the tree with lower rank (shorter tree)
+    /// under the root of the tree with higher (taller tree) rank.
+    /// </summary>
+    /// <param name="item1"></param>
+    /// <param name="item2"></param>
     public void Union(int item1, int item2)
     {
         int root1 = Find(item1);
@@ -45,5 +57,4 @@ internal sealed class UnionFind
             }
         }
     }
-
 }
