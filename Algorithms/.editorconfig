@@ -1,6 +1,18 @@
 root = true
 
-[*.{cs}]
+[*]
+# General settings for all files
+indent_style = space
+indent_size = 4
+end_of_line = normal
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+dotnet_analyzer_diagnostic.severity = error
+dotnet_diagnostic.severity = error
+fsharp_diagnostic.severity = error
+csharp_diagnostic.severity = error
 
 # CA1823: Avoid unused private fields
 dotnet_diagnostic.CA1823.severity = none
@@ -11,7 +23,19 @@ dotnet_diagnostic.CA1805.severity = none
 # CA1303: Do not pass literals as localized parameters
 dotnet_diagnostic.CA1303.severity = none
 
-dotnet_analyzer_diagnostic.severity = error
+[*.{fs}]
+indent_style = tab
+tab_width = 4
+
+[*.{cs}]
+
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_between_query_expression_clauses = true
 
 # Use expression body for methods (IDE0022)
 csharp_style_expression_bodied_methods = true

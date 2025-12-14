@@ -74,7 +74,7 @@ namespace Algorithms.ProjectEuler
             foreach (long i in Enumerable.Range(0, number))
             {
                 long result1 = f.Calculate1(i);
-                long result3 = Puzzle002.Fibonacci.Calculate3(i);
+                long result3 = Fibonacci.Calculate3(i);
                 if (logIntermediate) WriteLine($"Iteration # {i}:\t{nameof(result1)}: {result1}\t{nameof(result3)}: {result3}");
             }
 
