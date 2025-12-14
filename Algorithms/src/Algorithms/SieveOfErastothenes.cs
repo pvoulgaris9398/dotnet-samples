@@ -4,13 +4,11 @@
     {
 
 
-        public static IEnumerable<int> FindCandidatePrimes2(int limit)
-        {
+        public static IEnumerable<int> FindCandidatePrimes2(int limit) =>
             // Nope! :-)
-            return Enumerable.Range(2, limit)
+            Enumerable.Range(2, limit)
                 .Where(i => i % 2 == 0)
                 .Where(i => i % 3 == 0);
-        }
 
         public static IEnumerable<int> FindCandidatePrimes(int limit)
         {

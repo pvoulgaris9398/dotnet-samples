@@ -4,11 +4,11 @@
     {
         public static void Run()
         {
-            var sum1 = MultiplesOf(999, [3, 5]).Sum();
+            int sum1 = MultiplesOf(999, [3, 5]).Sum();
 
             WriteLine($"{sum1}");
 
-            var sum2 = MultiplesOf(999).Sum();
+            int sum2 = MultiplesOf(999).Sum();
 
             WriteLine($"{sum2}");
 

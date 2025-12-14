@@ -3,9 +3,9 @@ using Algorithms;
 WriteLine("QuickSort Test 1");
 
 int[] array1 = [52, 96, 67, 71, 42, 38, 39, 40, 13];
-var result1 = QuickSort.Sort(array1, 0, array1.Length - 1);
+int[] result1 = QuickSort.Sort(array1, 0, array1.Length - 1);
 
-foreach (var item in result1)
+foreach (int item in result1)
 {
     WriteLine(item);
 }
@@ -13,9 +13,9 @@ foreach (var item in result1)
 WriteLine("QuickSort2 Test 2");
 
 int[] array2 = [5, 4, 3, 5, 7, 6, 9, 4, 1, 1, 3, 4, 50, 56, 3, 41, 3];
-var result2 = QuickSort2.Sort(array2);
+int[] result2 = QuickSort2.Sort(array2);
 
-foreach (var item in result2)
+foreach (int item in result2)
 {
     WriteLine(item);
 }

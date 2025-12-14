@@ -28,7 +28,7 @@
             else { none(); }
         }
 
-        public static OptionType<T> Some(T value) => new OptionType<T>(value, true);
+        public static OptionType<T> Some(T value) => new(value, true);
         public static OptionType<T> None() => default;
     }
 }

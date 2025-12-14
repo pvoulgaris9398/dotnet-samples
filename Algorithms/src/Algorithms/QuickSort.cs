@@ -3,9 +3,9 @@ internal static class QuickSort
 {
     internal static int[] Sort(int[] array, int leftIndex, int rightIndex)
     {
-        var i = leftIndex;
-        var j = rightIndex;
-        var pivot = array[leftIndex];
+        int i = leftIndex;
+        int j = rightIndex;
+        int pivot = array[leftIndex];
 
         while (i < j)
         {
@@ -29,12 +29,12 @@ internal static class QuickSort
 
         if (leftIndex < j)
         {
-            Sort(array, leftIndex, j);
+            _ = Sort(array, leftIndex, j);
         }
 
         if (i < rightIndex)
         {
-            Sort(array, i, rightIndex);
+            _ = Sort(array, i, rightIndex);
         }
 
         return array;

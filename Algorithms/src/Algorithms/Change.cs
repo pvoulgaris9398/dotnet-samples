@@ -41,7 +41,7 @@ namespace Algorithms
             double[] p = new double[k + 1];
             p[0] = 1.0;
 
-            foreach (var eventProbability in eventProbabilities)
+            foreach (double eventProbability in eventProbabilities)
             {
                 for (int j = k; j > 0; j--)
                 {

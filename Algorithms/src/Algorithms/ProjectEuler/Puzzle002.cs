@@ -10,16 +10,16 @@ namespace Algorithms.ProjectEuler
         public static void Run()
         {
             var f = new Fibonacci();
-            var sum = 0L;
-            var i = -1;
+            long sum = 0L;
+            int i = -1;
 
             while (true)
             {
                 i++;
-                var temp = f.Calculate1(i);
+                long temp = f.Calculate1(i);
 #pragma warning disable IDE0059
 #pragma warning disable S1481
-                var temp2 = Fibonacci.Calculate3(i);
+                long temp2 = Fibonacci.Calculate3(i);
 #pragma warning restore S1481
 #pragma warning restore IDE0059
                 if (temp >= 4000000) break;
@@ -37,7 +37,7 @@ namespace Algorithms.ProjectEuler
 
             foreach (long i in Enumerable.Range(0, number))
             {
-                var result = f.Calculate1(i);
+                long result = f.Calculate1(i);
                 if (logIntermediate) WriteLine($"{result}");
             }
 
@@ -55,7 +55,7 @@ namespace Algorithms.ProjectEuler
 
             foreach (long i in Enumerable.Range(0, number))
             {
-                var result = await f.Calculate2(i).ConfigureAwait(false);
+                long result = await f.Calculate2(i).ConfigureAwait(false);
                 if (logIntermediate) WriteLine($"{result}");
             }
 
@@ -73,8 +73,8 @@ namespace Algorithms.ProjectEuler
 
             foreach (long i in Enumerable.Range(0, number))
             {
-                var result1 = f.Calculate1(i);
-                var result3 = Puzzle002.Fibonacci.Calculate3(i);
+                long result1 = f.Calculate1(i);
+                long result3 = Puzzle002.Fibonacci.Calculate3(i);
                 if (logIntermediate) WriteLine($"Iteration # {i}:\t{nameof(result1)}: {result1}\t{nameof(result3)}: {result3}");
             }
 
@@ -102,8 +102,8 @@ namespace Algorithms.ProjectEuler
             {
                 if (_cache.TryGetValue(number, out long value)) return value;
 
-                var task1 = Task.Run(() => Calculate2(number - 1));
-                var task2 = Task.Run(() => Calculate2(number - 2));
+                Task<long> task1 = Task.Run(() => Calculate2(number - 1));
+                Task<long> task2 = Task.Run(() => Calculate2(number - 2));
 
                 _ = await Task.WhenAll(task1, task2).ConfigureAwait(false);
 #pragma warning disable CA1849
@@ -124,12 +124,12 @@ namespace Algorithms.ProjectEuler
             /// <returns></returns>
             internal static long Calculate3(long number)
             {
-                var PHI = (1 + Math.Sqrt(5)) / 2;
-                var PSI = (1 - Math.Sqrt(5)) / 2;
-                var numerator = Math.Pow(PHI, number) - Math.Pow(PSI, number);
-                var denominator = Math.Sqrt(5);
+                double PHI = (1 + Math.Sqrt(5)) / 2;
+                double PSI = (1 - Math.Sqrt(5)) / 2;
+                double numerator = Math.Pow(PHI, number) - Math.Pow(PSI, number);
+                double denominator = Math.Sqrt(5);
 
-                var result = numerator / denominator;
+                double result = numerator / denominator;
 
                 return (long)result;
             }

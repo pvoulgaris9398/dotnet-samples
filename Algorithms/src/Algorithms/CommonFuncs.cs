@@ -11,9 +11,7 @@ namespace Algorithms
             data.Reverse().Diagonals(rows, cols);
 
         private static string Diagonal(this IEnumerable<string> data, int startRow, int startCol, int cols) =>
-#pragma warning disable IDE0305 // Simplify collection initialization
-            new(data.Skip(startRow).Take(cols - startCol).Select((row, i) => row[startCol + i]).ToArray());
-#pragma warning restore IDE0305 // Simplify collection initialization
+            new([.. data.Skip(startRow).Take(cols - startCol).Select((row, i) => row[startCol + i])]);
 
         public static IEnumerable<string> Diagonals(this IEnumerable<string> data, int rows, int cols) =>
             Enumerable.Range(0, cols).Select(col => data.Diagonal(0, col, cols))
@@ -39,16 +37,13 @@ namespace Algorithms
             [.. Regex.Matches(line, @"\d+").Select(static match => long.Parse(match.Value))];
 #pragma warning restore CA1305 // Specify IFormatProvider
 
-        public static (T a, T b) ToPair<T>(this List<T> list)
-        {
-#pragma warning disable CA2208 // Instantiate argument exceptions correctly
-            return list switch
+        public static (T a, T b) ToPair<T>(this List<T> list) =>
+            list switch
             {
                 [T a, T b] => (a, b),
-                _ => throw new ArgumentException()
+                _ => throw new ArgumentException("Unable to parse!")
             };
-#pragma warning restore CA2208 // Instantiate argument exceptions correctly
-        }
+
 #pragma warning disable CA2000
         public static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
 #pragma warning restore CA2000
@@ -58,8 +53,8 @@ namespace Algorithms
                 new List<List<T>>(),
                 (acc, row) =>
                 {
-                    var i = 0;
-                    foreach (var cell in row)
+                    int i = 0;
+                    foreach (T? cell in row)
                     {
                         if (acc.Count <= i)
                         {

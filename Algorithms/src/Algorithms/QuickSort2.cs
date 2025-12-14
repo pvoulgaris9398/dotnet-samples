@@ -1,22 +1,14 @@
-using System.Threading.Tasks.Dataflow;
-
 internal static class QuickSort2
 {
-    internal static int[] Sort(int[] array)
-    {
-        if (array.Length < 2) return array;
-
-        return SortInternal(array, 0, array.Length - 1);
-
-    }
+    internal static int[] Sort(int[] array) => array.Length < 2 ? array : SortInternal(array, 0, array.Length - 1);
 
     internal static int[] SortInternal(int[] array, int low, int high)
     {
         if (low < high)
         {
             int pivot = Partition(array, low, high);
-            SortInternal(array, low, pivot - 1);
-            SortInternal(array, pivot + 1, high);
+            _ = SortInternal(array, low, pivot - 1);
+            _ = SortInternal(array, pivot + 1, high);
         }
         return array;
     }

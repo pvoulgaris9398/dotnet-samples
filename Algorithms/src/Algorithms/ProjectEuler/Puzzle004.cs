@@ -33,13 +33,13 @@ namespace Algorithms.ProjectEuler
                 yield break;
             }
 
-            var (start, stop) = ToFactors(numberOfDigits);
+            (int start, int stop) = ToFactors(numberOfDigits);
 
-            for (var first = start; first >= stop; first--)
+            for (int first = start; first >= stop; first--)
             {
-                for (var second = start; second >= stop; second--)
+                for (int second = start; second >= stop; second--)
                 {
-                    var product = first * second;
+                    int product = first * second;
                     if (product.IsPalindromic())
                     {
                         yield return new(first, second, product);
@@ -52,13 +52,13 @@ namespace Algorithms.ProjectEuler
 
         internal static bool IsPalindromic(this int number)
         {
-            var digits = number.ToDigits().ToArray();
-            var li = 0;
-            var ri = digits.Length - 1;
+            int[] digits = [.. number.ToDigits()];
+            int li = 0;
+            int ri = digits.Length - 1;
             while (li < ri)
             {
-                var first = digits[li];
-                var last = digits[ri];
+                int first = digits[li];
+                int last = digits[ri];
 
                 if (first != last)
                 {

@@ -17,9 +17,9 @@ namespace Algorithms
             //var isMathSymbol = @"[\+\-\*\/\^\(\)]";
             //var brackets = @"\((?<InsideBrackets>[0-9.\+\-\*\/\^]*)\)";
             //var multiplyDivide = @"(?<MultiplyDivide>[\+\-][0-9.]*[\*\/]{1}[\-]{0,1}[0-9.]*)";
-            var power = @"(?<Power>[\+\-\*\/\^][0-9.]*[\^]{1}[\-]{0,1}[0-9.]*)";
+            string power = @"(?<Power>[\+\-\*\/\^][0-9.]*[\^]{1}[\-]{0,1}[0-9.]*)";
 
-            var input = "5+8*4^2";
+            string input = "5+8*4^2";
 
             var matches = Regex.Matches(input, power)
                 .Select(
@@ -27,7 +27,7 @@ namespace Algorithms
                 )
                 .ToList();
 
-            foreach (var match in matches)
+            foreach (Match? match in matches)
             {
                 WriteLine(match);
             }
@@ -36,14 +36,14 @@ namespace Algorithms
 
         internal static void Run2()
         {
-            var data = "XMASAMXMASMM";
-            var pattern = @"XMAS";
+            string data = "XMASAMXMASMM";
+            string pattern = @"XMAS";
 
             var matches = Regex.Matches(data, pattern)
                 .Select(Tokenize)
                 .ToList();
 
-            foreach (var match in matches)
+            foreach (Token? match in matches)
             {
                 WriteLine($"{match}");
             }
@@ -51,30 +51,27 @@ namespace Algorithms
 
         internal static void Run()
         {
-            var data = @"why()select()when()$^mul(126,507):^mul(59,335)*}";
-            var pattern = @"(?<multiply>mul)\((?<left>\d+),(?<right>\d+)\)|(?<when>when)\(\)|(?<select>select)\(\)|(?<why>why)\(\)|(?<dont>don't)\(\)|(?<do>do)\(\)";
+            string data = @"why()select()when()$^mul(126,507):^mul(59,335)*}";
+            string pattern = @"(?<multiply>mul)\((?<left>\d+),(?<right>\d+)\)|(?<when>when)\(\)|(?<select>select)\(\)|(?<why>why)\(\)|(?<dont>don't)\(\)|(?<do>do)\(\)";
 
             var matches = Regex.Matches(data, pattern)
                 .Select(Tokenize)
                 .ToList();
 
-            foreach (var match in matches)
+            foreach (Token? match in matches)
             {
                 WriteLine($"{match}");
             }
         }
 
-        internal static Token Tokenize(Match match)
+        internal static Token Tokenize(Match match) => match switch
         {
-            return match switch
-            {
-                var whyVar when match.Groups["why"].Success => new Why(whyVar.Value),
-                var whenVar when match.Groups["when"].Success => new Why(whenVar.Value),
-                var selectVar when match.Groups["select"].Success => new Why(selectVar.Value),
-                _ when match.Groups["multiply"].Success => new Multiply(int.Parse(match.Groups["left"].Value, CultureInfo.InvariantCulture.NumberFormat), int.Parse(match.Groups["right"].Value, CultureInfo.InvariantCulture.NumberFormat)),
-                _ => new Anything(match.Value),
-            };
-        }
+            var whyVar when match.Groups["why"].Success => new Why(whyVar.Value),
+            var whenVar when match.Groups["when"].Success => new Why(whenVar.Value),
+            var selectVar when match.Groups["select"].Success => new Why(selectVar.Value),
+            _ when match.Groups["multiply"].Success => new Multiply(int.Parse(match.Groups["left"].Value, CultureInfo.InvariantCulture.NumberFormat), int.Parse(match.Groups["right"].Value, CultureInfo.InvariantCulture.NumberFormat)),
+            _ => new Anything(match.Value),
+        };
     }
     internal abstract record Token;
 

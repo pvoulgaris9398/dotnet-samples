@@ -1,2 +1,2 @@
 ﻿
-TwoSums.run
+Puzzle008.run

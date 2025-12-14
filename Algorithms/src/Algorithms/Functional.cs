@@ -4,10 +4,10 @@
     {
         internal static void Test1(string inputToParse)
         {
-            var result = inputToParse.ParseInt();
+            OptionType<int> result = inputToParse.ParseInt();
 
             result.Match(
-                value => WriteLine(value),
+                WriteLine,
                 () => WriteLine("Unable to parse: {0}!", inputToParse));
         }
     }

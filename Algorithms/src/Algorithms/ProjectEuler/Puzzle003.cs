@@ -4,11 +4,11 @@
     {
         internal static void Run()
         {
-            var number = 13195L;
+            long number = 13195L;
             //var number = 600851475143;
             var factors = number.Factors().ToList();
 
-            foreach (var (index, factor) in factors.Select((f, i) => (i + 1, f)))
+            foreach ((int index, long factor) in factors.Select((f, i) => (i + 1, f)))
             {
                 WriteLine($"Factor Number: {index} of {number} is {factor}");
             }
@@ -19,9 +19,9 @@
 
         public static void GeneratePrimes(int upTo)
         {
-            var primes = Enumerable.Range(1, upTo).Where(IsPrime);
+            IEnumerable<int> primes = Enumerable.Range(1, upTo).Where(IsPrime);
 
-            foreach (var prime in primes)
+            foreach (int prime in primes)
             {
                 WriteLine(prime);
             }
@@ -30,12 +30,12 @@
 
         public static IEnumerable<long> Factors(this long input)
         {
-            var temp = input;
-            var currentPrime = 2L;
+            long temp = input;
+            long currentPrime = 2L;
 
             while (true)
             {
-                var (success, dividend) = temp.AttemptDivide(currentPrime);
+                (bool success, long dividend) = temp.AttemptDivide(currentPrime);
                 if (success)
                 {
                     yield return currentPrime;
@@ -60,7 +60,7 @@
 
         public static long NextPrime(this long number)
         {
-            var temp = number + 1;
+            long temp = number + 1;
             while (!temp.IsPrime())
             {
                 temp++;
@@ -76,7 +76,7 @@
             if (number == 2) return true;
             if (number % 2 == 0) return false;
 
-            var boundary = (long)Math.Floor(Math.Sqrt(number));
+            long boundary = (long)Math.Floor(Math.Sqrt(number));
 
             // https://en.wikipedia.org/wiki/Prime_number
             for (long i = 3L; i <= boundary; i += 2L)

@@ -17,7 +17,7 @@ namespace Algorithms
             edges.Add(new(4, 3, 8));
             edges.Add(new(5, 2, 21));
 
-            foreach (var item in Search(edges, 1))
+            foreach ((int, int) item in Search(edges, 1))
             {
                 WriteLine(item);
             }
@@ -49,9 +49,9 @@ namespace Algorithms
 
                 yield return (current, visited[current]);
 
-                foreach (var neighbor in GetNeighbors(edges, current))
+                foreach (Edge neighbor in GetNeighbors(edges, current))
                 {
-                    if (visited.TryGetValue(neighbor.To, out var found)
+                    if (visited.TryGetValue(neighbor.To, out int found)
                         && found < current)
                     {
                         visited[neighbor.From] = found;

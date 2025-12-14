@@ -60,16 +60,16 @@ namespace Algorithms
 
             while (queue.Count > 0)
             {
-                var current = queue.Dequeue();
+                City current = queue.Dequeue();
 
                 if (current == endNode)
                 {
                     return BuildRoute(distances, endNode);
                 }
 
-                var currentNodeDistance = distances[current].Distance;
+                int currentNodeDistance = distances[current].Distance;
 
-                foreach (var edge in current.Edges)
+                foreach (Edge edge in current.Edges)
                 {
                     Distance distance = distances[edge.ConnectedTo].Distance;
 
@@ -80,7 +80,7 @@ namespace Algorithms
 
                         distances[edge.ConnectedTo] = (current, newDistance);
 
-                        queue.Remove(edge.ConnectedTo, out _, out _);
+                        _ = queue.Remove(edge.ConnectedTo, out _, out _);
 
                         queue.Enqueue(edge.ConnectedTo, newDistance);
                     }
@@ -100,8 +100,8 @@ namespace Algorithms
 
             while (prev is not null)
             {
-                var current = prev;
-                (prev, var distance) = distances[current];
+                City current = prev;
+                (prev, int distance) = distances[current];
                 route.Add((current, distance));
             }
             route.Reverse();
@@ -118,7 +118,7 @@ namespace Algorithms
 
         internal static void PrintShortestPath(City[] graph, City startNode, City endNode)
         {
-            var route = CalculateShortestPath(graph, startNode, endNode);
+            List<(City, int)>? route = CalculateShortestPath(graph, startNode, endNode);
 
             if (route is null)
             {
@@ -126,7 +126,7 @@ namespace Algorithms
                 return;
             }
             WriteLine($"Shorted route between {startNode.Name} and {endNode.Name}");
-            foreach (var (node, distance) in route)
+            foreach ((City? node, int distance) in route)
             {
                 WriteLine($"{node.Name}: {distance}");
             }
