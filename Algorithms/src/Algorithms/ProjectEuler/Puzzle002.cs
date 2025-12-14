@@ -91,6 +91,8 @@ namespace Algorithms.ProjectEuler
                 [1] = 1
             };
 
+
+
             internal long Calculate1(long number) => _cache.TryGetValue(number, out long value) ? value : (_cache[number] = Calculate1(number - 1) + Calculate1(number - 2));
 
             /// <summary>

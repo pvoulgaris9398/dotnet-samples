@@ -7,9 +7,7 @@ namespace Algorithms.ProjectEuler
 
         internal static void Run()
         {
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
             WriteLine($"{nameof(Puzzle004)}");
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
 
             // C# records do not implement IComparable
             WriteLine(LargestPalindromic(numberOfDigits: 2).Max(x => x.Product));
