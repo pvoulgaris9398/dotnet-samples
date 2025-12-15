@@ -1,4 +1,4 @@
-﻿namespace Algorithms;
+namespace Algorithms;
 
 internal static class EdgeExtensions
 {
@@ -6,7 +6,7 @@ internal static class EdgeExtensions
         .Where(e => e.From == vertex)
         .Select(e => e.To);
 
-    public static void Walk(this Vertex vertex, List<Edge> edges)
+    public static void Traverse(this Vertex vertex, List<Edge> edges, Action<Vertex> process)
     {
         var visited = new HashSet<Vertex>() { vertex };
 
@@ -28,7 +28,7 @@ internal static class EdgeExtensions
             }
 
             // "process" current vertex
-            WriteLine($"Visited vertex: {current.Id}");
+            process(current);
         }
     }
 }

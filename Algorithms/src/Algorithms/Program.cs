@@ -1,5 +1,15 @@
 using Algorithms;
 
+WriteLine(new string('*', 80));
+
+WriteLine("MinHeap Test");
+
+var minHeap = new MinHeap([10, 3, 2, 4, 5, 1]);
+
+minHeap.Print();
+
+WriteLine(new string('*', 80));
+
 WriteLine("QuickSort Test 1");
 
 int[] array1 = [52, 96, 67, 71, 42, 38, 39, 40, 13];

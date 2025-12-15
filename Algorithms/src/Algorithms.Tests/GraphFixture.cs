@@ -1,12 +1,17 @@
-﻿using Xunit;
+using Xunit;
+using Xunit.Abstractions;
 
 namespace Algorithms.Tests;
 
 /// <summary>
 /// General fixture for graph-related tests
 /// </summary>
-public sealed class GraphFixture
+public sealed class GraphFixture(ITestOutputHelper output)
 {
+
+    private readonly ITestOutputHelper _output = output;
+
+
     /// <summary>
     /// Test vertex functionality
     /// </summary>
@@ -15,20 +20,30 @@ public sealed class GraphFixture
     {
         List<Edge> edges = [];
 
+        Vertex a = new("a");
+        Vertex b = new("b");
+        Vertex c = new("c");
+        Vertex d = new("d");
+        Vertex e = new("e");
+
         // Add some edges to the graph
-        /*
-        edges.Add(new(1, 2, 12));
-        edges.Add(new(1, 3, 6));
-        edges.Add(new(1, 4, 45));
-        edges.Add(new(1, 5, 7));
-        edges.Add(new(2, 1, 26));
-        edges.Add(new(2, 4, 9));
-        edges.Add(new(3, 2, 2));
-        edges.Add(new(4, 3, 8));
-        edges.Add(new(5, 2, 21));
-        */
-        Console.WriteLine($"Graph edges: {edges.Count}");
-        Assert.Fail("Not implemented!");
+
+        edges.Add(new(a, b, 12));
+        edges.Add(new(a, c, 6));
+        edges.Add(new(a, d, 45));
+        edges.Add(new(a, e, 7));
+        edges.Add(new(b, a, 26));
+        edges.Add(new(b, d, 9));
+        edges.Add(new(c, b, 2));
+        edges.Add(new(d, c, 8));
+        edges.Add(new(e, b, 21));
+
+        foreach (Edge edge in edges)
+        {
+            _output.WriteLine($"Graph edges: {edge}");
+        }
+
+        a.Traverse(edges, edge => _output.WriteLine($"Visited vertex: {edge.Id}"));
 
     }
 }
