@@ -53,8 +53,3 @@ Functional.Test1("abc");
 //{
 //    WriteLine($"{nameof(i)} modulo {quotient} = {i & (quotient - 1)}");
 //}
-
-
-
-
-
