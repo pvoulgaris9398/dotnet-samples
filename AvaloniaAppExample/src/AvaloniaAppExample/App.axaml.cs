@@ -1,9 +1,3 @@
-using Avalonia;
-using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
-using AvaloniaAppExample.ViewModels;
-using AvaloniaAppExample.Views;
-
 namespace AvaloniaAppExample
 {
     public partial class App : Application
@@ -14,14 +8,10 @@ namespace AvaloniaAppExample
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow2
-                {
-                    DataContext = new MainWindowViewModel2(),
-                };
+                desktop.MainWindow = new MainWindow2 { DataContext = new MainWindowViewModel2() };
             }
 
             base.OnFrameworkInitializationCompleted();
         }
-
     }
 }

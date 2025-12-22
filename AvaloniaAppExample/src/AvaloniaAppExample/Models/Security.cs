@@ -11,18 +11,21 @@ namespace AvaloniaAppExample.Models
         string isin,
         string sedol,
         decimal lastPrice,
-        bool isPrivate)
+        bool isPrivate
+    )
     {
-        public static Security Create(long id) => new(
-            id,
-            $"Security Name # {id}",
-            DateTime.UtcNow,
-            $"Ticker # {id}",
-            $"Cusip # {id}",
-            $"Isin # {id}",
-            $"Sedol # {id}",
-            101.55m,
-            true);
+        public static Security Create(long id) =>
+            new(
+                id,
+                $"Security Name # {id}",
+                DateTime.UtcNow,
+                $"Ticker # {id}",
+                $"Cusip # {id}",
+                $"Isin # {id}",
+                $"Sedol # {id}",
+                101.55m,
+                true
+            );
 
         public long Id { get; } = id;
         public string SecurityName { get; set; } = securityName;

@@ -1,8 +1,4 @@
-﻿using AvaloniaAppExample.Models;
-using DynamicData;
-using System;
-
-namespace AvaloniaAppExample.Services
+﻿namespace AvaloniaAppExample.Services
 {
     public interface ISecurityService
     {

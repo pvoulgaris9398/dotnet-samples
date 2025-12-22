@@ -1,8 +1,3 @@
-using System;
-using System.Linq;
-using AvaloniaAppExample.Models;
-using DynamicData;
-
 namespace AvaloniaAppExample.Services
 {
     public class SecurityService : ISecurityService, IDisposable

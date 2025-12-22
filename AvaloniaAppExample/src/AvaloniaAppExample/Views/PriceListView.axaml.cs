@@ -13,10 +13,5 @@ namespace AvaloniaAppExample.Views
             ViewModel = new PriceListViewModel(new PriceService());
             AvaloniaXamlLoader.Load(this);
         }
-
-        public void ClickHandler(object sender, RoutedEventArgs args)
-        {
-
-        }
     }
 }

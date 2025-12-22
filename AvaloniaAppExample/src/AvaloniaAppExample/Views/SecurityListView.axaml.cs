@@ -1,9 +1,3 @@
-using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
-using AvaloniaAppExample.Services;
-using AvaloniaAppExample.ViewModels;
-
 namespace AvaloniaAppExample.Views
 {
     public partial class SecurityListView : ReactiveUserControl<SecurityListViewModel>

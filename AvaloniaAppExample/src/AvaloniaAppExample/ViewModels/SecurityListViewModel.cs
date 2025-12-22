@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using AvaloniaAppExample.Services;
-using DynamicData;
-using ReactiveUI;
+﻿using System.Collections.ObjectModel;
 
 namespace AvaloniaAppExample.ViewModels
 {
@@ -11,11 +6,12 @@ namespace AvaloniaAppExample.ViewModels
     {
         private readonly ReadOnlyObservableCollection<SecurityViewModel> _items;
         private readonly IDisposable _disposable;
+
         public SecurityListViewModel(ISecurityService securityService)
         {
             Service = securityService;
-            _disposable = securityService.Securities
-                .Transform(x => new SecurityViewModel(x))
+            _disposable = securityService
+                .Securities.Transform(x => new SecurityViewModel(x))
                 .Filter(x => true)
                 .ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _items)
@@ -28,7 +24,8 @@ namespace AvaloniaAppExample.ViewModels
 
         public string SecurityName
         {
-            get => _securityName; set => this.RaiseAndSetIfChanged(ref _securityName, value);
+            get => _securityName;
+            set => this.RaiseAndSetIfChanged(ref _securityName, value);
         }
 
         public ReadOnlyObservableCollection<SecurityViewModel> Items => _items;
