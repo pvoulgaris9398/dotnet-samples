@@ -6,11 +6,10 @@ namespace Advent2024
     internal static class Day07
     {
         /*
-         * 
+         *
          */
         internal static void Run()
         {
-
             WriteLine(new string('*', 80));
             WriteLine($"{nameof(Day07)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
@@ -25,56 +24,69 @@ namespace Advent2024
             //var test9 = new Equation(2430252, [58, 1, 3, 9, 47, 71, 5, 19, 418]).CanProduceResult(Addition, Multiplication);
 
             var count1 = CommonFuncs
-                    .LoadFileData("..\\..\\..\\..\\..\\day7.txt")
-                    .ReadEquations()
-                    .Where(eq => eq.CanProduceResult(Addition, Multiplication))
-                    .Sum(eq => eq.Result);
+                .LoadFileData("..\\..\\..\\..\\..\\day7.txt")
+                .ReadEquations()
+                .Where(eq => eq.CanProduceResult(Addition, Multiplication))
+                .Sum(eq => eq.Result);
 
             var count2 = CommonFuncs
-                    .LoadFileData("..\\..\\..\\..\\..\\day7.txt")
-                    .ReadEquations()
-                    .Where(eq => eq.CanProduceResult(Addition, Multiplication, Concatenation))
-                    .Sum(eq => eq.Result);
+                .LoadFileData("..\\..\\..\\..\\..\\day7.txt")
+                .ReadEquations()
+                .Where(eq => eq.CanProduceResult(Addition, Multiplication, Concatenation))
+                .Sum(eq => eq.Result);
 
             WriteLine($"Count: {count1}");
             WriteLine($"Count: {count2}");
-
         }
 
         private delegate IEnumerable<long> Operator(Equation equation, IEnumerable<long> a, long b);
 
-        private static IEnumerable<long> Addition(this Equation equation, IEnumerable<long> a, long b) =>
+        private static IEnumerable<long> Addition(
+            this Equation equation,
+            IEnumerable<long> a,
+            long b
+        ) =>
             a.Where(x =>
-            //equation.Result - x >= b
-            {
-                var temp = equation.Result - x;
-                if (temp >= b)
+                //equation.Result - x >= b
                 {
-                    return true;
-                }
-                else
-                {
-                    //WriteLine($"[{nameof(Addition)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
-                    return false;
-                }
-            }).Select(x => x + b);
+                    var temp = equation.Result - x;
+                    if (temp >= b)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        //WriteLine($"[{nameof(Addition)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
+                        return false;
+                    }
+                })
+                .Select(x => x + b);
 
-        private static IEnumerable<long> Multiplication(this Equation equation, IEnumerable<long> a, long b) =>
+        private static IEnumerable<long> Multiplication(
+            this Equation equation,
+            IEnumerable<long> a,
+            long b
+        ) =>
             a.Where(x =>
-            {
-                var temp = equation.Result / x;
-                if (temp >= b)
                 {
-                    return true;
-                }
-                else
-                {
-                    //WriteLine($"[{nameof(Multiplication)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
-                    return false;
-                }
-            }).Select(x => x * b);
+                    var temp = equation.Result / x;
+                    if (temp >= b)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        //WriteLine($"[{nameof(Multiplication)}]: Current: {equation.Result}\tx: {x}\tb:{b}");
+                        return false;
+                    }
+                })
+                .Select(x => x * b);
 
-        private static IEnumerable<long> Concatenation(this Equation equation, IEnumerable<long> a, long b)
+        private static IEnumerable<long> Concatenation(
+            this Equation equation,
+            IEnumerable<long> a,
+            long b
+        )
         {
             string bString = b.ToString(CultureInfo.InvariantCulture);
             foreach (long x in a)
@@ -102,10 +114,9 @@ namespace Advent2024
 
         private static IEnumerable<Equation> ReadEquations(this List<string> lines) =>
             lines
-            .Select(CommonFuncs.ParseLongsNoSign)
-            .Select(values => new Equation(values[0], values[1..]));
+                .Select(CommonFuncs.ParseLongsNoSign)
+                .Select(values => new Equation(values[0], values[1..]));
 
         internal sealed record Equation(long Result, List<long> Values);
-
     }
 }

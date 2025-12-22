@@ -1,5 +1,5 @@
-using Advent2024;
 using System.Diagnostics;
+using Advent2024;
 
 namespace Advent2024
 {
@@ -13,7 +13,12 @@ namespace Advent2024
     {
         public static void Run()
         {
-            char[][] map = [.. CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day6.txt").Select(row => row.ToCharArray())];
+            char[][] map =
+            [
+                .. CommonFuncs
+                    .LoadFileData("..\\..\\..\\..\\..\\day6.txt")
+                    .Select(row => row.ToCharArray()),
+            ];
 
             Stopwatch pathTime = Stopwatch.StartNew();
             int pathLength = map.GetPath().Count();
@@ -24,7 +29,9 @@ namespace Advent2024
             obstructionTime.Stop();
 
             WriteLine($"       Path Length: {pathLength} ({pathTime.ElapsedMilliseconds} ms)");
-            WriteLine($"Obstruction Points: {obstructionPoints} ({obstructionTime.ElapsedMilliseconds} ms)");
+            WriteLine(
+                $"Obstruction Points: {obstructionPoints} ({obstructionTime.ElapsedMilliseconds} ms)"
+            );
         }
 
         private static IEnumerable<Point> GetObstructionPoints(this char[][] map) =>
@@ -60,15 +67,20 @@ namespace Advent2024
         }
 
         private static bool CausesLoop(
-            this Point obstruction, char[][] map, Position start,
-            HashSet<Position> visitedBefore)
+            this Point obstruction,
+            char[][] map,
+            Position start,
+            HashSet<Position> visitedBefore
+        )
         {
             HashSet<Position> visited = [];
             Position current = start;
 
-            while (map.Contains(current.Point) &&
-                   !visitedBefore.Contains(current) &&
-                   visited.Add(current))
+            while (
+                map.Contains(current.Point)
+                && !visitedBefore.Contains(current)
+                && visited.Add(current)
+            )
             {
                 current = current.Step(map, obstruction);
             }
@@ -77,9 +89,7 @@ namespace Advent2024
         }
 
         private static IEnumerable<Point> GetPath(this char[][] map) =>
-            map.Walk(map.FindStartingPosition())
-                .Select(position => position.Point)
-                .Distinct();
+            map.Walk(map.FindStartingPosition()).Select(position => position.Point).Distinct();
 
         private static IEnumerable<Position> Walk(this char[][] map, Position start)
         {
@@ -90,12 +100,15 @@ namespace Advent2024
         }
 
         private static Position Step(this Position position, char[][] map, Point obstruction) =>
-            position.StepForward() is Position forward && !map.IsObstruction(forward.Point, obstruction) ? forward
-            : position.TurnRight();
+            position.StepForward() is Position forward
+            && !map.IsObstruction(forward.Point, obstruction)
+                ? forward
+                : position.TurnRight();
 
         private static Position Step(this Position position, char[][] map) =>
-            position.StepForward() is Position forward && !map.IsObstruction(forward.Point) ? forward
-            : position.TurnRight();
+            position.StepForward() is Position forward && !map.IsObstruction(forward.Point)
+                ? forward
+                : position.TurnRight();
 
         private static bool IsObstruction(this char[][] map, Point point, Point obstruction) =>
             map.Contains(point) && (map.At(point) == '#' || point == obstruction);
@@ -104,17 +117,28 @@ namespace Advent2024
             map.Contains(point) && map.At(point) == '#';
 
         private static bool Contains(this char[][] map, Point point) =>
-            point.Row >= 0 && point.Row < map.Length &&
-            point.Column >= 0 && point.Column < map[point.Row].Length;
+            point.Row >= 0
+            && point.Row < map.Length
+            && point.Column >= 0
+            && point.Column < map[point.Row].Length;
 
         private static Position StepForward(this Position position) =>
-            position with { Point = position.Point.Step(position.Orientation) };
+            position with
+            {
+                Point = position.Point.Step(position.Orientation),
+            };
 
         private static Position TurnRight(this Position position) =>
-            position with { Orientation = position.Orientation.TurnRight() };
+            position with
+            {
+                Orientation = position.Orientation.TurnRight(),
+            };
 
         private static char TurnRight(this char orientation) =>
-            Orientations[(Orientations.IndexOf(orientation, StringComparison.InvariantCulture) + 1) % Orientations.Length];
+            Orientations[
+                (Orientations.IndexOf(orientation, StringComparison.InvariantCulture) + 1)
+                    % Orientations.Length
+            ];
 
         private static Point Step(this Point point, char direction) =>
             direction switch
@@ -127,7 +151,9 @@ namespace Advent2024
 
         private static Position FindStartingPosition(this char[][] map) =>
             map.AllPoints()
-                .Where(point => Orientations.Contains(map.At(point), StringComparison.InvariantCulture))
+                .Where(point =>
+                    Orientations.Contains(map.At(point), StringComparison.InvariantCulture)
+                )
                 .Select(point => new Position(point, map.At(point)))
                 .First();
 
@@ -136,8 +162,7 @@ namespace Advent2024
             from column in Enumerable.Range(0, map[row].Length)
             select new Point(row, column);
 
-        private static char At(this char[][] map, Point point) =>
-            map[point.Row][point.Column];
+        private static char At(this char[][] map, Point point) => map[point.Row][point.Column];
 
         private const string Orientations = "^>v<";
 

@@ -10,62 +10,35 @@ namespace Advent2024
         /// 0..111....22222
         /// </summary>
         ///
-
         internal static List<string> TestDataSet1()
         {
-            return [
- "...0..."
-,"...1..."
-,"...2..."
-,"6543456"
-,"7.....7"
-,"8.....8"
-,"9.....9"
-                ];
-
+            return ["...0...", "...1...", "...2...", "6543456", "7.....7", "8.....8", "9.....9"];
         }
 
         // ReSharper disable once MemberCanBePrivate.Global
         internal static List<string> TestDataSet2()
         {
-            return [
- "89010123"
-,"78121874"
-,"87430965"
-,"96549874"
-,"45678903"
-,"32019012"
-,"01329801"
-,"10456732"
-                ];
-
+            return
+            [
+                "89010123",
+                "78121874",
+                "87430965",
+                "96549874",
+                "45678903",
+                "32019012",
+                "01329801",
+                "10456732",
+            ];
         }
 
         internal static List<string> TestDataSet3()
         {
-            return [
- "..90..9"
-,"...1.98"
-,"...2..7"
-,"6543456"
-,"765.987"
-,"876...."
-,"987...."
-                ];
-
+            return ["..90..9", "...1.98", "...2..7", "6543456", "765.987", "876....", "987...."];
         }
 
         internal static List<string> TestDataSet4()
         {
-            return [
-"012345"
-,"123456"
-,"234567"
-,"345678"
-,"4.6789"
-,"56789."
-                ];
-
+            return ["012345", "123456", "234567", "345678", "4.6789", "56789."];
         }
 
         public static void Test0()
@@ -80,10 +53,25 @@ namespace Advent2024
             WriteLine($"{nameof(total)}: {total}");
         }
 
+        private static List<List<long>> LoadFileData(string path) =>
+            [
+                .. File.OpenText(path)
+                    .ReadLines()
+                    .Select(row =>
+                        row.Select(c =>
+                                long.TryParse(char.ToString(c), out long result) ? result : -1
+                            )
+                            .ToList()
+                    ),
+            ];
 
-        private static List<List<long>> LoadFileData(string path) => [.. File.OpenText(path).ReadLines().Select(row => row.Select(c => long.TryParse(char.ToString(c), out long result) ? result : -1).ToList())];
-
-        private static List<List<long>> LoadTestData(List<string> data) => [.. data.Select(row => row.Select(c => long.TryParse(char.ToString(c), out long result) ? result : -1).ToList())];
+        private static List<List<long>> LoadTestData(List<string> data) =>
+            [
+                .. data.Select(row =>
+                    row.Select(c => long.TryParse(char.ToString(c), out long result) ? result : -1)
+                        .ToList()
+                ),
+            ];
 
         public static void Run(bool testing = false)
         {
@@ -91,7 +79,9 @@ namespace Advent2024
             WriteLine($"{nameof(Day10)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
-            var map = testing ? LoadTestData(TestDataSet2()) : LoadFileData("..\\..\\..\\..\\..\\day10.txt");
+            var map = testing
+                ? LoadTestData(TestDataSet2())
+                : LoadFileData("..\\..\\..\\..\\..\\day10.txt");
 
             var positions = map.ToPositions().ToList();
 
@@ -119,7 +109,6 @@ namespace Advent2024
             var last = routes.GroupBy(r => r.Select(p => p)).Distinct().ToList(); //exact
 
             WriteLine($"{nameof(total)}: {total}");
-
         }
 
         private static List<Stack<Position>> Routes(this IEnumerable<Position> positions)
@@ -128,7 +117,10 @@ namespace Advent2024
 
             var heights = positions
                 .Where(p => p.Height >= 0)
-                .Select(p => p.Height).Distinct().OrderBy(p => p).ToList();
+                .Select(p => p.Height)
+                .Distinct()
+                .OrderBy(p => p)
+                .ToList();
 
             var enumerator = heights.GetEnumerator();
 
@@ -147,13 +139,11 @@ namespace Advent2024
             }
             while (enumerator.MoveNext())
             {
-
                 var next = positions.Where(p => p.Height == enumerator.Current).ToList();
 
                 routes = [.. routes.AddNext(next)];
 
                 var tester = routes.ToList();
-
             }
 
             return routes;
@@ -161,9 +151,9 @@ namespace Advent2024
 
         private static IEnumerable<Stack<Position>> AddNext(
             this List<Stack<Position>> accumulator,
-            IEnumerable<Position> next)
+            IEnumerable<Position> next
+        )
         {
-
             foreach (var stack in accumulator)
             {
                 var position = stack.Peek();
@@ -184,7 +174,6 @@ namespace Advent2024
 
                     newStack1.Push(near.Skip(1).First());
                     yield return newStack1;
-
                 }
                 else if (near.Count == 3)
                 {
@@ -199,9 +188,7 @@ namespace Advent2024
 
                     newStack2.Push(near.Skip(2).First());
                     yield return newStack2;
-
                 }
-
             }
 
             yield break;
@@ -218,16 +205,16 @@ namespace Advent2024
         }
 
         private static IEnumerable<Position> ToPositions(this List<List<long>> data) =>
-            data.SelectMany((row, rowIndex) => row.Select((column, columnIndex) => new Position(rowIndex, columnIndex, column)));
+            data.SelectMany(
+                (row, rowIndex) =>
+                    row.Select((column, columnIndex) => new Position(rowIndex, columnIndex, column))
+            );
 
         private sealed record Position(int RowIndex, int ColumnIndex, long Height)
         {
             public bool NextTo(Position other) =>
-                (other.RowIndex == RowIndex
-                && Math.Abs(other.ColumnIndex - ColumnIndex) == 1)
-                ||
-                (other.ColumnIndex == ColumnIndex
-                 && Math.Abs(other.RowIndex - RowIndex) == 1);
+                (other.RowIndex == RowIndex && Math.Abs(other.ColumnIndex - ColumnIndex) == 1)
+                || (other.ColumnIndex == ColumnIndex && Math.Abs(other.RowIndex - RowIndex) == 1);
         }
     }
 }

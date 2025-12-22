@@ -17,14 +17,15 @@ namespace Advent2024
 
         public static void Run(bool testing = false)
         {
-
             WriteLine(new string('*', 80));
             WriteLine($"{nameof(Day09Alternate)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
 
             Stopwatch stopwatch1 = Stopwatch.StartNew();
 
-            var data = (testing ? TestData2 : RealData).Select(i => long.Parse(i.ToString(), CultureInfo.InvariantCulture));
+            var data = (testing ? TestData2 : RealData).Select(i =>
+                long.Parse(i.ToString(), CultureInfo.InvariantCulture)
+            );
             var disk = data.Generate().ToArray();
             Compact(disk);
 
@@ -33,7 +34,6 @@ namespace Advent2024
             stopwatch1.Stop();
 
             WriteLine($"{nameof(checksum)}: {checksum} in {stopwatch1} ms");
-
         }
 
         private static long Checksum(this long?[] disk)
@@ -80,7 +80,6 @@ namespace Advent2024
                 foreach (var i in Enumerable.Range(0, (int)item))
                 {
                     yield return show ? Convert.ToChar(index / 2) : null;
-
                 }
                 show = !show;
                 index++;

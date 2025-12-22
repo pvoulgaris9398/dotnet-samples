@@ -25,13 +25,18 @@
         }
 
         private sealed record Left() : Point(0, -1);
+
         private sealed record Right() : Point(0, +1);
+
         private sealed record Up() : Point(-1, 0);
+
         private sealed record Down() : Point(+1, 0);
 
-        private static List<string> RealData => CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\data\\day15.txt");
+        private static List<string> RealData =>
+            CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\data\\day15.txt");
 
-        private static char[][] TestMap1 => [
+        private static char[][] TestMap1 =>
+            [
                 "########".ToCharArray(),
                 "#..O.O.#".ToCharArray(),
                 "##@.O..#".ToCharArray(),
@@ -39,8 +44,8 @@
                 "#.#.O..#".ToCharArray(),
                 "#...O..#".ToCharArray(),
                 "#......#".ToCharArray(),
-                "########".ToCharArray()
-        ];
+                "########".ToCharArray(),
+            ];
 
         private static void PrintArray(char[][] map)
         {
@@ -57,14 +62,16 @@
         private static char[] TestMovesData1 => "<^^>>>vv<v>>v<<".ToCharArray();
 
         private static IEnumerable<Point> TestMoves1 =>
-        TestMovesData1.Select<char, Point>(c => c switch
-        {
-            '<' => new Left(),
-            '>' => new Right(),
-            '^' => new Up(),
-            'v' => new Down(),
-            _ => throw new NotImplementedException()
-        });
+            TestMovesData1.Select<char, Point>(c =>
+                c switch
+                {
+                    '<' => new Left(),
+                    '>' => new Right(),
+                    '^' => new Up(),
+                    'v' => new Down(),
+                    _ => throw new NotImplementedException(),
+                }
+            );
 
         private static Point Move(this Point current, Point direction, char[][] map)
         {
@@ -74,7 +81,8 @@
 
             while (stack.Count > 0)
             {
-                if (nextMove.IsAtWall(map)) break;
+                if (nextMove.IsAtWall(map))
+                    break;
 
                 if (nextMove.IsAllowed(map))
                 {
@@ -105,8 +113,6 @@
             }
             return current;
         }
-
-
 
         private static Point Move2(this Point current, Point direction, char[][] map)
         {
@@ -143,10 +149,11 @@
         private static Point Start(char[][] map)
         {
             for (var i = 0; i < map.Length; i++)
-                for (var j = 0; j < map[i].Length; j++)
-                {
-                    if (map[i][j] == '@') return new Point(i, j);
-                }
+            for (var j = 0; j < map[i].Length; j++)
+            {
+                if (map[i][j] == '@')
+                    return new Point(i, j);
+            }
             throw new NotImplementedException();
         }
 
@@ -170,7 +177,6 @@
             WriteLine(new string('*', 80));
 
             Test1();
-
         }
 
         public static void Test1()
@@ -178,8 +184,6 @@
             WriteLine(nameof(Test1));
 
             DoMoves(TestMap1, TestMoves1);
-
         }
-
     }
 }

@@ -1,5 +1,5 @@
-using Advent2024;
 using System.Text.RegularExpressions;
+using Advent2024;
 
 namespace Advent2024
 {
@@ -20,7 +20,6 @@ namespace Advent2024
             WriteLine(nameof(RunNew));
             WriteLine($"Count of {searchTerm} in the Dataset is {count}");
             WriteLine($"Count Valid X's is {xcount}");
-
         }
 
         /* I thought about munging the data into one _long_ string and doing the search that way
@@ -36,108 +35,134 @@ namespace Advent2024
             var count =
                 //GetDataForTesting()
                 LoadFileData("..\\..\\..\\..\\..\\day4.txt")
-                .AsArray()
-                .Transform()
-                .CountInstancesOf(searchTerm);
+                    .AsArray()
+                    .Transform()
+                    .CountInstancesOf(searchTerm);
 
             WriteLine(new string('*', 80));
             WriteLine(nameof(RunOriginal));
             WriteLine($"Count of {searchTerm} in the Dataset is {count}");
-
         }
+
         private static readonly string[] Valid = ["MASMAS", "MASSAM", "SAMMAS", "SAMSAM"];
 
-        private static IEnumerable<string> GetAllXes(this List<string> matrix, int rows, int cols) =>
-            GetXCenters(rows, cols).Select(center => matrix.GetX(center.row, center.col));
+        private static IEnumerable<string> GetAllXes(
+            this List<string> matrix,
+            int rows,
+            int cols
+        ) => GetXCenters(rows, cols).Select(center => matrix.GetX(center.row, center.col));
 
         private static IEnumerable<(int row, int col)> GetXCenters(int rows, int cols) =>
-            Enumerable.Range(1, rows - 2).SelectMany(row => Enumerable.Range(1, cols - 2).Select(col => (row, col)));
+            Enumerable
+                .Range(1, rows - 2)
+                .SelectMany(row => Enumerable.Range(1, cols - 2).Select(col => (row, col)));
 
-        private static string GetX(this List<string> matrix, int row, int col) => new([
-        matrix[row - 1][col - 1], matrix[row][col], matrix[row + 1][col + 1],
-        matrix[row - 1][col + 1], matrix[row][col], matrix[row + 1][col - 1]]);
+        private static string GetX(this List<string> matrix, int row, int col) =>
+            new([
+                matrix[row - 1][col - 1],
+                matrix[row][col],
+                matrix[row + 1][col + 1],
+                matrix[row - 1][col + 1],
+                matrix[row][col],
+                matrix[row + 1][col - 1],
+            ]);
+
         private static int CountWord(this string s, string word) =>
-        Regex.Matches(s, Regex.Escape(word)).Count;
+            Regex.Matches(s, Regex.Escape(word)).Count;
 
-        public static IEnumerable<string> GetAllStrings(this List<string> data) => data.GetAllStrings();
-        public static IEnumerable<string> GetAllStrings(this IEnumerable<string> data, int rows, int cols) =>
-        data.Rows().Concat(data.Columns(cols)).Concat(data.Diagonals(rows, cols)).Concat(data.Antidiagonals(rows, cols)).TwoWay();
+        public static IEnumerable<string> GetAllStrings(this List<string> data) =>
+            data.GetAllStrings();
+
+        public static IEnumerable<string> GetAllStrings(
+            this IEnumerable<string> data,
+            int rows,
+            int cols
+        ) =>
+            data.Rows()
+                .Concat(data.Columns(cols))
+                .Concat(data.Diagonals(rows, cols))
+                .Concat(data.Antidiagonals(rows, cols))
+                .TwoWay();
+
         private static IEnumerable<string> TwoWay(this IEnumerable<string> strings) =>
 #pragma warning disable IDE0305 // Simplify collection initialization
-       strings.SelectMany(s => new[] { s, new string(s.Reverse().ToArray()) });
+            strings.SelectMany(s => new[] { s, new string(s.Reverse().ToArray()) });
 #pragma warning restore IDE0305 // Simplify collection initialization
-
-
 
         internal static List<string> Transform(this List<List<char>> data)
         {
-
             List<string> result = [];
 
             //WriteLine(new string('*', 80));
             //WriteLine("Horizontals");
 
-            var horizontals = data.Select((row, rowIndex) =>
-            {
+            var horizontals = data.Select(
+                    (row, rowIndex) =>
+                    {
 #pragma warning disable IDE0305 // Simplify collection initialization
-                var result = new string(row.ToArray());
+                        var result = new string(row.ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                //WriteLine(result);
+                        //WriteLine(result);
 
-                return result;
-
-            }).ToList();
+                        return result;
+                    }
+                )
+                .ToList();
 
             // https://stackoverflow.com/questions/42172408/get-all-diagonals-in-a-2-dimensional-data-using-linq
             //WriteLine(new string('*', 80));
             //WriteLine("Left Diagonals");
-            var leftDiagonals = data.SelectMany((row, rowIdx) =>
-                row.Select((x, colIdx) => new { Key = rowIdx - colIdx, Value = x }))
-                    .GroupBy(x => x.Key)
-                    .OrderBy(x => x.Key)
-                    .Select(values =>
-                    {
+            var leftDiagonals = data.SelectMany(
+                    (row, rowIdx) =>
+                        row.Select((x, colIdx) => new { Key = rowIdx - colIdx, Value = x })
+                )
+                .GroupBy(x => x.Key)
+                .OrderBy(x => x.Key)
+                .Select(values =>
+                {
 #pragma warning disable IDE0305 // Simplify collection initialization
-                        var result = new string(values.Select(i => i.Value).ToArray());
+                    var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                        //WriteLine(result);
-                        return result;
-                    })
-                    .ToList();
+                    //WriteLine(result);
+                    return result;
+                })
+                .ToList();
 
             // https://stackoverflow.com/questions/42172408/get-all-diagonals-in-a-2-dimensional-data-using-linq
             //WriteLine(new string('*', 80));
             //WriteLine("Right Diagonals");
-            var rightDiagonalsOriginal = data
-                .SelectMany((row, rowIdx) =>
-                row.Select((x, colIdx) => new { Key = colIdx - rowIdx, Value = x }))
-                    .GroupBy(x => x.Key)
-                    //.OrderBy(x => x.Key)
-                    .Select(values =>
-                    {
+            var rightDiagonalsOriginal = data.SelectMany(
+                    (row, rowIdx) =>
+                        row.Select((x, colIdx) => new { Key = colIdx - rowIdx, Value = x })
+                )
+                .GroupBy(x => x.Key)
+                //.OrderBy(x => x.Key)
+                .Select(values =>
+                {
 #pragma warning disable IDE0305 // Simplify collection initialization
-                        var result = new string(values.Select(i => i.Value).ToArray());
+                    var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                        //WriteLine(result);
-                        return result;
-                    })
-                    .ToList();
+                    //WriteLine(result);
+                    return result;
+                })
+                .ToList();
 
             //WriteLine(new string('*', 80));
             //WriteLine("Verticals");
-            var verticals = data.SelectMany((row, rowIdx) =>
-                row.Select((x, colIdx) => new { Key = colIdx, Value = x }))
-                    .GroupBy(x => x.Key)
-                    .OrderBy(x => x.Key)
-                    .Select(values =>
-                    {
+            var verticals = data.SelectMany(
+                    (row, rowIdx) => row.Select((x, colIdx) => new { Key = colIdx, Value = x })
+                )
+                .GroupBy(x => x.Key)
+                .OrderBy(x => x.Key)
+                .Select(values =>
+                {
 #pragma warning disable IDE0305 // Simplify collection initialization
-                        var result = new string(values.Select(i => i.Value).ToArray());
+                    var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                        //WriteLine(result);
-                        return result;
-                    })
-                    .ToList();
+                    //WriteLine(result);
+                    return result;
+                })
+                .ToList();
 
             /*  This way seems to be the key. My original way above (rightDiagonalsOriginal)
              *  was coming-up with 32 less record(s) overall than the correct way
@@ -145,19 +170,21 @@ namespace Advent2024
              *  This way works fine though.
              */
             data.Reverse(); //<<<===KEY
-            var rightDiagonalsNew = data.SelectMany((row, rowIdx) =>
-               row.Select((x, colIdx) => new { Key = rowIdx - colIdx, Value = x }))
-                   .GroupBy(x => x.Key)
-                   .OrderBy(x => x.Key)
-                   .Select(values =>
-                   {
+            var rightDiagonalsNew = data.SelectMany(
+                    (row, rowIdx) =>
+                        row.Select((x, colIdx) => new { Key = rowIdx - colIdx, Value = x })
+                )
+                .GroupBy(x => x.Key)
+                .OrderBy(x => x.Key)
+                .Select(values =>
+                {
 #pragma warning disable IDE0305 // Simplify collection initialization
-                       var result = new string(values.Select(i => i.Value).ToArray());
+                    var result = new string(values.Select(i => i.Value).ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
-                       //WriteLine(result);
-                       return result;
-                   })
-                   .ToList();
+                    //WriteLine(result);
+                    return result;
+                })
+                .ToList();
 
             result.AddRange(horizontals);
             result.AddRange(verticals);
@@ -174,7 +201,7 @@ namespace Advent2024
              * m (10) row(s)
              * n (10) columns()
              * n * n diagonals() - those less than x long
-             * 
+             *
              */
 
             // Search backwards and forward
@@ -183,14 +210,13 @@ namespace Advent2024
             var backwards = new string(searchWord.Reverse().ToArray());
 #pragma warning restore IDE0305 // Simplify collection initialization
 
-            var forwardCount = list
-                .Sum(line => Regex.Matches(line, Regex.Escape(forward)).Count);
+            var forwardCount = list.Sum(line => Regex.Matches(line, Regex.Escape(forward)).Count);
 
-            var backwardsCount = list
-                .Sum(line => Regex.Matches(line, Regex.Escape(backwards)).Count);
+            var backwardsCount = list.Sum(line =>
+                Regex.Matches(line, Regex.Escape(backwards)).Count
+            );
 
             return forwardCount + backwardsCount;
-
         }
 
         internal static List<List<char>> AsArray(this List<string> lines)
@@ -204,25 +230,26 @@ namespace Advent2024
             }
 
             return data;
-
         }
 
-        internal static List<string> LoadFileData(string path) => [.. File.OpenText(path).ReadLines()];
+        internal static List<string> LoadFileData(string path) =>
+            [.. File.OpenText(path).ReadLines()];
 
         internal static List<string> GetDataForTesting()
         {
-            return [
-                 "MMMSXXMASM"
-                ,"MSAMXMSMSA"
-                ,"AMXSXMAAMM"
-                ,"MSAMASMSMX"
-                ,"XMASAMXAMM"
-                ,"XXAMMXXAMA"
-                ,"SMSMSASXSS"
-                ,"SAXAMASAAA"
-                ,"MAMMMXMMMM"
-                ,"MXMXAXMASX"
-                    ];
+            return
+            [
+                "MMMSXXMASM",
+                "MSAMXMSMSA",
+                "AMXSXMAAMM",
+                "MSAMASMSMX",
+                "XMASAMXAMM",
+                "XXAMMXXAMA",
+                "SMSMSASXSS",
+                "SAXAMASAAA",
+                "MAMMMXMMMM",
+                "MXMXAXMASX",
+            ];
         }
     }
 }

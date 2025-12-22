@@ -1,5 +1,5 @@
-using Advent2024;
 using System.Globalization;
+using Advent2024;
 
 namespace Advent2024
 {
@@ -11,10 +11,12 @@ namespace Advent2024
 
             var rules = data.ToSortRules().ToList();
 
-            IComparer<int> comparer = Comparer<int>.Create((a, b) =>
-                rules.Contains((a, b)) ? -1
-                : rules.Contains((b, a)) ? 1
-                : 0);
+            IComparer<int> comparer = Comparer<int>.Create(
+                (a, b) =>
+                    rules.Contains((a, b)) ? -1
+                    : rules.Contains((b, a)) ? 1
+                    : 0
+            );
 
             var allPages = data.ToPages().ToList();
 
@@ -28,10 +30,9 @@ namespace Advent2024
 
             WriteLine($"Sum: {sum1}");
             WriteLine($"Sum: {sum2}");
-
         }
-        private static int MiddlePage(this List<int> pages) =>
-            pages[pages.Count / 2];
+
+        private static int MiddlePage(this List<int> pages) => pages[pages.Count / 2];
 
         private static int MiddlePage(this IEnumerable<int> pages)
         {
@@ -46,23 +47,24 @@ namespace Advent2024
         }
 
         private static bool IsCorrectlySorted(this List<int> pages, IComparer<int> comparer) =>
-        pages.SelectMany((prev, index) => pages[(index + 1)..].Select(next => (prev, next)))
-            .All(pair => comparer.Compare(pair.prev, pair.next) <= 0);
+            pages
+                .SelectMany((prev, index) => pages[(index + 1)..].Select(next => (prev, next)))
+                .All(pair => comparer.Compare(pair.prev, pair.next) <= 0);
 
         internal static IEnumerable<List<int>> ToPages(this List<string> text) =>
-            text
-                .Where(line => line.Contains(',', StringComparison.InvariantCulture))
+            text.Where(line => line.Contains(',', StringComparison.InvariantCulture))
                 .Select(CommonFuncs.ParseIntsNoSign);
 
         internal static IEnumerable<(int before, int after)> ToSortRules(this List<string> text) =>
-            text
-            .TakeWhile(line => !string.IsNullOrWhiteSpace(line))
-            .Select(ToSortRules);
+            text.TakeWhile(line => !string.IsNullOrWhiteSpace(line)).Select(ToSortRules);
 
         private static (int before, int after) ToSortRules(this string line)
         {
             var parts = line.Split('|');
-            return (int.Parse(parts[0], CultureInfo.InvariantCulture), int.Parse(parts[1], CultureInfo.InvariantCulture));
+            return (
+                int.Parse(parts[0], CultureInfo.InvariantCulture),
+                int.Parse(parts[1], CultureInfo.InvariantCulture)
+            );
         }
     }
 }

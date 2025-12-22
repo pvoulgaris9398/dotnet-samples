@@ -19,7 +19,6 @@ namespace Advent2024
              *
              */
 
-
             List<List<int>> allLists = LoadFileData("..\\..\\..\\..\\..\\day2.txt");
 
             int safeCount = allLists.Count(IsSafe);
@@ -77,24 +76,24 @@ namespace Advent2024
             WriteLine($"        Total count: {results.Count}");
             WriteLine($"         Safe count: {safeCount}");
             WriteLine($"Tolerant safe count: {tolerantSafeCount}");
-
         }
 
         private static IEnumerable<List<int>> Expand(this List<int> values) =>
             new[] { values }.Concat(Enumerable.Range(0, values.Count).Select(values.ExceptAt));
 
         private static List<int> ExceptAt(this List<int> values, int index) =>
-        [.. values.Take(index), .. values.Skip(index + 1)];
+            [.. values.Take(index), .. values.Skip(index + 1)];
 
         private static bool IsSafe(this List<int> values) =>
             values.Count < 2 || values.IsSafe(Math.Sign(values[1] - values[0]));
 
-        private static bool IsSafe(this List<int> values, int direction) => values.ToPairs().All(pair => pair.IsSafe(direction));
+        private static bool IsSafe(this List<int> values, int direction) =>
+            values.ToPairs().All(pair => pair.IsSafe(direction));
 
         private static bool IsSafe(this (int previous, int current) pair, int direction) =>
-            Math.Abs(pair.current - pair.previous) >= 1 &&
-            Math.Abs(pair.current - pair.previous) <= 3 &&
-            Math.Sign(pair.current - pair.previous) == direction;
+            Math.Abs(pair.current - pair.previous) >= 1
+            && Math.Abs(pair.current - pair.previous) <= 3
+            && Math.Sign(pair.current - pair.previous) == direction;
 
         /// <summary>
         /// The number of triplets in a dataset is equal to:
@@ -102,7 +101,9 @@ namespace Advent2024
         /// </summary>
         /// <param name="values"></param>
         /// <returns></returns>
-        private static IEnumerable<(int prev, int current, int next)> ToTriplets(this List<int> values)
+        private static IEnumerable<(int prev, int current, int next)> ToTriplets(
+            this List<int> values
+        )
         {
             using var enumerator = values.GetEnumerator();
             if (!enumerator.MoveNext())
@@ -156,7 +157,8 @@ namespace Advent2024
             }
         }
 
-        private static List<List<int>> LoadFileData(string path) => [.. File.OpenText(path).ReadLines().Select(CommonFuncs.ParseIntsNoSign)];
+        private static List<List<int>> LoadFileData(string path) =>
+            [.. File.OpenText(path).ReadLines().Select(CommonFuncs.ParseIntsNoSign)];
 
         private static IEnumerable<List<int>> LoadTestData()
         {

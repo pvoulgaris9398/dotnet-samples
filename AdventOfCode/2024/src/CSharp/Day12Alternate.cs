@@ -4,7 +4,8 @@ namespace Advent2024
 {
     static class Day12Alternate
     {
-        private static List<string> RealData => CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day12.txt");
+        private static List<string> RealData =>
+            CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day12.txt");
 
         public static void Run()
         {
@@ -21,23 +22,31 @@ namespace Advent2024
         private static int DiscountedCost(this List<(int row, int col)> region, char[][] map) =>
             region.DiscountedPerimeter(map) * region.Area();
 
-        private static int DiscountedPerimeter(this List<(int row, int col)> region, char[][] map) =>
-            region.Perimeter(map) - region.Sum(point => point.CountContinuingFences(map));
+        private static int DiscountedPerimeter(
+            this List<(int row, int col)> region,
+            char[][] map
+        ) => region.Perimeter(map) - region.Sum(point => point.CountContinuingFences(map));
 
         private static bool ContinuesFence(
-            this (int row, int col) point, (int rowDiff, int colDiff) preceding,
-            (int rowDiff, int colDiff) outside, char[][] map) =>
-            !point.IsNeighbor(point.Move(outside), map) &&
-            point.IsNeighbor(point.Move(preceding), map) &&
-            !point.IsNeighbor(point.Move(preceding).Move(outside), map);
+            this (int row, int col) point,
+            (int rowDiff, int colDiff) preceding,
+            (int rowDiff, int colDiff) outside,
+            char[][] map
+        ) =>
+            !point.IsNeighbor(point.Move(outside), map)
+            && point.IsNeighbor(point.Move(preceding), map)
+            && !point.IsNeighbor(point.Move(preceding).Move(outside), map);
 
         private static (int row, int col) Move(
-            this (int row, int col) point, (int rowDiff, int colDiff) direction) =>
-            (point.row + direction.rowDiff, point.col + direction.colDiff);
+            this (int row, int col) point,
+            (int rowDiff, int colDiff) direction
+        ) => (point.row + direction.rowDiff, point.col + direction.colDiff);
 
         private static bool IsNeighbor(
-            this (int row, int col) point, (int row, int col) other, char[][] map) =>
-            map.Contains(other) && map.At(other) == map.At(point);
+            this (int row, int col) point,
+            (int row, int col) other,
+            char[][] map
+        ) => map.Contains(other) && map.At(other) == map.At(point);
 
         private static bool ContinuesFenceLeftward(this (int row, int col) point, char[][] map) =>
             point.ContinuesFence((0, 1), (1, 0), map);
@@ -54,8 +63,10 @@ namespace Advent2024
         private static int CountContinuingFences(this (int row, int col) point, char[][] map) =>
             new[]
             {
-            point.ContinuesFenceLeftward(map), point.ContinuesFenceUpward(map),
-            point.ContinuesFenceRightward(map), point.ContinuesFenceDownward(map)
+                point.ContinuesFenceLeftward(map),
+                point.ContinuesFenceUpward(map),
+                point.ContinuesFenceRightward(map),
+                point.ContinuesFenceDownward(map),
             }.Count(x => x);
 
         private static int Cost(this List<(int row, int col)> region, char[][] map) =>
@@ -64,8 +75,7 @@ namespace Advent2024
         private static int Perimeter(this List<(int row, int col)> region, char[][] map) =>
             region.Sum(point => 4 - point.GetNeighbors(map).Count());
 
-        private static int Area(this List<(int row, int col)> region) =>
-            region.Count;
+        private static int Area(this List<(int row, int col)> region) => region.Count;
 
         private static IEnumerable<List<(int row, int col)>> GetRegions(this char[][] map)
         {
@@ -87,7 +97,8 @@ namespace Advent2024
 
                     foreach (var neighbor in point.GetNeighbors(map))
                     {
-                        if (pending.Remove(neighbor)) add.Enqueue(neighbor);
+                        if (pending.Remove(neighbor))
+                            add.Enqueue(neighbor);
                     }
                 }
 
@@ -95,14 +106,19 @@ namespace Advent2024
             }
         }
 
-        private static IEnumerable<(int row, int col)> GetNeighbors(this (int row, int col) point, char[][] map) =>
+        private static IEnumerable<(int row, int col)> GetNeighbors(
+            this (int row, int col) point,
+            char[][] map
+        ) =>
             new[]
             {
-            (point.row - 1, point.col), (point.row + 1, point.col),
-            (point.row, point.col - 1), (point.row, point.col + 1)
+                (point.row - 1, point.col),
+                (point.row + 1, point.col),
+                (point.row, point.col - 1),
+                (point.row, point.col + 1),
             }
-            .Where(map.Contains)
-            .Where(neighbor => map.At(neighbor) == map.At(point));
+                .Where(map.Contains)
+                .Where(neighbor => map.At(neighbor) == map.At(point));
 
         private static IEnumerable<(int row, int col)> AllPoints(this char[][] map) =>
             from row in Enumerable.Range(0, map.Length)
@@ -113,8 +129,9 @@ namespace Advent2024
             map[point.row][point.col];
 
         private static bool Contains(this char[][] map, (int row, int col) point) =>
-            point.row >= 0 && point.row < map.Length &&
-            point.col >= 0 && point.col < map[point.row].Length;
-
+            point.row >= 0
+            && point.row < map.Length
+            && point.col >= 0
+            && point.col < map[point.row].Length;
     }
 }

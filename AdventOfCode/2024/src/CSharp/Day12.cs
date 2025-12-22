@@ -2,35 +2,33 @@ namespace Advent2024
 {
     internal static class Day12
     {
-        private static List<string> RealData => CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day12.txt");
+        private static List<string> RealData =>
+            CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day12.txt");
 
-        private static readonly List<string> TestData1 = [
-"AAAA"
-,"BBCD"
-,"BBCC"
-,"EEEC"
-            ];
+        private static readonly List<string> TestData1 = ["AAAA", "BBCD", "BBCC", "EEEC"];
 
-        private static readonly List<string> TestData2 = [
-"OOOOO"
-,"OXOXO"
-,"OOOOO"
-,"OXOXO"
-,"OOOOO"
-            ];
+        private static readonly List<string> TestData2 =
+        [
+            "OOOOO",
+            "OXOXO",
+            "OOOOO",
+            "OXOXO",
+            "OOOOO",
+        ];
 
-        private static readonly List<string> TestData3 = [
- "RRRRIICCFF"
-,"RRRRIICCCF"
-,"VVRRRCCFFF"
-,"VVRCCCJFFF"
-,"VVVVCJJCFE"
-,"VVIVCCJJEE"
-,"VVIIICJJEE"
-,"MIIIIIJJEE"
-,"MIIISIJEEE"
-,"MMMISSJEEE"
-            ];
+        private static readonly List<string> TestData3 =
+        [
+            "RRRRIICCFF",
+            "RRRRIICCCF",
+            "VVRRRCCFFF",
+            "VVRCCCJFFF",
+            "VVVVCJJCFE",
+            "VVIVCCJJEE",
+            "VVIIICJJEE",
+            "MIIIIIJJEE",
+            "MIIISIJEEE",
+            "MMMISSJEEE",
+        ];
 
         public static void Run(bool testing = false)
         {
@@ -42,12 +40,15 @@ namespace Advent2024
             // Part 2 was 805814
 
             Day12Alternate.Run();
-
         }
 
         private static IEnumerable<GardenPlot> ToGardenPlots(this char[][] map) =>
-            map.SelectMany((row, rowIndex) =>
-                row.Select((column, columnIndex) => new GardenPlot(rowIndex, columnIndex, column)));
+            map.SelectMany(
+                (row, rowIndex) =>
+                    row.Select(
+                        (column, columnIndex) => new GardenPlot(rowIndex, columnIndex, column)
+                    )
+            );
 
         private static IEnumerable<Region> DistinctRegions(this IEnumerable<GardenPlot> plots)
         {
@@ -61,14 +62,12 @@ namespace Advent2024
             var plots = map.ToGardenPlots();
             var regions = plots.DistinctRegions();
 
-            var totalPrice = map
-                .ToGardenPlots()
+            var totalPrice = map.ToGardenPlots()
                 .DistinctRegions()
                 .SelectMany(region => region.ContiguousRegions())
                 .Sum(region => region.Price);
 
             WriteLine($"Total Price: {totalPrice}");
-
         }
 
         private static IEnumerable<Region> ContiguousRegions(this Region all)
@@ -99,9 +98,15 @@ namespace Advent2024
             }
         }
 
-        private static bool HasLinksToAny(this IEnumerable<GardenPlot> left, IEnumerable<GardenPlot> right)
+        private static bool HasLinksToAny(
+            this IEnumerable<GardenPlot> left,
+            IEnumerable<GardenPlot> right
+        )
         {
-            if (left.Any(l => right.Any(r => r.NextTo(l))) || right.Any(r => left.Any(l => l.NextTo(r))))
+            if (
+                left.Any(l => right.Any(r => r.NextTo(l)))
+                || right.Any(r => left.Any(l => l.NextTo(r)))
+            )
             {
                 return true;
             }
@@ -110,13 +115,23 @@ namespace Advent2024
 
         private static bool NextTo(this GardenPlot currentPlot, GardenPlot nextPlot)
         {
-            return (currentPlot.Row == nextPlot.Row && Math.Abs(currentPlot.Column - nextPlot.Column) == 1) ||
-                (currentPlot.Column == nextPlot.Column && Math.Abs(currentPlot.Row - nextPlot.Row) == 1);
+            return (
+                    currentPlot.Row == nextPlot.Row
+                    && Math.Abs(currentPlot.Column - nextPlot.Column) == 1
+                )
+                || (
+                    currentPlot.Column == nextPlot.Column
+                    && Math.Abs(currentPlot.Row - nextPlot.Row) == 1
+                );
         }
 
-        private static char? ValueAt(this IEnumerable<GardenPlot> plots, (int row, int column) coordinates) => plots.ToArray().ValueAt(coordinates.row, coordinates.column);
+        private static char? ValueAt(
+            this IEnumerable<GardenPlot> plots,
+            (int row, int column) coordinates
+        ) => plots.ToArray().ValueAt(coordinates.row, coordinates.column);
 
-        private static char? ValueAt(this GardenPlot[] plots, int row, int column) => plots.FirstOrDefault(p => p.Row == row && p.Column == column)?.Plant;
+        private static char? ValueAt(this GardenPlot[] plots, int row, int column) =>
+            plots.FirstOrDefault(p => p.Row == row && p.Column == column)?.Plant;
 
         private sealed record GardenPlot(int Row, int Column, char Plant)
         {
@@ -139,7 +154,6 @@ namespace Advent2024
                 + (plots.ValueAt(plot.Right) == null ? 1 : 0)
                 + (plots.ValueAt(plot.Up) == null ? 1 : 0)
                 + (plots.ValueAt(plot.Down) == null ? 1 : 0);
-
         }
     }
 }

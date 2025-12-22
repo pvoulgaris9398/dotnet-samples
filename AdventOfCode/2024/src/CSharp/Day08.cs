@@ -4,22 +4,24 @@ namespace Advent2024
 {
     internal static class Day08
     {
-        private static string[] TestData => [
-"............",
-"........0...",
-".....0......",
-".......0....",
-"....0.......",
-"......A.....",
-"............",
-"............",
-"........A...",
-".........A..",
-"............",
-"............"
+        private static string[] TestData =>
+            [
+                "............",
+                "........0...",
+                ".....0......",
+                ".......0....",
+                "....0.......",
+                "......A.....",
+                "............",
+                "............",
+                "........A...",
+                ".........A..",
+                "............",
+                "............",
             ];
 
-        private static List<string> RealData => CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day8.txt");
+        private static List<string> RealData =>
+            CommonFuncs.LoadFileData("..\\..\\..\\..\\..\\day8.txt");
 
         /// <summary>
         /// With thanks to Zoran for pointing me in the right direction...
@@ -27,7 +29,6 @@ namespace Advent2024
         /// <param name="testing"></param>
         public static void Run(bool testing = false)
         {
-
             WriteLine(new string('*', 80));
             WriteLine($"{nameof(Day08)}.{nameof(Run)}");
             WriteLine(new string('*', 80));
@@ -52,13 +53,26 @@ namespace Advent2024
         }
 
         private static bool IsInside(this char[][] map, Position position) =>
-            position.Row >= 0 && position.Row < map.Length &&
-            position.Col >= 0 && position.Col < map[0].Length;
+            position.Row >= 0
+            && position.Row < map.Length
+            && position.Col >= 0
+            && position.Col < map[0].Length;
 
-        private static IEnumerable<Position> GetAntinodes(this AntennaSet antennas, char[][] map, AntinodeGenerator antinodeGenerator) =>
-            antennas.GetPositionPairs().SelectMany(pair => map.GetAntinodes(pair.a1, pair.a2, antinodeGenerator));
+        private static IEnumerable<Position> GetAntinodes(
+            this AntennaSet antennas,
+            char[][] map,
+            AntinodeGenerator antinodeGenerator
+        ) =>
+            antennas
+                .GetPositionPairs()
+                .SelectMany(pair => map.GetAntinodes(pair.a1, pair.a2, antinodeGenerator));
 
-        private static IEnumerable<Position> NonResonatingAntinodes(this char[][] map, Position antenna, int rowDiff, int colDiff)
+        private static IEnumerable<Position> NonResonatingAntinodes(
+            this char[][] map,
+            Position antenna,
+            int rowDiff,
+            int colDiff
+        )
         {
             var position = new Position(antenna.Row + rowDiff, antenna.Col + colDiff);
             if (map.IsInside(position))
@@ -67,7 +81,12 @@ namespace Advent2024
             }
         }
 
-        private static IEnumerable<Position> ResonatingAntinodes(this char[][] map, Position antenna, int rowDiff, int colDiff)
+        private static IEnumerable<Position> ResonatingAntinodes(
+            this char[][] map,
+            Position antenna,
+            int rowDiff,
+            int colDiff
+        )
         {
             yield return antenna;
             var position = antenna;
@@ -79,8 +98,11 @@ namespace Advent2024
         }
 
         private static IEnumerable<Position> GetAntinodes(
-            this char[][] map, Position antenna1, Position antenna2,
-            AntinodeGenerator antinodeGenerator)
+            this char[][] map,
+            Position antenna1,
+            Position antenna2,
+            AntinodeGenerator antinodeGenerator
+        )
         {
             int rowDiff = antenna1.Row - antenna2.Row;
             int colDiff = antenna1.Col - antenna2.Col;
@@ -89,22 +111,38 @@ namespace Advent2024
                 .Concat(antinodeGenerator(map, antenna2, -rowDiff, -colDiff));
         }
 
-        private delegate IEnumerable<Position> AntinodeGenerator(char[][] map, Position antenna, int rowDiff, int colDiff);
+        private delegate IEnumerable<Position> AntinodeGenerator(
+            char[][] map,
+            Position antenna,
+            int rowDiff,
+            int colDiff
+        );
 
-        private static IEnumerable<(Position a1, Position a2)> GetPositionPairs(this AntennaSet antennas) =>
-            antennas.Positions.SelectMany((pos1, index1) =>
-                antennas.Positions.Skip(index1 + 1).Select(pos2 => (pos1, pos2)));
+        private static IEnumerable<(Position a1, Position a2)> GetPositionPairs(
+            this AntennaSet antennas
+        ) =>
+            antennas.Positions.SelectMany(
+                (pos1, index1) => antennas.Positions.Skip(index1 + 1).Select(pos2 => (pos1, pos2))
+            );
 
         private static IEnumerable<AntennaSet> GetAntennas(this char[][] map) =>
-            map.GetIndividualAntennas().GroupBy(
-                antenna => antenna.Frequency,
-                (frequency, antennas) => new AntennaSet(frequency, [.. antennas.Select(antenna => antenna.Position)]));
+            map.GetIndividualAntennas()
+                .GroupBy(
+                    antenna => antenna.Frequency,
+                    (frequency, antennas) =>
+                        new AntennaSet(frequency, [.. antennas.Select(antenna => antenna.Position)])
+                );
 
         private static IEnumerable<Antenna> GetIndividualAntennas(this char[][] map) =>
-            map.SelectMany((row, rowIndex) =>
-                row.Select((content, colIndex) => (content, rowIndex, colIndex))
-                .Where(cell => cell.content != '.')
-                .Select(cell => new Antenna(cell.content, new(cell.rowIndex, cell.colIndex))));
+            map.SelectMany(
+                (row, rowIndex) =>
+                    row.Select((content, colIndex) => (content, rowIndex, colIndex))
+                        .Where(cell => cell.content != '.')
+                        .Select(cell => new Antenna(
+                            cell.content,
+                            new(cell.rowIndex, cell.colIndex)
+                        ))
+            );
 
         // ReSharper disable once NotAccessedPositionalProperty.Local
         private sealed record AntennaSet(char Frequency, List<Position> Positions);
