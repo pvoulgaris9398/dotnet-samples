@@ -40,12 +40,14 @@
     "editor.suggest.insertMode": "replace",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[xml;xaml]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[xaml]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "dabbinavo.xamlstyler"
   },
   "files.exclude": {
     "**/bin": true,
     "**/obj": true,
     "**/.vs": true
-  }
+  },
+  "csharpier.enableDebugLogs": true
 }

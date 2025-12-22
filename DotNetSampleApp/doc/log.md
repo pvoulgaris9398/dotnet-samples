@@ -24,12 +24,12 @@
 
 - https://github.com/dotnet/vscode-csharp/issues/5402
 - It looks like the _language server_ is installed with the \
-`C# Dev Kit` extension
+  `C# Dev Kit` extension
 
 ## Saturday, 7/6/24
 
 - Looking at `Razor Telemetry` and trying to turn it off \
-(until I understand what it is and does)
+  (until I understand what it is and does)
 - See [here](https://code.visualstudio.com/docs/getstarted/telemetry#_disable-telemetry-reporting)
 
 ![1](2024-07-06-04.png)
@@ -63,7 +63,7 @@
 
 ```json
 {
-    "window.zoomlevel": 2
+  "window.zoomlevel": 2
 }
 ```
 
@@ -72,9 +72,9 @@
 
 ```json
 {
-    "editor.formatOnSave": true,
-    "window.zoomLevel": 2,
-    "terminal.integrated.defaultProfile.windows": "Git Bash"
+  "editor.formatOnSave": true,
+  "window.zoomLevel": 2,
+  "terminal.integrated.defaultProfile.windows": "Git Bash"
 }
 ```
 

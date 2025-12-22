@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -11,5 +10,4 @@
     <ProjectReference Include="..\Copernicus.Core.Wpf\Copernicus.Core.Wpf.csproj" />
     <ProjectReference Include="..\Copernicus.Core\Copernicus.Core.csproj" />
   </ItemGroup>
-
 </Project>

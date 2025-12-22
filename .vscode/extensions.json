@@ -9,6 +9,7 @@
     "tintoy.msbuild-project-tools",
     "humao.rest-client",
     "csharpier.csharpier-vscode",
-    "ionide.ionide-fsharp"
+    "ionide.ionide-fsharp",
+    "dabbinavo.xamlstyler"
   ]
 }
