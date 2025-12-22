@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/DotNetObservableExample/DotNetObservableExample.csproj" />
+  <Project Path="src/Investments/Investments.fsproj" />
+</Solution>

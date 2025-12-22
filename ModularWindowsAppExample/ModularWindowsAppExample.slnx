@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Copernicus.Core.Wpf/Copernicus.Core.Wpf.csproj" />
+    <Project Path="src/Copernicus.Core/Copernicus.Core.csproj" />
+    <Project Path="src/Copernicus.WpfApp/Copernicus.WpfApp.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/">
+    <Project Path="src/Copernicus.Modules.CorporateActions/Copernicus.Modules.CorporateActions.csproj" />
+    <Project Path="src/Copernicus.Modules.Pricing/Copernicus.Modules.Pricing.csproj" />
+    <Project Path="src/Copernicus.Modules.SecurityMaster/Copernicus.Modules.SecurityMaster.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/Copernicus.Core.UnitTest/Copernicus.Core.UnitTest.csproj" />
+    <Project Path="test/Copernicus.CorporateActions.UnitTest/Copernicus.CorporateActions.UnitTest.csproj" />
+    <Project Path="test/Copernicus.Pricing.UnitTest/Copernicus.Pricing.UnitTest.csproj" />
+    <Project Path="test/Copernicus.SecurityMaster.UnitTest/Copernicus.SecurityMaster.UnitTest.csproj" />
+  </Folder>
+</Solution>

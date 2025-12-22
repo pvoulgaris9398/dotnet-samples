@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/AvaloniaAppExample/AvaloniaAppExample.csproj" />
+  <Project Path="src/Copernicus/Copernicus.fsproj" />
+</Solution>

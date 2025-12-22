@@ -20,6 +20,11 @@ internal static class Tests
         int[] input = [1, 2, 3, 4, 5, 6, 7];
 
         Console.WriteLine(new string('*', 80));
+        Console.WriteLine();
+        Console.WriteLine("Sample: Two ways of generating pairs from a sequence:");
+        Console.WriteLine();
+
+        Console.WriteLine(new string('*', 80));
         input.Print();
         Console.WriteLine();
 
@@ -44,6 +49,11 @@ internal static class Tests
         };
 
         Console.WriteLine(new string('*', 80));
+        Console.WriteLine();
+        Console.WriteLine("Sample: Transposing a 2-D array of characters:");
+        Console.WriteLine();
+
+        Console.WriteLine(new string('*', 80));
         Console.WriteLine("Original Array:");
         testData.Print();
         Console.WriteLine();
@@ -63,6 +73,11 @@ internal static class Tests
             { '3', '8', '7' },
             { '2', '1', '5' },
         };
+
+        Console.WriteLine(new string('*', 80));
+        Console.WriteLine();
+        Console.WriteLine("Sample: Transposing a 2-D array of characters:");
+        Console.WriteLine();
 
         Console.WriteLine(new string('*', 80));
         Console.WriteLine("Original Array:");

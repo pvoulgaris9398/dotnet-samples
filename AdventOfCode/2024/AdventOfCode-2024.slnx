@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/CSharp/">
+    <Project Path="src/CSharp/Advent2024.csproj" />
+  </Folder>
+  <Folder Name="/FSharp/">
+    <Project Path="src/FSharp/Advent2024FSharp/Advent2024FSharp.fsproj" />
+    <Project Path="src/FSharp/Common.Tests/Common.Tests.fsproj" />
+    <Project Path="src/FSharp/Common/Common.fsproj" />
+  </Folder>
+</Solution>

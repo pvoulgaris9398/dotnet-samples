@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="src/LibraryOne/LibraryOne.csproj" />
+  <Project Path="src/Petros.Core/Petros.Core.csproj" />
+  <Project Path="src/StaticUsingExample.ConsoleApp/StaticUsingExample.ConsoleApp.csproj" />
+</Solution>
