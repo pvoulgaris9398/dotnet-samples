@@ -53,7 +53,6 @@ csharp_indent_braces = false
 dotnet_analyzer_diagnostic.severity = error
 dotnet_diagnostic.IDE0079.severity = silent
 
-
 # Organize usings
 dotnet_separate_import_directive_groups = true
 dotnet_sort_system_directives_first = true
