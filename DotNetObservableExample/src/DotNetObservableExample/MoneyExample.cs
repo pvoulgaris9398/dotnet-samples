@@ -18,7 +18,6 @@
             : amount == 0 ? NoMoney.Value
             : currency == Currency.Empty ? null
             : new Money(amount, currency);
-
     }
 
     public class NoMoney : IMoney
@@ -42,11 +41,11 @@
             Amount = Math.Round(amount, 2);
             Currency = currency;
         }
+
         public decimal Amount { get; }
 
         public Currency Currency { get; }
     }
-
 
     public interface IMoney
     {

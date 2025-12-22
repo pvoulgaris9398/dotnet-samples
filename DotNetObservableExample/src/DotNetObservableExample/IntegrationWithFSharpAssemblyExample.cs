@@ -1,10 +1,9 @@
-﻿using Investments;
-using Securities;
-namespace DotNetObservableExample
+﻿namespace DotNetObservableExample
 {
     public static class IntegrationWithFSharpAssemblyExample
     {
         public static string Description() => "Demonstrate Integration With Assembly Written In F#";
+
         public static void Execute()
         {
             Say.hello("Marie");
@@ -17,7 +16,6 @@ namespace DotNetObservableExample
             var security = Factory.CreateValidSecurity("ABC")?.Value;
 
             Console.WriteLine(security);
-
         }
     }
 }

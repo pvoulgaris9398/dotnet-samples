@@ -9,11 +9,9 @@ namespace DotNetSampleApp
     public class BenchmarkPerformance
     {
         [Params(100, 200)]
-#pragma warning disable IDE0044 // Add readonly modifier
 #pragma warning disable CA1051 // Do not declare visible instance fields
         public int N = 1;
 #pragma warning restore CA1051 // Do not declare visible instance fields
-#pragma warning restore IDE0044 // Add readonly modifier
 
         private string _countries = "";
         private int _index;

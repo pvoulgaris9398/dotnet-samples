@@ -2,19 +2,20 @@
 {
     public static class AppService
     {
-        internal static Action<string> DefaultLogCallback { get; set; } = msg =>
-        {
-            var currentColor = ForegroundColor;
-            try
+        internal static Action<string> DefaultLogCallback { get; set; } =
+            msg =>
             {
-                ForegroundColor = ConsoleColor.Green;
-                WriteLine(msg);
-            }
-            finally
-            {
-                ForegroundColor = currentColor;
-            }
-        };
+                var currentColor = ForegroundColor;
+                try
+                {
+                    ForegroundColor = ConsoleColor.Green;
+                    WriteLine(msg);
+                }
+                finally
+                {
+                    ForegroundColor = currentColor;
+                }
+            };
 
         internal static Action<string> LogCallback { get; set; } = DefaultLogCallback;
 

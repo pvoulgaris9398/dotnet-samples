@@ -1,5 +1,3 @@
-using BenchmarkDotNet.Running;
-using DotNetSampleApp;
 using static System.Console;
 
 var now = DateTime.Now;

@@ -1,6 +1,7 @@
 ﻿namespace Copernicus.Core.UnitTest
 {
-    public class BaseTest<T> where T : class
+    public class BaseTest<T>
+        where T : class
     {
         protected void OnArrange(Action? action = null)
         {

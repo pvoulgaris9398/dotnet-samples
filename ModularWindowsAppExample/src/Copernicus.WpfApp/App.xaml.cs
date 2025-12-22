@@ -1,8 +1,4 @@
-﻿using System.Windows;
-
-using Copernicus.Core.Modules;
-
-namespace Copernicus.WpfApp;
+﻿namespace Copernicus.WpfApp;
 
 /// <summary>
 /// Interaction logic for App.xaml
@@ -22,11 +18,9 @@ public partial class App : Application
 
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        if (sender is MainWindow mw &&
-            mw.Tag is ModuleManager2 mm)
+        if (sender is MainWindow mw && mw.Tag is ModuleManager2 mm)
         {
             mm.Unload();
         }
     }
 }
-

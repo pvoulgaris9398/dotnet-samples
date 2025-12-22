@@ -3,8 +3,5 @@ namespace Copernicus.CorporateActions.UnitTest;
 public class UnitTest1
 {
     [Fact]
-    public void Test1()
-    {
-
-    }
+    public void Test1() { }
 }

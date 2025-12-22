@@ -6,6 +6,7 @@
     "markdown": false,
     "scminput": false
   },
+  "chat.disableAIFeatures": true,
   "debug.console.closeOnEnd": false,
   "debug.openDebug": "openOnDebugBreak",
   "dotnet.defaultSolution": "none",
@@ -13,6 +14,7 @@
   "editor.formatOnSave": true,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "editor.minimap.autohide": "mouseover",
+  "editor.minimap.showRegionSectionHeaders": false,
   "[csharp]": {
     "editor.defaultFormatter": "csharpier.csharpier-vscode",
     "editor.inlayHints.enabled": "offUnlessPressed",
@@ -38,7 +40,7 @@
     "editor.suggest.insertMode": "replace",
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[xml]": {
+  "[xml;xaml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.exclude": {
