@@ -15,7 +15,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: ./StaticUsingExample/StaticUsingExample.sln
+      Solution_Name: ./StaticUsingExample/StaticUsingExample.slnx
 
     steps:
       - name: Checkout
