@@ -8,6 +8,7 @@
     "ms-azuretools.vscode-containers",
     "tintoy.msbuild-project-tools",
     "humao.rest-client",
-    "csharpier.csharpier-vscode"
+    "csharpier.csharpier-vscode",
+    "ionide.ionide-fsharp"
   ]
 }

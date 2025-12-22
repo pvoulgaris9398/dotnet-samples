@@ -22,6 +22,15 @@
       "source.fixAll": "always"
     }
   },
+  "[fsharp]": {
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.defaultFormatter": "Ionide.Ionide-fsharp",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.fixAll": "always",
+      "formatOnSave": "always"
+    }
+  },
   "[jsonc]": {
     "editor.quickSuggestions": {
       "strings": true

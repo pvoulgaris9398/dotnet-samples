@@ -1,7 +1,0 @@
-{
-    "recommendations": [
-        "ionide.ionide-fsharp",
-        "ms-dotnettools.csharp",
-        "ms-dotnettools.csdevkit"
-    ]
-}
