@@ -1,17 +1,17 @@
 <Solution>
-  <Folder Name="/CSharp/">
-    <Project Path="src/Algorithms.Tests/Algorithms.Tests.csproj" Id="bfd1d485-0f22-4801-aa38-ae97c41b2b39" />
-    <Project Path="src/Algorithms/Algorithms.csproj" />
-  </Folder>
-  <Folder Name="/FSharp/">
-    <Project Path="src/Algorithms.FSharp/Algorithms.FSharp.fsproj" />
-    <Project Path="src/Common.Tests/Common.Tests.fsproj" />
-    <Project Path="src/Common/Common.fsproj" />
-    <Project Path="src/Scratch/Scratch.fsproj" />
-  </Folder>
-  <Folder Name="/Solution Items/">
-    <File Path=".editorconfig" />
-    <File Path="Directory.Build.props" />
-    <File Path="Directory.Packages.props" />
-  </Folder>
+    <Folder Name="/CSharp/">
+        <Project Path="src/Algorithms.Tests/Algorithms.Tests.csproj" />
+        <Project Path="src/Algorithms/Algorithms.csproj" />
+    </Folder>
+    <Folder Name="/FSharp/">
+        <Project Path="src/Algorithms.FSharp/Algorithms.FSharp.fsproj" />
+        <Project Path="src/Common.Tests/Common.Tests.fsproj" />
+        <Project Path="src/Common/Common.fsproj" />
+        <Project Path="src/Scratch/Scratch.fsproj" />
+    </Folder>
+    <Folder Name="/Solution Items/">
+        <File Path=".editorconfig" />
+        <File Path="Directory.Build.props" />
+        <File Path="Directory.Packages.props" />
+    </Folder>
 </Solution>

@@ -4,6 +4,7 @@ internal sealed class UnionFind
 {
     public int[] Parents { get; }
     public int[] Ranks { get; }
+
     public UnionFind(int size)
     {
         Parents = new int[size];

@@ -1,5 +1,5 @@
 #!/bin/bash
 
-to="src/Copernicus.WpfApp/bin/Debug/net8.0"
+to="src/Copernicus.WpfApp/bin/Debug/net10.0"
 
-cp -r "src/Copernicus.Modules.SecurityMaster/bin/Debug/net8.0" "$to"
+cp -r "src/Copernicus.Modules.SecurityMaster/bin/Debug/net10.0" "$to"

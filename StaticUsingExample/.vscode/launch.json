@@ -1,26 +1,26 @@
 {
-    "configurations": [
-        {
-            "name": "Launch Release Version",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build Release",
-            "program": "${workspaceFolder}/src/StaticUsingExample.Console/bin/Release/net8.0/StaticUsingExample.Console.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/StaticUsingExample.Console",
-            "console": "internalConsole",
-            "stopAtEntry": false
-        }, 
-        {
-            "name": "Launch Debug Version",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build Debug",
-            "program": "${workspaceFolder}/src/StaticUsingExample.Console/bin/Debug/net8.0/StaticUsingExample.Console.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/StaticUsingExample.Console",
-            "console": "internalConsole",
-            "stopAtEntry": false
-        }
-    ]
+  "configurations": [
+    {
+      "name": "Launch Release Version",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Release",
+      "program": "${workspaceFolder}/src/StaticUsingExample.Console/bin/Release/net10.0/StaticUsingExample.Console.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/StaticUsingExample.Console",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Launch Debug Version",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Debug",
+      "program": "${workspaceFolder}/src/StaticUsingExample.Console/bin/Debug/net10.0/StaticUsingExample.Console.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/src/StaticUsingExample.Console",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ]
 }
