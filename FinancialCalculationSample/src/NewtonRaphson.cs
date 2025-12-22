@@ -2,7 +2,6 @@ namespace FinancialCalculationSample
 {
     internal static class NewtonRaphson
     {
-
         /// <summary>
         /// https://en.wikipedia.org/wiki/Newton%27s_method
         /// </summary>
@@ -13,12 +12,12 @@ namespace FinancialCalculationSample
         /// <param name="tolerance"></param>
         /// <returns></returns>
         internal static double Solve(
-            Func<double, double> f
-            , Func<double, double> df
-            , double x0
-            , int iterations = 100
-            , double tolerance = 0.000001
-            )
+            Func<double, double> f,
+            Func<double, double> df,
+            double x0,
+            int iterations = 100,
+            double tolerance = 0.000001
+        )
         {
             double x = x0;
             double xnew = 0;

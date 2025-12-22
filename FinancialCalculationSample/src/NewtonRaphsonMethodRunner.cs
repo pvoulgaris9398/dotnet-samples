@@ -5,11 +5,12 @@ namespace FinancialCalculationSample
     internal sealed class NewtonRaphsonMethodRunner
     {
         public static double Solve(
-            Expression<Func<double, double>> f
-            , Expression<Func<double, double>> df
-            , double x0
-            , int iterations = 100
-            , double tolerance = 0.000001)
+            Expression<Func<double, double>> f,
+            Expression<Func<double, double>> df,
+            double x0,
+            int iterations = 100,
+            double tolerance = 0.000001
+        )
         {
             WriteLine(new string('*', 80));
             WriteLine($"Using the {nameof(NewtonRaphson)} method:");
@@ -20,7 +21,6 @@ namespace FinancialCalculationSample
             WriteLine($"{nameof(root)}: {root}");
 
             return root;
-
         }
     }
 }

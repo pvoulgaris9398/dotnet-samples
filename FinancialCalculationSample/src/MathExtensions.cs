@@ -8,7 +8,10 @@ namespace FinancialCalculationSample
         */
         public static double Epsilon(int significantFigures)
         {
-            ArgumentOutOfRangeException.ThrowIfNegative(significantFigures, nameof(significantFigures));
+            ArgumentOutOfRangeException.ThrowIfNegative(
+                significantFigures,
+                nameof(significantFigures)
+            );
             var exponent = 2 - significantFigures;
             return 0.5 * Math.Pow(10, exponent);
         }

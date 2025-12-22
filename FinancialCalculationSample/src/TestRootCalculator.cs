@@ -2,7 +2,8 @@ namespace FinancialCalculationSample
 {
     public static class TestRootCalculator
     {
-        public static RootCalculatorOutput Execute(bool logOutput, RootCalculatorInput input) => RootCalculator.Calculate(logOutput, input);
+        public static RootCalculatorOutput Execute(bool logOutput, RootCalculatorInput input) =>
+            RootCalculator.Calculate(logOutput, input);
 
         public static void ExecuteMany(bool logOutput, IEnumerable<RootCalculatorInput> input)
         {

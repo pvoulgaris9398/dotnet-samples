@@ -1,7 +1,5 @@
 namespace FinancialCalculationSample
 {
-
-
     public class CovarianceMatrix
     {
         public static double[,] Calculate(double[,] matrix, double[] means)
@@ -12,7 +10,12 @@ namespace FinancialCalculationSample
             Console.WriteLine(means);
             Console.WriteLine(rows);
 
-            double[,] cov = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            double[,] cov =
+            {
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 },
+            };
 
             return cov;
         }

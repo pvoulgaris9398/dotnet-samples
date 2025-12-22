@@ -19,21 +19,23 @@ namespace FinancialCalculationSample
         public static void Execute()
         {
             var v = CalculateTerminalVelocity(
-                new GravitionalForce(9.81)
-                , new WindResistance(12.5)
-                , new Mass(68.1)
-                , new DeltaTime(0.5)
-                , new NumberOfIterations(100));
+                new GravitionalForce(9.81),
+                new WindResistance(12.5),
+                new Mass(68.1),
+                new DeltaTime(0.5),
+                new NumberOfIterations(100)
+            );
 
             Console.WriteLine("Final Result: {0}", double.Round(v.Value, 2));
         }
 
         private static Velocity CalculateTerminalVelocity(
-             GravitionalForce g
-            , WindResistance c
-            , Mass m
-            , DeltaTime t
-            , NumberOfIterations n)
+            GravitionalForce g,
+            WindResistance c,
+            Mass m,
+            DeltaTime t,
+            NumberOfIterations n
+        )
         {
             var iterations = Enumerable.Range(0, n);
 
@@ -50,42 +52,48 @@ namespace FinancialCalculationSample
 
         // TODO: Generalize to other types of problems
         private static Velocity Calculate(
-            GravitionalForce g
-            , WindResistance c
-            , Mass m
-            , Velocity v
-            , DeltaTime t) =>
-            new(v.Value + ((g.Value - (c.Value / m.Value * v.Value)) * t.Value));
+            GravitionalForce g,
+            WindResistance c,
+            Mass m,
+            Velocity v,
+            DeltaTime t
+        ) => new(v.Value + ((g.Value - (c.Value / m.Value * v.Value)) * t.Value));
 
         public record NumberOfIterations(int Value)
         {
             public static implicit operator int(NumberOfIterations n) => n.Value;
+
             public static explicit operator NumberOfIterations(int n) => new(n);
         }
 
         public record GravitionalForce(double Value)
         {
             public static implicit operator double(GravitionalForce m) => m.Value;
+
             public static explicit operator GravitionalForce(double m) => new(m);
         }
 
         public record WindResistance(double Value)
         {
             public static implicit operator double(WindResistance m) => m.Value;
+
             public static explicit operator WindResistance(double m) => new(m);
         }
+
         public record Mass(double Value)
         {
             public static implicit operator double(Mass m) => m.Value;
+
             public static explicit operator Mass(double m) => new(m);
         }
+
         public record Velocity(double Value);
+
         public record DeltaTime(double Value)
         {
             public static implicit operator double(DeltaTime m) => m.Value;
+
             public static explicit operator DeltaTime(double m) => new(m);
         }
-
-
     }
 }

@@ -6,11 +6,12 @@ namespace FinancialCalculationSample
 
         public static implicit operator int(Root value) => value.Value;
 
-        public override string ToString() => this switch
-        {
-            { Value: 2 } => "Square Root",
-            { Value: 3 } => "Cubic Root",
-            _ => $"{Value}th Root"
-        };
+        public override string ToString() =>
+            this switch
+            {
+                { Value: 2 } => "Square Root",
+                { Value: 3 } => "Cubic Root",
+                _ => $"{Value}th Root",
+            };
     }
 }

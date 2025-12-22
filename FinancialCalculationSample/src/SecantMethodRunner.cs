@@ -5,11 +5,12 @@ namespace FinancialCalculationSample
     internal sealed class SecantMethodRunner
     {
         public static double Solve(
-            Expression<Func<double, double>> f
-            , double x0
-            , double x1
-            , int iterations = 100
-            , double tolerance = 0.000001)
+            Expression<Func<double, double>> f,
+            double x0,
+            double x1,
+            int iterations = 100,
+            double tolerance = 0.000001
+        )
         {
             WriteLine(new string('*', 80));
             WriteLine($"Using the {nameof(Secant)} method:");
@@ -20,8 +21,6 @@ namespace FinancialCalculationSample
             WriteLine($"{nameof(root)}: {root}");
 
             return root;
-
         }
-
     }
 }

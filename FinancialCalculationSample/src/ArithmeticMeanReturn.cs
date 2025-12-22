@@ -7,7 +7,8 @@
             int numberOfPeriods = returns.Length;
             var accumulator = 0m;
 
-            if (numberOfPeriods == 0) return 0;
+            if (numberOfPeriods == 0)
+                return 0;
 
             foreach (var r in returns)
             {
@@ -15,7 +16,6 @@
             }
 
             return (double)(accumulator / numberOfPeriods);
-
         }
     }
 }
