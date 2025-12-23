@@ -10,14 +10,14 @@
 
     <DockPanel
         LastChildFill="True">
-        <StackPanel
+        <!--<StackPanel
             DockPanel.Dock="Top"
             Orientation="Horizontal">
             <Button
                 Click="ClickHandler">
                 Close One View
             </Button>
-        </StackPanel>
+        </StackPanel>-->
         <DataGrid
             AutoGenerateColumns="False"
             GridLinesVisibility="All"

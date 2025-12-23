@@ -1,4 +1,6 @@
-﻿namespace AvaloniaAppExample.Services
+using AvaloniaAppExample.Models;
+
+namespace AvaloniaAppExample.Services
 {
     public interface IPriceService
     {

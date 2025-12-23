@@ -25,6 +25,36 @@
     <PackageReference Include="Avalonia.ReactiveUI" Version="11.2.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="System" />
+    <Using Include="System.Collections.ObjectModel" />
+    <Using Include="System.Diagnostics" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Reactive.Disposables" />
+    <Using Include="System.Reactive" />
+    <Using Include="System.Reactive.Linq" />
+    <Using Include="System.Runtime" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Avalonia" />
+    <Using Include="Avalonia.Controls" />
+    <Using Include="Avalonia.Controls.ApplicationLifetimes" />
+    <Using Include="Avalonia.Controls.Templates" />
+    <Using Include="Avalonia.Interactivity" />
+    <Using Include="Avalonia.Markup.Xaml" />
+    <Using Include="Avalonia.ReactiveUI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="ReactiveUI" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="DynamicData" />
+    <Using Include="DynamicData.Binding" />
+  </ItemGroup>
+  
   <!--<ItemGroup>
     <Compile Update="Views\MainWindow2.axaml.cs">
       <DependentUpon>MainWindow2.axaml</DependentUpon>

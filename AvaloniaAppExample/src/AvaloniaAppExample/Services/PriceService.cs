@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using AvaloniaAppExample.Models;
 
 namespace AvaloniaAppExample.Services
 {

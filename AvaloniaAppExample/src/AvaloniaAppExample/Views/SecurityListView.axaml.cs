@@ -1,3 +1,6 @@
+using AvaloniaAppExample.ViewModels;
+using AvaloniaAppExample.Services;
+
 namespace AvaloniaAppExample.Views
 {
     public partial class SecurityListView : ReactiveUserControl<SecurityListViewModel>

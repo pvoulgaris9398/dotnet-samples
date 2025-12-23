@@ -1,5 +1,11 @@
+using AvaloniaAppExample.Models;
+
 namespace AvaloniaAppExample.Services
 {
+    // Ensure the Security type is defined and accessible in this namespace or imported via using.
+    // If Security is defined elsewhere, add the appropriate using directive.
+    // using AvaloniaAppExample.Models; // Example if Security is in Models namespace
+
     public class SecurityService : ISecurityService, IDisposable
     {
         private readonly SourceList<Security> _items = new();

@@ -1,3 +1,5 @@
+using AvaloniaAppExample.ViewModels;
+using AvaloniaAppExample.Views;
 namespace AvaloniaAppExample
 {
     public partial class App : Application
