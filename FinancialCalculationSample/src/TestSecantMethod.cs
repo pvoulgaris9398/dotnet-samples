@@ -2,7 +2,7 @@ namespace FinancialCalculationSample
 {
     internal static class TestSecantMethod
     {
-        public static void Run()
+        internal static void Run()
         {
             _ = SecantMethodRunner.Solve(f: x => Math.Cos(x), x0: 0, x1: 1);
 

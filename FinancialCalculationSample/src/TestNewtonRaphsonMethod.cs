@@ -2,7 +2,7 @@ namespace FinancialCalculationSample
 {
     internal static class TestNewtonRaphsonMethod
     {
-        public static void Run()
+        internal static void Run()
         {
             _ = NewtonRaphsonMethodRunner.Solve(f: x => Math.Cos(x), df: x => -Math.Sin(x), x0: 1);
 

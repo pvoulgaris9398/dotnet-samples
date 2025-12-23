@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace FinancialCalculationSample
 {
-    internal sealed class NewtonRaphsonMethodRunner
+    internal static class NewtonRaphsonMethodRunner
     {
         public static double Solve(
             Expression<Func<double, double>> f,

@@ -1,6 +1,6 @@
 namespace FinancialCalculationSample
 {
-    public record Root(int Value)
+    internal sealed record Root(int Value)
     {
         public static implicit operator Root(int value) => new(value);
 

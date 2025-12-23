@@ -1,10 +1,11 @@
 ﻿namespace FinancialCalculationSample
 {
-    public static class GeometricMeanReturn
+    internal static class GeometricMeanReturn
     {
-        public static double Calculate(decimal[] returns)
+        internal static double Calculate(decimal[] returns)
         {
             int numberOfPeriods = returns.Length;
+
             if (numberOfPeriods == 0)
                 return 0;
 

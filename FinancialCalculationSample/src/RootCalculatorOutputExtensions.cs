@@ -2,9 +2,9 @@ using System.Text;
 
 namespace FinancialCalculationSample
 {
-    public static class RootCalculatorOutputExtensions
+    internal static class RootCalculatorOutputExtensions
     {
-        public static string Format(this RootCalculatorOutput output)
+        internal static string Format(this RootCalculatorOutput output)
         {
             Console.WriteLine(output);
             var sb = new StringBuilder();

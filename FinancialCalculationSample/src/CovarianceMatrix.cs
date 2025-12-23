@@ -1,8 +1,8 @@
 namespace FinancialCalculationSample
 {
-    public class CovarianceMatrix
+    internal static class CovarianceMatrix
     {
-        public static double[,] Calculate(double[,] matrix, double[] means)
+        internal static double[,] Calculate(double[,] matrix, double[] means)
         {
             int rows = matrix.GetLength(0);
 

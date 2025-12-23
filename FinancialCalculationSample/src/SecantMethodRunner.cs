@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 
 namespace FinancialCalculationSample
 {
-    internal sealed class SecantMethodRunner
+    internal static class SecantMethodRunner
     {
         public static double Solve(
             Expression<Func<double, double>> f,

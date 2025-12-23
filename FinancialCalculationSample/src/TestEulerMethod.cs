@@ -1,6 +1,6 @@
 namespace FinancialCalculationSample
 {
-    public static class TestEulerMethod
+    internal static class TestEulerMethod
     {
         /*
          * Numerical Methods for Engineers
@@ -16,7 +16,7 @@ namespace FinancialCalculationSample
          * to a value that doesn't change as much from iteration to iteration
          * TODO: Understand and implement epsilon-logic
          */
-        public static void Execute()
+        internal static void Execute()
         {
             var v = CalculateTerminalVelocity(
                 new GravitionalForce(9.81),
@@ -59,37 +59,37 @@ namespace FinancialCalculationSample
             DeltaTime t
         ) => new(v.Value + ((g.Value - (c.Value / m.Value * v.Value)) * t.Value));
 
-        public record NumberOfIterations(int Value)
+        internal sealed record NumberOfIterations(int Value)
         {
             public static implicit operator int(NumberOfIterations n) => n.Value;
 
             public static explicit operator NumberOfIterations(int n) => new(n);
         }
 
-        public record GravitionalForce(double Value)
+        internal sealed record GravitionalForce(double Value)
         {
             public static implicit operator double(GravitionalForce m) => m.Value;
 
             public static explicit operator GravitionalForce(double m) => new(m);
         }
 
-        public record WindResistance(double Value)
+        internal sealed record WindResistance(double Value)
         {
             public static implicit operator double(WindResistance m) => m.Value;
 
             public static explicit operator WindResistance(double m) => new(m);
         }
 
-        public record Mass(double Value)
+        internal sealed record Mass(double Value)
         {
             public static implicit operator double(Mass m) => m.Value;
 
             public static explicit operator Mass(double m) => new(m);
         }
 
-        public record Velocity(double Value);
+        internal sealed record Velocity(double Value);
 
-        public record DeltaTime(double Value)
+        internal sealed record DeltaTime(double Value)
         {
             public static implicit operator double(DeltaTime m) => m.Value;
 

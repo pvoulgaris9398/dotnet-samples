@@ -1,8 +1,8 @@
 namespace FinancialCalculationSample
 {
-    public static class RootCalculator
+    internal static class RootCalculator
     {
-        public static RootCalculatorOutput Calculate(bool logOutput, RootCalculatorInput input)
+        internal static RootCalculatorOutput Calculate(bool logOutput, RootCalculatorInput input)
         {
             /*
              *  Are there any guidelines for what a good first guess would be???

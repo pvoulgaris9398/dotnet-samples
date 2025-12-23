@@ -1,12 +1,12 @@
 namespace FinancialCalculationSample
 {
-    public static class MathExtensions
+    internal static class MathExtensions
     {
         /*
         * Epsilon sub S = (0.5 x 10**2-n)%
         * where n = number of significant digits
         */
-        public static double Epsilon(int significantFigures)
+        internal static double Epsilon(int significantFigures)
         {
             ArgumentOutOfRangeException.ThrowIfNegative(
                 significantFigures,

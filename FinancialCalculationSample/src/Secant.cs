@@ -11,7 +11,7 @@ namespace FinancialCalculationSample
         /// <param name="iterations"></param>
         /// <param name="tolerance"></param>
         /// <returns></returns>
-        public static double Solve(
+        internal static double Solve(
             Func<double, double> f,
             double x0,
             double x1,

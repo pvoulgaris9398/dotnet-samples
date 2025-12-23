@@ -1,11 +1,11 @@
 namespace FinancialCalculationSample
 {
-    public static class TestRootCalculator
+    internal static class TestRootCalculator
     {
-        public static RootCalculatorOutput Execute(bool logOutput, RootCalculatorInput input) =>
+        internal static RootCalculatorOutput Execute(bool logOutput, RootCalculatorInput input) =>
             RootCalculator.Calculate(logOutput, input);
 
-        public static void ExecuteMany(bool logOutput, IEnumerable<RootCalculatorInput> input)
+        internal static void ExecuteMany(bool logOutput, IEnumerable<RootCalculatorInput> input)
         {
             foreach (var item in input)
             {
