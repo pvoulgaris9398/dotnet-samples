@@ -1,4 +1,5 @@
 using AvaloniaAppExample.Models;
+
 namespace AvaloniaAppExample.ViewModels
 {
     public class SecurityViewModel(Security item)
