@@ -1,20 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Plotly.NET" />
     <PackageReference Include="Plotly.NET.CSharp" />
   </ItemGroup>
-
   <ItemGroup>
     <Using Static="true" Include="System.Console" />
   </ItemGroup>
-
   <ItemGroup>
     <InternalsVisibleTo Include="Algorithms.Tests" />
   </ItemGroup>
-
 </Project>

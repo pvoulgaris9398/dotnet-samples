@@ -1,59 +1,43 @@
-﻿<UserControl x:Class="Copernicus.Modules.SecurityMaster.Securities.SecurityListView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Copernicus.Modules.SecurityMaster.Securities"
-             xmlns:wpf="clr-namespace:Copernicus.Core.Wpf.Controls;assembly=Copernicus.Core.Wpf">
+﻿<UserControl
+    x:Class="Copernicus.Modules.SecurityMaster.Securities.SecurityListView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Copernicus.Modules.SecurityMaster.Securities"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:wpf="clr-namespace:Copernicus.Core.Wpf.Controls;assembly=Copernicus.Core.Wpf">
     <UserControl.DataContext>
-        <local:SecurityListViewModel/>
+        <local:SecurityListViewModel />
     </UserControl.DataContext>
-    <DockPanel
-        LastChildFill="True">
-        <wpf:EnhancedDataGrid            
-            x:Name="itemListViewDataGrid" 
-            ItemsSource="{Binding Items}" 
+    <DockPanel LastChildFill="True">
+        <wpf:EnhancedDataGrid
+            x:Name="itemListViewDataGrid"
             AutoGenerateColumns="True"
             CanUserAddRows="True"
             CanUserDeleteRows="True"
+            ItemsSource="{Binding Items}"
             SelectionMode="Extended"
             SelectionUnit="FullRow">
             <wpf:EnhancedDataGrid.Columns>
 
-                <DataGridTextColumn 
-                    Header="Security Name" 
-                    Binding="{Binding SecurityName}" />
+                <DataGridTextColumn Binding="{Binding SecurityName}" Header="Security Name" />
 
-                <DataGridTextColumn 
-                    Header="Issue Date" 
-                    Binding="{Binding IssueDate}" />
+                <DataGridTextColumn Binding="{Binding IssueDate}" Header="Issue Date" />
 
-                <DataGridTextColumn 
-                    Header="Last Price" 
-                    Binding="{Binding LastPrice}" />
+                <DataGridTextColumn Binding="{Binding LastPrice}" Header="Last Price" />
 
-                <DataGridTextColumn 
-                    Header="Ticker" 
-                    Binding="{Binding Ticker}" />
+                <DataGridTextColumn Binding="{Binding Ticker}" Header="Ticker" />
 
-                <DataGridTextColumn 
-                    Header="Cusip" 
-                    Binding="{Binding Cusip}" />
+                <DataGridTextColumn Binding="{Binding Cusip}" Header="Cusip" />
 
-                <DataGridTextColumn 
-                    Header="Isin" 
-                    Binding="{Binding Isin}" />
+                <DataGridTextColumn Binding="{Binding Isin}" Header="Isin" />
 
-                <DataGridTextColumn 
-                    Header="Sedol" 
-                    Binding="{Binding Sedol}" />
+                <DataGridTextColumn Binding="{Binding Sedol}" Header="Sedol" />
 
-                <DataGridCheckBoxColumn 
-                    Header="Is Private" 
-                    Binding="{Binding IsPrivate}" />
+                <DataGridCheckBoxColumn Binding="{Binding IsPrivate}" Header="Is Private" />
 
             </wpf:EnhancedDataGrid.Columns>
-            
+
         </wpf:EnhancedDataGrid>
     </DockPanel>
 </UserControl>

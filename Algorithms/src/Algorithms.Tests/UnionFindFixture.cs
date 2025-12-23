@@ -27,6 +27,5 @@ public class UnionFindFixture
         {
             Assert.Fail("Test failed: 0 and 1 should be in different sets.");
         }
-
     }
 }

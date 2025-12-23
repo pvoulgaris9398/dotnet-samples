@@ -18,7 +18,7 @@ Console.WriteLine(new Tester1(666).Format());
 Console.WriteLine(new Tester1(42).Format());
 Console.WriteLine(new Tester1(11).Format());
 
-public static class Tester1Extensions
+internal static class Tester1Extensions
 {
     internal static string Format(this Tester1 t) =>
         t.Value switch
@@ -29,9 +29,9 @@ public static class Tester1Extensions
         };
 }
 
-public sealed record Tester1(int Value);
+internal sealed record Tester1(int Value);
 
-public static class Tester2Extensions
+internal static class Tester2Extensions
 {
     // C# 14 Feature. Note no Access Modifier can be specified here...
     extension(Tester2 t)
@@ -49,4 +49,4 @@ public static class Tester2Extensions
     }
 }
 
-public sealed record Tester2((int, int) Value);
+internal sealed record Tester2((int, int) Value);

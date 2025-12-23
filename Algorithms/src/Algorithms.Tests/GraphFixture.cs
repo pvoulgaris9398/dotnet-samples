@@ -8,9 +8,7 @@ namespace Algorithms.Tests;
 /// </summary>
 public sealed class GraphFixture(ITestOutputHelper output)
 {
-
     private readonly ITestOutputHelper _output = output;
-
 
     /// <summary>
     /// Test vertex functionality
@@ -44,6 +42,5 @@ public sealed class GraphFixture(ITestOutputHelper output)
         }
 
         a.Traverse(edges, edge => _output.WriteLine($"Visited vertex: {edge.Id}"));
-
     }
 }

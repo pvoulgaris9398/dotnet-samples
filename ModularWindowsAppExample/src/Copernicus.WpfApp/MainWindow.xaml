@@ -9,6 +9,5 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <TabControl
-        x:Name="DockingArea" />
+    <TabControl x:Name="DockingArea" />
 </Window>

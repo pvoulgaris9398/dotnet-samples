@@ -13,19 +13,19 @@ internal static class Tests
 {
     internal static void Test0()
     {
-        DisjointSet<int> set = new DisjointSet<int>();
+        DisjointSet<int> set = new();
         int[] values = [10, 20, 30, 40, 50, 60];
         foreach (var value in values)
         {
-            set.MakeSet(value);
+            _ = set.MakeSet(value);
         }
     }
 }
 
 namespace UnionFindV2
 {
-    public class Node<T>
-        where T : System.IComparable<T>
+    internal class Node<T>
+        where T : IComparable<T>
     {
         public T Data { get; set; }
         public Node<T> Parent { get; set; }
@@ -39,15 +39,15 @@ namespace UnionFindV2
         }
     }
 
-    public class DisjointSet<T> : IEnumerable<T>
-        where T : System.IComparable<T>
+    internal class DisjointSet<T> : IEnumerable<T>
+        where T : IComparable<T>
     {
         private readonly Dictionary<T, Node<T>> _nodes;
         public int Count => _nodes.Count;
 
         public DisjointSet()
         {
-            _nodes = new Dictionary<T, Node<T>>();
+            _nodes = [];
         }
 
         public IEnumerator<T> GetEnumerator() => _nodes.Keys.GetEnumerator();
@@ -94,20 +94,11 @@ namespace UnionFindV2
             return true;
         }
 
-        public T FindSet(T data)
-        {
-            return DisjointSet<T>.FindSet(_nodes[data]).Data;
-        }
+        public T FindSet(T data) => DisjointSet<T>.FindSet(_nodes[data]).Data;
 
-        public bool IsEmpty()
-        {
-            return Count == 0;
-        }
+        public bool IsEmpty() => Count == 0;
 
-        public void Clear()
-        {
-            _nodes.Clear();
-        }
+        public void Clear() => _nodes.Clear();
 
         private static Node<T> FindSet(Node<T> node)
         {

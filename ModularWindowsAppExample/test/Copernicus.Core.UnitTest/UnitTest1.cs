@@ -1,4 +1,5 @@
 namespace Copernicus.Core.UnitTest;
+
 public class UnitTest1 : BaseTest<UnitTest1>
 {
     [Fact]

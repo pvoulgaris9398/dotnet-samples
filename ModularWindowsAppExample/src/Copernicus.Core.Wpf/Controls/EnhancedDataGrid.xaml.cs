@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows.Controls;
-
 using Copernicus.Core.Interfaces;
+
 namespace Copernicus.Core.Wpf.Controls
 {
     /// <summary>
@@ -14,7 +14,6 @@ namespace Copernicus.Core.Wpf.Controls
             InitializeComponent();
 
             Loaded += OnLoaded;
-
         }
 
         ~EnhancedDataGrid()
@@ -27,10 +26,12 @@ namespace Copernicus.Core.Wpf.Controls
         {
             Debug.WriteLine(nameof(OnLoaded));
 
-            if (sender is EnhancedDataGrid grid &&
-                grid.DataContext is ICanRefresh lvm &&
-                lvm.CanRefresh &&
-                lvm.MayRefresh)
+            if (
+                sender is EnhancedDataGrid grid
+                && grid.DataContext is ICanRefresh lvm
+                && lvm.CanRefresh
+                && lvm.MayRefresh
+            )
             {
                 lvm.Refresh();
             }
@@ -99,14 +100,12 @@ namespace Copernicus.Core.Wpf.Controls
 
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
-
             Debug.WriteLine(nameof(OnSelectionChanged));
 
             var added = e.AddedItems;
             var removed = e.RemovedItems;
             var source = e.Source;
             var originalSource = e.OriginalSource;
-
         }
     }
 }

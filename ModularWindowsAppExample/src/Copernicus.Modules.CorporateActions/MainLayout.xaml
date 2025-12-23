@@ -1,13 +1,14 @@
-﻿<UserControl x:Class="Copernicus.Modules.CorporateActions.MainLayout"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Copernicus.Modules.CorporateActions">
+﻿<UserControl
+    x:Class="Copernicus.Modules.CorporateActions.MainLayout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Copernicus.Modules.CorporateActions"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">
     <UserControl.DataContext>
-        <local:MainLayoutViewModel/>
+        <local:MainLayoutViewModel />
     </UserControl.DataContext>
     <Grid>
-        <Label Content="{Binding Content}"/>
+        <Label Content="{Binding Content}" />
     </Grid>
 </UserControl>

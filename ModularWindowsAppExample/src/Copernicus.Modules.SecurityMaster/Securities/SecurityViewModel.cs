@@ -4,10 +4,8 @@ namespace Copernicus.Modules.SecurityMaster.Securities
 {
     public class SecurityViewModel : BaseViewModel
     {
-        public SecurityViewModel()
-        {
+        public SecurityViewModel() { }
 
-        }
         public SecurityViewModel(
             string securityName,
             DateTime issueDate,
@@ -16,7 +14,8 @@ namespace Copernicus.Modules.SecurityMaster.Securities
             string isin,
             string sedol,
             decimal lastPrice,
-            bool isPrivate)
+            bool isPrivate
+        )
         {
             SecurityName = securityName;
             IssueDate = issueDate;
@@ -27,6 +26,7 @@ namespace Copernicus.Modules.SecurityMaster.Securities
             LastPrice = lastPrice;
             IsPrivate = isPrivate;
         }
+
         /*
          * TODO: Make these proper objects!
          */
@@ -38,6 +38,5 @@ namespace Copernicus.Modules.SecurityMaster.Securities
         public string Sedol { get; set; } = string.Empty;
         public decimal LastPrice { get; set; }
         public bool IsPrivate { get; set; }
-
     }
 }

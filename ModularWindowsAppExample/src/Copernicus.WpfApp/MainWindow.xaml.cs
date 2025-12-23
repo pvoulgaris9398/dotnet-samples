@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-
 using Copernicus.Core.Modules;
 
 namespace Copernicus.WpfApp;
@@ -24,11 +23,7 @@ public partial class MainWindow : Window, IViewManager
     {
         if (viewToAdd is UIElement view)
         {
-            var item = new TabItem
-            {
-                Header = caption,
-                Content = view
-            };
+            var item = new TabItem { Header = caption, Content = view };
             DockingArea.Items.Add(item);
         }
     }

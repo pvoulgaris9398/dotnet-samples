@@ -1,4 +1,5 @@
 ﻿using Copernicus.Core.Modules;
+
 namespace Copernicus.Modules.SecurityMaster
 {
     public class SecurityMasterModule : ModuleBase
