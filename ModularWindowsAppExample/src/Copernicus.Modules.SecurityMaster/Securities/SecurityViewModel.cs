@@ -2,7 +2,7 @@
 
 namespace Copernicus.Modules.SecurityMaster.Securities
 {
-    public class SecurityViewModel : BaseViewModel
+    public sealed class SecurityViewModel : BaseViewModel
     {
         public SecurityViewModel() { }
 

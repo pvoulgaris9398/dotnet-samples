@@ -1,4 +1,6 @@
-﻿namespace Copernicus.WpfApp;
+﻿using System.Windows;
+
+namespace Copernicus.WpfApp;
 
 /// <summary>
 /// Interaction logic for App.xaml

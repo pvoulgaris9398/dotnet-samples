@@ -2,7 +2,7 @@
 
 namespace Copernicus.Modules.SecurityMaster.Securities
 {
-    internal class SecurityListViewModel : BaseListViewModel<SecurityViewModel>
+    public sealed class SecurityListViewModel : BaseListViewModel<SecurityViewModel>
     {
         public override Func<
             BaseListViewModel<SecurityViewModel>,

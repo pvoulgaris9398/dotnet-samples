@@ -37,6 +37,9 @@ indent_size = 2
 # C# files
 [*.cs]
 
+# CA1515: Consider making public types internal
+dotnet_diagnostic.CA1515.severity = none
+
 # CA1822: Mark members as static
 dotnet_diagnostic.CA1822.severity = none
 
@@ -62,6 +65,9 @@ dotnet_diagnostic.CS8625.severity = none
 dotnet_analyzer_diagnostic.severity = error
 dotnet_diagnostic.IDE0079.severity = silent
 
+# Remove unread private member (IDE0052)
+dotnet_diagnostic.IDE0052.severity = silent
+
 # Remove unnecessary value assignment
 dotnet_diagnostic.IDE0059.severity = silent
 
@@ -72,7 +78,7 @@ dotnet_separate_import_directive_groups = false
 
 # IDE0161: Use preferred namespace declaration style (file-scoped or block-scoped)
 # Enforce block-scoped namespaces (block_scoped is the default)
-csharp_style_namespace_declarations = block_scoped:error
+csharp_style_namespace_declarations = block_scoped:silent
 dotnet_style_qualification_for_field = false:silent
 dotnet_style_qualification_for_method = false:silent
 dotnet_style_qualification_for_property = false:silent

@@ -5,15 +5,17 @@ namespace Copernicus.Core.Modules
 {
     public class ModuleManager2(IViewManager viewManager)
     {
-        private readonly IViewManager _viewManager = viewManager;
-        private List<CopernicusAssemblyLoadContext> _instances = new List<CopernicusAssemblyLoadContext>();
+        private readonly List<CopernicusAssemblyLoadContext> _instances = [];
 
         // TODO: Fetch dynamically
         private static IEnumerable<ModuleDefinition> Modules
         {
             get
             {
-                yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
+                yield return new(
+                    "Copernicus.Modules.SecurityMaster",
+                    "Copernicus.Modules.SecurityMaster.SecurityMasterModule"
+                );
                 //yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
                 //yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
             }
@@ -22,6 +24,7 @@ namespace Copernicus.Core.Modules
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static CopernicusAssemblyLoadContext Load(IViewManager vm, ModuleDefinition md)
         {
+            ArgumentNullException.ThrowIfNull(md, nameof(md));
             var alc = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
             var assembly = alc.LoadFromAssemblyName(md.Name);
             foreach (var t in assembly.GetTypes())
@@ -86,4 +89,3 @@ namespace Copernicus.Core.Modules
         //}
     }
 }
-

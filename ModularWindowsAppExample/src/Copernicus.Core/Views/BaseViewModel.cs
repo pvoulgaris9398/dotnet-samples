@@ -6,6 +6,7 @@ namespace Copernicus.Core.Views
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        public void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        public void NotifyPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

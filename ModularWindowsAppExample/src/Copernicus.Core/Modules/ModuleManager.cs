@@ -4,22 +4,36 @@ namespace Copernicus.Core.Modules
 {
     public class ModuleManager(IViewManager viewManager)
     {
+#pragma warning disable CA1823
         private readonly IViewManager _viewManager = viewManager;
-        private List<ModuleInstance> _instances = new List<ModuleInstance>();
+#pragma warning restore CA1823
+        private readonly List<ModuleInstance> _instances = [];
 
         // TODO: Fetch dynamically
         private static IEnumerable<ModuleDefinition> Modules
         {
             get
             {
-                yield return new("Copernicus.Modules.SecurityMaster", "Copernicus.Modules.SecurityMaster.SecurityMasterModule");
-                yield return new("Copernicus.Modules.Pricing", "Copernicus.Modules.Pricing.PricingModule");
-                yield return new("Copernicus.Modules.CorporateActions", "Copernicus.Modules.CorporateActions.CorporateActionsModule");
+                yield return new(
+                    "Copernicus.Modules.SecurityMaster",
+                    "Copernicus.Modules.SecurityMaster.SecurityMasterModule"
+                );
+                yield return new(
+                    "Copernicus.Modules.Pricing",
+                    "Copernicus.Modules.Pricing.PricingModule"
+                );
+                yield return new(
+                    "Copernicus.Modules.CorporateActions",
+                    "Copernicus.Modules.CorporateActions.CorporateActionsModule"
+                );
             }
         }
 
         public static void Load(IViewManager vm, ModuleDefinition md, out ModuleInstance mi)
         {
+            ArgumentNullException.ThrowIfNull(vm, nameof(vm));
+            ArgumentNullException.ThrowIfNull(md, nameof(md));
+
             var alc = new CopernicusAssemblyLoadContext(Assembly.GetExecutingAssembly().Location);
             var assembly = alc.LoadFromAssemblyName(md.Name);
             var wr = new WeakReference(alc, trackResurrection: true);

@@ -1,11 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-
 using Copernicus.Core.Interfaces;
 
 namespace Copernicus.Core.Views
 {
-    public abstract class BaseListViewModel<T>
-        : BaseViewModel, ICanCreateNewItem, ICanRefresh
+    public abstract class BaseListViewModel<T> : BaseViewModel, ICanCreateNewItem, ICanRefresh
         where T : BaseViewModel
     {
         public abstract Func<BaseListViewModel<T>, IEnumerable<T>> ItemsFactory { get; }

@@ -8,6 +8,7 @@ namespace Copernicus.Modules.SecurityMaster
 
         public override void Initialize(IViewManager viewManager)
         {
+            ArgumentNullException.ThrowIfNull(viewManager, nameof(viewManager));
             viewManager.AddView(Name, new MainLayout());
         }
     }
