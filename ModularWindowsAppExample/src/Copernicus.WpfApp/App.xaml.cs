@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using Copernicus.Core.Modules;
 
 namespace Copernicus.WpfApp;
 

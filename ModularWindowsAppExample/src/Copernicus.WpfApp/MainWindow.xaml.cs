@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using Copernicus.Core.Modules;
 
 namespace Copernicus.WpfApp;
@@ -14,10 +13,7 @@ public partial class MainWindow : Window, IViewManager
         InitializeComponent();
     }
 
-    public void Show(string title, string message)
-    {
-        MessageBox.Show(title, message);
-    }
+    public void Show(string title, string message) => MessageBox.Show(title, message);
 
     public void AddView(string caption, object viewToAdd)
     {
