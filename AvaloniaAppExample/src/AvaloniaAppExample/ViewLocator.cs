@@ -1,4 +1,5 @@
 using AvaloniaAppExample.ViewModels;
+
 namespace AvaloniaAppExample
 {
     public class ViewLocator : IDataTemplate

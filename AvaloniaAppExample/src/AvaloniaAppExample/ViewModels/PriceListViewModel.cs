@@ -1,5 +1,6 @@
-using AvaloniaAppExample.Services;
 using AvaloniaAppExample.Models;
+using AvaloniaAppExample.Services;
+
 namespace AvaloniaAppExample.ViewModels
 {
     public class PriceListViewModel : ViewModelBase, IDisposable

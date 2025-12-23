@@ -1,5 +1,5 @@
-using AvaloniaAppExample.ViewModels;
 using AvaloniaAppExample.Services;
+using AvaloniaAppExample.ViewModels;
 
 namespace AvaloniaAppExample.Views
 {

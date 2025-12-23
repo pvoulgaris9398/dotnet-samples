@@ -1,8 +1,4 @@
-﻿using System;
-using Avalonia;
-using Avalonia.ReactiveUI;
-
-namespace AvaloniaAppExample
+﻿namespace AvaloniaAppExample
 {
     internal sealed class Program
     {

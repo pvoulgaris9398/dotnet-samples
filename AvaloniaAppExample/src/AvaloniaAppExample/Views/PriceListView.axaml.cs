@@ -1,6 +1,3 @@
-using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
-using Avalonia.ReactiveUI;
 using AvaloniaAppExample.Services;
 using AvaloniaAppExample.ViewModels;
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AvaloniaAppExample.Models
+﻿namespace AvaloniaAppExample.Models
 {
     public class Security(
         long id,
