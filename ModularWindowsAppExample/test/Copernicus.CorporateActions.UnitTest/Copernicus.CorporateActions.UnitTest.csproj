@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Copernicus.Modules.CorporateActions\Copernicus.Modules.CorporateActions.csproj" />
+    <ProjectReference Include="..\..\src\Copernicus.Modules.CorporateActions\Copernicus.Modules.CorporateActions.csproj" />
     <ProjectReference Include="..\Copernicus.Core.UnitTest\Copernicus.Core.UnitTest.csproj" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Copernicus.Modules.Pricing\Copernicus.Modules.Pricing.csproj" />
+    <ProjectReference Include="..\..\src\Copernicus.Modules.Pricing\Copernicus.Modules.Pricing.csproj" />
     <ProjectReference Include="..\Copernicus.Core.UnitTest\Copernicus.Core.UnitTest.csproj" />
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Copernicus.Modules.SecurityMaster\Copernicus.Modules.SecurityMaster.csproj" />
+    <ProjectReference Include="..\..\src\Copernicus.Modules.SecurityMaster\Copernicus.Modules.SecurityMaster.csproj" />
     <ProjectReference Include="..\Copernicus.Core.UnitTest\Copernicus.Core.UnitTest.csproj" />
   </ItemGroup>
 </Project>
