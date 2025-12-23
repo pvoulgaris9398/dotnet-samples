@@ -1,3 +1,9 @@
+using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using AvaloniaAppExample.ViewModels;
+using AvaloniaAppExample.Views;
+
 namespace AvaloniaAppExample
 {
     public class ViewLocator : IDataTemplate
