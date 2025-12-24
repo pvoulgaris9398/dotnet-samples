@@ -4,33 +4,41 @@
 
 using AdventOfCode;
 
-// Tests.Test0(Solution.Test.ToMatrix());
+if (args.Length > 0)
+{
+    Action actionToExecute = args[0] switch
+    {
+        "test0" => Tests.Test0,
+        _ => () => Console.WriteLine("Unrecognized command-line argument"),
+    };
+    actionToExecute();
+    return;
+}
 
 Console.WriteLine($"Part 1 (Expecting: 1516): {Solution.SolvePart1()}");
 
 Console.WriteLine($"Part 2 (Expecting: 9122): {Solution.SolvePart2()}");
 
-public static class Solution
+internal static class Solution
 {
-    internal static string Name => "Day 4";
-    internal static string FileName => "./AdventOfCode2025/data/day4.txt";
+    private const int Year = 2025;
+    private const int Day = 4;
+    internal static string Source => $"Advent of Code - {Year}";
+    internal static string Name => $"Day {Day}";
+    internal static string FileName => $"./AdventOfCode/2025/data/day{Day}.txt";
 
     /*
     1473 => wrong, too low
     1516 => correct
     */
-    internal static int SolvePart1(bool debug = false)
-    {
-        return (debug ? Test : FileName.ToLines()).ToMatrix().AccessibleRolls().Count();
-    }
+    internal static int SolvePart1(bool debug = false) =>
+        (debug ? Test : FileName.ToLines()).ToMatrix().AccessibleRolls().Count();
 
     /*
     9122 => correct
     */
-    internal static int SolvePart2(bool debug = false)
-    {
-        return (debug ? Test : FileName.ToLines()).ToMatrix().Removed();
-    }
+    internal static int SolvePart2(bool debug = false) =>
+        (debug ? Test : FileName.ToLines()).ToMatrix().Removed();
 
     internal static int Removed(this char[][] matrix)
     {
@@ -41,7 +49,7 @@ public static class Solution
                 accessible.Remove(matrix);
             }
         }
-        return matrix.Cells().Where(c => c.At(matrix) == 'X').Count();
+        return matrix.Cells().Count(c => c.At(matrix) == 'X');
     }
 
     internal static void Remove(this (int row, int col) cell, char[][] matrix) =>
@@ -60,10 +68,9 @@ public static class Solution
 
     internal static IEnumerable<(int, int)> Neighbors(
         this (int row, int col) cell,
-        char[][] matrix
+        char[][] _ /*matrix*/
     ) =>
-        new[]
-        {
+        [
             (cell.row + 1, cell.col - 1),
             (cell.row + 1, cell.col),
             (cell.row + 1, cell.col + 1),
@@ -72,7 +79,7 @@ public static class Solution
             (cell.row - 1, cell.col - 1),
             (cell.row - 1, cell.col),
             (cell.row - 1, cell.col + 1),
-        };
+        ];
 
     internal static IEnumerable<(int, int)> Cells(this char[][] matrix) =>
         from row in Enumerable.Range(0, matrix.Length)
@@ -96,8 +103,9 @@ public static class Solution
 
 internal static class Tests
 {
-    internal static void Test0(char[][] matrix)
+    internal static void Test0()
     {
+        var matrix = Solution.Test.ToMatrix();
         var cell = (0, 2);
         foreach (var neighbor in cell.Neighbors(matrix))
         {

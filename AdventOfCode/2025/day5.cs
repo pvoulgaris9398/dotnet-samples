@@ -1,8 +1,22 @@
 #!/usr/bin/env -S dotnet run
 
-using System;
-using System.Collections.Generic;
-using static Extensions;
+#:project ./AdventOfCode/AdventOfCode.csproj
+
+using System.Globalization;
+
+Console.WriteLine(AppContext.BaseDirectory);
+
+if (args.Length > 0)
+{
+    Action actionToExecute = args[0] switch
+    {
+        "test1" => Tests.Test1,
+        "test2" => Tests.Test2,
+        _ => () => Console.WriteLine("Unrecognized command-line argument"),
+    };
+    actionToExecute();
+    return;
+}
 
 Console.WriteLine($"{Solution.Source}: {Solution.Name}");
 
@@ -12,12 +26,9 @@ Console.WriteLine($"Part 1 (Expecting: 828): {Solution.SolvePart1()}");
 
 Console.WriteLine($"Part 2 (Expecting: 352,681,648,086,146): {Solution.SolvePart2():#,##0}");
 
-// Tests.Test1();
-// Tests.Test2();
-
-public static class Solution
+internal static class Solution
 {
-    public static long SolvePart1(bool debug = false)
+    internal static long SolvePart1(bool debug = false)
     {
         var data = debug ? Test : Lines;
 
@@ -49,7 +60,7 @@ public static class Solution
     private const int Day = 5;
     internal static string Source => $"Advent of Code - {Year}";
     internal static string Name => $"Day {Day}";
-    internal static string FileName => $"./data/day{Day}.txt";
+    internal static string FileName => $"./AdventOfCode/2025/data/day{Day}.txt";
     internal static List<string> Test =>
         ["3-5", "10-14", "16-20", "12-18", "", "1", "5", "8", "11", "17", "32"];
 }
@@ -78,7 +89,9 @@ internal static class Extensions
     internal static IEnumerable<Ingredient> ToIngredients(this IEnumerable<string> lines) =>
         lines
             .Where(line => !line.Contains('-') && !string.IsNullOrWhiteSpace(line))
-            .Select(line => new Ingredient(long.Parse(line)));
+            .Select(line => new Ingredient(
+                long.Parse(line, NumberStyles.Number, CultureInfo.InvariantCulture)
+            ));
 
     internal static bool IsFresh(this Ingredient ingredient, IEnumerable<FreshRange> ranges) =>
         ranges.Any(range => ingredient >= range.LowerBound && ingredient <= range.UpperBound);
@@ -110,51 +123,49 @@ internal static class Extensions
         }
         yield return new(currLowerBound, currUpperBound);
     }
+}
 
-    internal record Ingredient(long Value)
+internal sealed record Ingredient(long Value)
+{
+    public static implicit operator Ingredient(long value) => new(value);
+
+    public static bool operator >=(Ingredient left, Ingredient right) => left.Value >= right.Value;
+
+    public static bool operator <=(Ingredient left, Ingredient right) => left.Value <= right.Value;
+}
+
+internal sealed record FreshRange(long LowerBound, long UpperBound)
+{
+    public long RangeCount => UpperBound - LowerBound + 1;
+}
+
+internal static class Tests
+{
+    internal static void Test1()
     {
-        public static implicit operator Ingredient(long value) => new(value);
+        var ranges = Solution.Test.ToRanges();
 
-        public static bool operator >=(Ingredient left, Ingredient right) =>
-            left.Value >= right.Value;
-
-        public static bool operator <=(Ingredient left, Ingredient right) =>
-            left.Value <= right.Value;
-    }
-
-    internal record FreshRange(long LowerBound, long UpperBound)
-    {
-        public long RangeCount => UpperBound - LowerBound + 1;
-    }
-
-    internal static class Tests
-    {
-        internal static void Test1()
+        foreach (FreshRange range in ranges)
         {
-            var ranges = Solution.Test.ToRanges();
-
-            foreach (FreshRange range in ranges)
-            {
-                Console.WriteLine($"{range}");
-            }
-
-            var ingredients = Solution.Test.ToIngredients();
-
-            foreach (Ingredient ingredient in ingredients)
-            {
-                Console.WriteLine($"{ingredient}");
-            }
-
-            var freshCount = ingredients.Count(ingredient => ingredient.IsFresh(ranges));
-            Console.WriteLine($"{nameof(freshCount)}: '{freshCount}'");
+            Console.WriteLine($"{range}");
         }
 
-        internal static void Test2()
-        {
-            var ranges = Solution.Test.ToRanges();
+        var ingredients = Solution.Test.ToIngredients();
 
-            var rangeCount = ranges.Merge().Sum(range => range.RangeCount);
-            Console.WriteLine($"{nameof(rangeCount)}: '{rangeCount}'");
+        foreach (Ingredient ingredient in ingredients)
+        {
+            Console.WriteLine($"{ingredient}");
         }
+
+        var freshCount = ingredients.Count(ingredient => ingredient.IsFresh(ranges));
+        Console.WriteLine($"{nameof(freshCount)}: '{freshCount}'");
+    }
+
+    internal static void Test2()
+    {
+        var ranges = Solution.Test.ToRanges();
+
+        var rangeCount = ranges.Merge().Sum(range => range.RangeCount);
+        Console.WriteLine($"{nameof(rangeCount)}: '{rangeCount}'");
     }
 }

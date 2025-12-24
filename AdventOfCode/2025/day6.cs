@@ -1,41 +1,33 @@
 #!/usr/bin/env -S dotnet run
+#:project ./AdventOfCode/AdventOfCode.csproj
 
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using static Extensions;
+using System.Globalization;
 
-internal class Program
+if (args.Length > 0)
 {
-    private static void Main(string[] args)
+    Action actionToExecute = args[0] switch
     {
-        if (args.Length > 0)
-        {
-            Action actionToExecute = args[0] switch
-            {
-                "test0" => () => Tests.Test0(),
-                "test1" => () => Tests.Test1(),
-                "test2" => () => Tests.Test2(),
-                "test3" => () => Tests.Test3(),
-                _ => () => Console.WriteLine("Unrecognized command-line argument"),
-            };
-            actionToExecute();
-            return;
-        }
-
-        Console.WriteLine($"{Solution.Source}: {Solution.Name}");
-
-        Console.WriteLine(new string('*', 80));
-
-        Console.WriteLine($"Part 1 (Expecting: 6,343,365,546,996): {Solution.SolvePart1():#,##0}");
-
-        Console.WriteLine($"Part 2 (Expecting: ???): {Solution.SolvePart2():#,##0}");
-    }
+        "test0" => Tests.Test0,
+        "test1" => Tests.Test1,
+        "test2" => Tests.Test2,
+        "test3" => Tests.Test3,
+        _ => () => Console.WriteLine("Unrecognized command-line argument"),
+    };
+    actionToExecute();
+    return;
 }
 
-public class Solution
+Console.WriteLine($"{Solution.Source}: {Solution.Name}");
+
+Console.WriteLine(new string('*', 80));
+
+Console.WriteLine($"Part 1 (Expecting: 6,343,365,546,996): {Solution.SolvePart1():#,##0}");
+
+Console.WriteLine($"Part 2 (Expecting: ???): {Solution.SolvePart2():#,##0}");
+
+internal sealed class Solution
 {
-    public static long SolvePart1(bool debug = false)
+    internal static long SolvePart1(bool debug = false)
     {
         var data = debug ? Test : Lines;
 
@@ -72,7 +64,7 @@ public class Solution
     11159870183914 => too high
 
     */
-    public static long SolvePart2(bool debug = false)
+    internal static long SolvePart2(bool debug = false)
     {
         var data = debug ? Test : Lines;
 
@@ -83,10 +75,10 @@ public class Solution
     private const int Day = 6;
     internal static string Source => $"Advent of Code - {Year}";
     internal static string Name => $"Day {Day}";
-    internal static string FileName => $"./data/day{Day}.txt";
+    internal static string FileName => $"./AdventOfCode/2025/data/day{Day}.txt";
     internal static string TestFileName => $"./data/day{Day}-test.txt";
     internal static List<string> Test => [.. File.OpenText(TestFileName).ReadLines()];
-    public static List<string> Lines => [.. File.OpenText(FileName).ReadLines()];
+    internal static List<string> Lines => [.. File.OpenText(FileName).ReadLines()];
 }
 
 internal static class Extensions
@@ -137,8 +129,10 @@ internal static class Extensions
 
             Func<long, string, long> op = values[^1] switch
             {
-                "+" => (arg1, arg2) => arg1 + long.Parse(arg2),
-                "*" => (arg1, arg2) => arg1 * long.Parse(arg2),
+                "+" => (arg1, arg2) =>
+                    arg1 + long.Parse(arg2, NumberStyles.Number, CultureInfo.InvariantCulture),
+                "*" => (arg1, arg2) =>
+                    arg1 * long.Parse(arg2, NumberStyles.Number, CultureInfo.InvariantCulture),
                 var invalid => throw new InvalidDataException($"Invalid: '{invalid}'"),
             };
 
@@ -217,18 +211,18 @@ internal static class Extensions
 
 internal abstract record MathOperation(int Begin, int End)
 {
-    internal static MathOperation Create(char op, int Begin, int End) =>
+    internal static MathOperation Create(char op, int begin, int end) =>
         op switch
         {
-            '+' => new Addition(Begin, End),
-            '*' => new Multiplication(Begin, End),
+            '+' => new Addition(begin, end),
+            '*' => new Multiplication(begin, end),
             var invalid => throw new InvalidDataException($"Invalid: '{invalid}'"),
         };
 }
 
-internal record Addition(int Begin, int End) : MathOperation(Begin, End);
+internal sealed record Addition(int Begin, int End) : MathOperation(Begin, End);
 
-internal record Multiplication(int Begin, int End) : MathOperation(Begin, End);
+internal sealed record Multiplication(int Begin, int End) : MathOperation(Begin, End);
 
 internal static class Tests
 {
@@ -303,7 +297,7 @@ internal static class Tests
         {
             char current = enumerator.Current;
 
-            if (current == '*' || current == '+')
+            if (current is '*' or '+')
             {
                 yield return MathOperation.Create(op, start, end);
                 op = current;

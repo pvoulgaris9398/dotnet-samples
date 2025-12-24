@@ -52,16 +52,14 @@ is no longer in the window
 - Return the current longest value
 
 */
-#pragma warning disable CA1050 // Declare types in namespaces
-public class Solution
-#pragma warning restore CA1050 // Declare types in namespaces
+internal static class Solution
 {
     public static int LengthOfLongestSubstring(string s)
     {
         if (s == null)
             return 0;
 
-        char[] chars = s!.ToCharArray();
+        char[] chars = s.ToCharArray();
 
         int length = chars.Length;
         int left = 0;
@@ -81,7 +79,7 @@ public class Solution
             {
                 while (window.Contains(next))
                 {
-                    window.Remove(chars[left]);
+                    _ = window.Remove(chars[left]);
                     left++;
                 }
             }
@@ -95,7 +93,7 @@ public class Solution
         if (s == null)
             yield return 0;
 
-        char[] chars = s!.ToCharArray();
+        char[] chars = s.ToCharArray();
 
         HashSet<char> used = [];
 
@@ -106,7 +104,7 @@ public class Solution
                 yield return used.Count;
                 used.Clear();
             }
-            used.Add(next);
+            _ = used.Add(next);
         }
         yield return used.Count;
     }
@@ -155,7 +153,7 @@ public class Solution
                 // Add the prev char back into the list and account for it
                 if (prev == chars[i])
                 {
-                    used.Add(chars[i]);
+                    _ = used.Add(chars[i]);
                     currentLength += 1;
                 }
                 else

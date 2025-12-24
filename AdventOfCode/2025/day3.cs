@@ -1,8 +1,19 @@
 #!/usr/bin/env -S dotnet run
 
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
+#:project ./AdventOfCode/AdventOfCode.csproj
+
+using System.Globalization;
+
+if (args.Length > 0)
+{
+    Action actionToExecute = args[0] switch
+    {
+        "test0" => Tests.Test0,
+        _ => () => Console.WriteLine("Unrecognized command-line argument"),
+    };
+    actionToExecute();
+    return;
+}
 
 Console.WriteLine($"{Solution.Source}: {Solution.Name}");
 
@@ -10,32 +21,27 @@ Console.WriteLine(new string('*', 80));
 
 Console.WriteLine($"Part 1 (Expecting: 17376): {Solution.SolvePart1(true)}");
 
-Tests.Test5();
+Console.WriteLine($"Part 2 (Expecting: ????): {Solution.SolvePart2()}");
 
-//Console.WriteLine($"Part 2 (Expecting: ????): {Solution.SolvePart2()}");
-
-public static class Solution
+internal static class Solution
 {
     /*
     17376 => correct
     */
-    public static long SolvePart1(bool debug = false)
-    {
-        return (debug ? Test : Lines).ToBanks(2).Sum(b => b.Joltage);
-    }
+    internal static long SolvePart1(bool debug = false) =>
+        (debug ? Test : Lines).ToBanks(2).Sum(b => b.Joltage);
 
     /*
     TODO:
     */
-    public static long SolvePart2(bool debug = false)
-    {
-        return (debug ? Test : Lines).ToBanks(12).Sum(b => b.Joltage);
-    }
+    public static long SolvePart2(bool debug = false) =>
+        (debug ? Test : Lines).ToBanks(12).Sum(b => b.Joltage);
 
     private const int Year = 2025;
+    private const int Day = 3;
     internal static string Source => $"Advent of Code - {Year}";
-    internal static string Name => "Day 3";
-    internal static string FileName => $"./data/day3.txt";
+    internal static string Name => $"Day {Day}";
+    internal static string FileName => $"./AdventOfCode/2025/data/day{Day}.txt";
 
     internal static List<string> Test =>
         ["987654321111111", "811111111111119", "234234234234278", "818181911112111"];
@@ -51,21 +57,27 @@ public static class Solution
         }
     }
 
-    internal static IEnumerable<Bank> ToBanks(this IEnumerable<string> lines, int K) =>
-        lines.Select(line => line.ToBank(K));
+    internal static IEnumerable<Bank> ToBanks(this IEnumerable<string> lines, int k) =>
+        lines.Select(line => line.ToBank(k));
 
-    internal static Bank ToBank(this string line, int K) =>
-        new(line.ToCharArray().ToBatteries().ToList(), K);
+    internal static Bank ToBank(this string line, int k) =>
+        new([.. line.ToCharArray().ToBatteries()], k);
 
     internal static IEnumerable<Battery> ToBatteries(this char[] batteries) =>
-        batteries.Select((b, i) => new Battery(long.Parse(b.ToString()), i));
+        batteries.Select(
+            (b, i) =>
+                new Battery(
+                    long.Parse(b.ToString(), NumberStyles.Number, CultureInfo.InvariantCulture),
+                    i
+                )
+        );
 }
 
 internal static class Tests
 {
     internal static void Test0()
     {
-        foreach (Bank bank in (Solution.Test).ToBanks(2))
+        foreach (Bank bank in Solution.Test.ToBanks(2))
         {
             Console.WriteLine(bank);
         }
@@ -195,22 +207,27 @@ internal static class BankExtensions
                 // Console.WriteLine(highest[0]);
                 // Console.WriteLine(highest[1]);
 
-                return long.Parse(string.Join("", highest.ToList()));
+                return long.Parse(
+                    string.Join("", highest.ToList()),
+                    NumberStyles.Number,
+                    CultureInfo.InvariantCulture
+                );
             }
         }
     }
 
-    internal static long KHighestValue(this Bank bank, string input, int k)
+    internal static long KHighestValue(
+        this Bank _ /*bank*/
+        ,
+        string input,
+        int k
+    )
     {
         int len = input.Length;
 
-        if (len < k)
-            return -1;
-
-        if (len == k)
-            return long.Parse(input);
-
-        return 42;
+        return len < k ? -1
+            : len == k ? long.Parse(input, NumberStyles.Number, CultureInfo.InvariantCulture)
+            : 42;
     }
 
     internal static IEnumerable<long> KHighestValuesInOrder_ORIGINAL(this Bank bank, int k)
@@ -226,7 +243,7 @@ internal static class BankExtensions
             maxQueue.Enqueue(batteries[i], batteries[i].Joltage);
             if (maxQueue.Count > k)
             {
-                maxQueue.Dequeue();
+                _ = maxQueue.Dequeue();
             }
             i++;
         }
@@ -249,7 +266,7 @@ internal static class BankExtensions
     {
         string input = string.Join(
             "",
-            bank.Batteries.Select(battery => battery.Joltage.ToString())
+            bank.Batteries.Select(battery => battery.Joltage.ToString(CultureInfo.InvariantCulture))
         );
         int n = input.Length;
         int i = 0;
@@ -271,11 +288,11 @@ internal static class BankExtensions
             }
             i++;
         }
-        yield return int.Parse(s1.ToString());
-        yield return int.Parse(s2.ToString());
+        yield return int.Parse(s1.ToString(), CultureInfo.InvariantCulture);
+        yield return int.Parse(s2.ToString(), CultureInfo.InvariantCulture);
     }
 }
 
-internal record Bank(List<Battery> Batteries, int K);
+internal sealed record Bank(List<Battery> Batteries, int K);
 
-internal record Battery(long Joltage, long Order);
+internal sealed record Battery(long Joltage, long Order);
