@@ -1,7 +1,8 @@
 #!/usr/bin/env -S dotnet run
 
 /*
-WIP
+Time Complexity: O(n2)
+Space Complexity: O(1) (No additional allocations required)
 */
 if (args.Length > 0)
 {
