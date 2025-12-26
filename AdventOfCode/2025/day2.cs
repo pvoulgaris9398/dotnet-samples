@@ -1,30 +1,50 @@
 #!/usr/bin/env -S dotnet run
 
-using System.IO;
+#:project ./AdventOfCode/AdventOfCode.csproj
+
+// Use GeneratedRegexAttribute to generate the regular expression implementation at compile time.
+#pragma warning disable SYSLIB1045
+
+using System.Globalization;
 using System.Text.RegularExpressions;
+
+if (args.Length > 0)
+{
+    Action actionToExecute = args[0] switch
+    {
+        "test0" => Tests.Test0,
+        "test1" => Tests.Test1,
+        "test2" => Tests.Test2,
+        "test3" => Tests.Test3,
+        "test4" => Tests.Test4,
+        "test5" => Tests.Test5,
+        "test6" => Tests.Test6,
+        "runall" => Tests.RunAll,
+        _ => () => Console.WriteLine("Unrecognized command-line argument"),
+    };
+    actionToExecute();
+    return;
+}
 
 Console.WriteLine($"{Solution.Source}: {Solution.Name}");
 
 Console.WriteLine(new string('*', 80));
 
-//Tests.RunAll();
-
 Console.WriteLine($"Part 1 (Expecting: 5398419778): {Solution.SolvePart1()}");
 
 Console.WriteLine($"Part 2 (Expecting: 15704845910): {Solution.SolvePart2()}");
 
-public static class Solution
+internal static class Solution
 {
     /*
     903121192024591 => wrong, too high
     5398419778 => correct
     */
-    public static long SolvePart1(bool debug = false)
+    internal static long SolvePart1(bool debug = false)
     {
         return (debug ? Test : Raw)
             .ToRanges()
-            .Select(range => range.InvalidIDs(IsNotValidV1).Sum())
-            .Sum();
+            .Sum(range => range.InvalidIDs(RangeExtensions.IsNotValidV1).Sum());
     }
 
     /*
@@ -33,12 +53,11 @@ public static class Solution
     15704845910 => correct, after getting a hint on the correct regex configuration
 
     */
-    public static long SolvePart2(bool debug = false)
+    internal static long SolvePart2(bool debug = false)
     {
         return (debug ? Test : Raw)
             .ToRanges()
-            .Select(range => range.InvalidIDs(IsNotValidV2).Sum())
-            .Sum();
+            .Sum(range => range.InvalidIDs(RangeExtensions.IsNotValidV2).Sum());
     }
 
     /*
@@ -50,65 +69,11 @@ public static class Solution
 
     */
 
-    public static bool IsNotValidV2(long value)
-    {
-        string s = value.ToString();
-        int len = s.Length;
-
-        if (len < 2)
-        {
-            return false;
-        }
-
-        // Regex regex = new Regex(@"(.+)\1"); // <== BAD
-        Regex regex = new Regex(@"^(.+?)\1+$"); // <== GOOD
-
-        MatchCollection matches = regex.Matches(s);
-
-        if (matches.Any(match => match.Value.Length == len))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static bool IsNotValidV1(long value)
-    {
-        string s = value.ToString();
-
-        if (s.Length % 2 != 0)
-            return false;
-
-        int mid = s.Length / 2;
-        string first = s[..mid];
-        string second = s[mid..];
-
-        return (first, second) switch
-        {
-            ({ Length: > 0 } left, { Length: > 0 } right) when left.Equals(right) => true,
-            _ => false,
-        };
-    }
-
-    internal static IEnumerable<Range> ToRanges(this IEnumerable<string> lines) =>
-        lines.Select(line => line.ToRange());
-
-    internal static Range ToRange(this string line)
-    {
-        return line.Split("-") switch
-        {
-            [string first, string second]
-                when long.TryParse(first.ToString(), out long start)
-                    && long.TryParse(second.ToString(), out long end) => new Range(start, end),
-            _ => throw new ArgumentException("Invalid data!"),
-        };
-    }
-
     private const int Year = 2025;
+    private const int Day = 2;
     internal static string Source => $"Advent of Code - {Year}";
-    internal static string Name => "Day 2";
-    internal static string FileName => $"./data/day2.txt";
+    internal static string Name => $"Day {Day}";
+    internal static string FileName => $"./AdventOfCode/2025/data/day{Day}.txt";
     internal static List<string> Raw => [.. File.ReadAllText(FileName).Split(",")];
     internal static List<string> Test => [.. TestData.Split(",")];
     internal const string TestData =
@@ -128,20 +93,20 @@ internal static class Tests
     internal static void Test1()
     {
         long value1 = 1010;
-        Console.WriteLine($"{nameof(value1)}: {value1} {Solution.IsNotValidV1(value1)}");
+        Console.WriteLine($"{nameof(value1)}: {value1} {RangeExtensions.IsNotValidV1(value1)}");
     }
 
     internal static void Test2()
     {
         long value2 = 12;
-        Console.WriteLine($"{nameof(value2)}: {value2} {Solution.IsNotValidV1(value2)}");
+        Console.WriteLine($"{nameof(value2)}: {value2} {RangeExtensions.IsNotValidV1(value2)}");
     }
 
     internal static void Test3()
     {
         var results = Solution
             .Test.ToRanges()
-            .SelectMany(range => range.InvalidIDs(Solution.IsNotValidV1));
+            .SelectMany(range => range.InvalidIDs(RangeExtensions.IsNotValidV1));
 
         foreach (var entry in results)
         {
@@ -151,18 +116,18 @@ internal static class Tests
 
     internal static void Test4()
     {
-        Console.WriteLine($"2121212121: {Solution.IsNotValidV2(2121212121)}");
-        Console.WriteLine($"121212: {Solution.IsNotValidV2(121212)}");
-        Console.WriteLine($"77: {Solution.IsNotValidV2(77)}");
-        Console.WriteLine($"123: {Solution.IsNotValidV2(123)}");
-        Console.WriteLine($"121224: {Solution.IsNotValidV2(121224)}");
+        Console.WriteLine($"2121212121: {RangeExtensions.IsNotValidV2(2121212121)}");
+        Console.WriteLine($"121212: {RangeExtensions.IsNotValidV2(121212)}");
+        Console.WriteLine($"77: {RangeExtensions.IsNotValidV2(77)}");
+        Console.WriteLine($"123: {RangeExtensions.IsNotValidV2(123)}");
+        Console.WriteLine($"121224: {RangeExtensions.IsNotValidV2(121224)}");
     }
 
     internal static void Test5()
     {
         var results = Solution
             .Test.ToRanges()
-            .SelectMany(range => range.InvalidIDs(Solution.IsNotValidV2));
+            .SelectMany(range => range.InvalidIDs(RangeExtensions.IsNotValidV2));
 
         foreach (var entry in results)
         {
@@ -170,10 +135,8 @@ internal static class Tests
         }
     }
 
-    internal static void Test6()
-    {
-        Console.WriteLine($"2121212121: {Solution.IsNotValidV2(2121212121)}");
-    }
+    internal static void Test6() =>
+        Console.WriteLine($"2121212121: {RangeExtensions.IsNotValidV2(2121212121)}");
 
     internal static void RunAll()
     {
@@ -189,6 +152,57 @@ internal static class Tests
 
 internal static class RangeExtensions
 {
+    public static bool IsNotValidV2(long value)
+    {
+        string s = value.ToString(CultureInfo.InvariantCulture);
+        int len = s.Length;
+
+        if (len < 2)
+        {
+            return false;
+        }
+
+        // Regex regex = new Regex(@"(.+)\1"); // <== BAD
+        Regex regex = new(@"^(.+?)\1+$"); // <== GOOD
+
+        MatchCollection matches = regex.Matches(s);
+
+        return matches.Any(match => match.Value.Length == len);
+    }
+
+    public static bool IsNotValidV1(long value)
+    {
+        string s = value.ToString(CultureInfo.InvariantCulture);
+
+        if (s.Length % 2 != 0)
+            return false;
+
+        int mid = s.Length / 2;
+        string first = s[..mid];
+        string second = s[mid..];
+
+        return (first, second) switch
+        {
+            ({ Length: > 0 } left, { Length: > 0 } right)
+                when left.Equals(right, StringComparison.Ordinal) => true,
+            _ => false,
+        };
+    }
+
+    internal static IEnumerable<Range> ToRanges(this IEnumerable<string> lines) =>
+        lines.Select(line => line.ToRange());
+
+    internal static Range ToRange(this string line)
+    {
+        return line.Split("-") switch
+        {
+            [string first, string second]
+                when long.TryParse(first.ToString(), out long start)
+                    && long.TryParse(second.ToString(), out long end) => new Range(start, end),
+            _ => throw new ArgumentException("Invalid data!"),
+        };
+    }
+
     internal static IEnumerable<long> InvalidIDs(this Range range, Func<long, bool> isNotValid)
     {
         for (long i = range.Start; i <= range.End; i++)
@@ -203,4 +217,4 @@ internal static class RangeExtensions
     extension(Range range) { }
 }
 
-internal record Range(long Start, long End);
+internal sealed record Range(long Start, long End);

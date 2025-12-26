@@ -1,6 +1,8 @@
 #!/usr/bin/env -S dotnet run
 
-using System.IO;
+#:project ./AdventOfCode/AdventOfCode.csproj
+
+using System.Globalization;
 
 Console.WriteLine($"{Solution.Source}: {Solution.Name}");
 
@@ -10,7 +12,7 @@ Console.WriteLine($"Part 1 (Expecting: 1139): {Solution.SolvePart1()}");
 
 Console.WriteLine($"Part 2 (Expecting 6684): {Solution.SolvePart2()}");
 
-public static class Solution
+internal static class Solution
 {
     internal const int K = 100;
 
@@ -23,6 +25,7 @@ public static class Solution
     1139 => correct!
 
     */
+#pragma warning disable IDE0060 // Remove unused parameter
     public static int SolvePart1(bool debug = false)
     {
         var current = 50;
@@ -64,9 +67,10 @@ public static class Solution
     }
 
     private const int Year = 2025;
+    private const int Day = 1;
     internal static string Source => $"Advent of Code - {Year}";
-    internal static string Name => "Day 1";
-    internal static string FileName => "./data/day1.txt";
+    internal static string Name => $"Day {Day}";
+    internal static string FileName => $"./AdventOfCode/2025/data/day{Day}.txt";
 
     internal static List<string> Lines => [.. File.OpenText(FileName).ReadLines()];
 
@@ -82,7 +86,7 @@ public static class Solution
     internal static TextReader ReadFromFile(string path) => File.OpenText(path);
 
     internal static IEnumerable<Rotation> Rotations(this IEnumerable<string> lines) =>
-        lines.Where(line => !string.IsNullOrWhiteSpace(line)).Select(line => ToRotation(line));
+        lines.Where(line => !string.IsNullOrWhiteSpace(line)).Select(ToRotation);
 
     internal static Rotation ToRotation(string line)
     {
@@ -104,10 +108,7 @@ internal static class RotationExtensions
     internal const int K = 100;
     extension(Rotation rotation)
     {
-        internal int Rotate(int current)
-        {
-            return (current + K + rotation.Clicks) % K;
-        }
+        internal int Rotate(int current) => (current + K + rotation.Clicks) % K;
 
         internal (int, int) CompleteRevolutionCount(int current, bool debug = false)
         {
@@ -136,9 +137,9 @@ internal static class RotationExtensions
 
 internal record Rotation(int Clicks);
 
-internal record CounterClockwise(int Clicks) : Rotation(-Clicks);
+internal sealed record CounterClockwise(int Clicks) : Rotation(-Clicks);
 
-internal record Clockwise(int Clicks) : Rotation(Clicks);
+internal sealed record Clockwise(int Clicks) : Rotation(Clicks);
 
 internal static class FirstAttempt
 {
@@ -162,22 +163,20 @@ internal static class FirstAttempt
         return count;
     }
 
-    public static int NextLocation(int start, int number)
-    {
+    public static int NextLocation(int start, int number) =>
         /*
-        Adding "K" after "start" (before the modulus operator) was the key
-        to getting the counts to properly wrap-around
-        */
-        return (start + Solution.K + number) % Solution.K;
-    }
+Adding "K" after "start" (before the modulus operator) was the key
+to getting the counts to properly wrap-around
+*/
+        (start + Solution.K + number) % Solution.K;
 
     internal static IEnumerable<(char, int)> Rotations1(this IEnumerable<string> lines) =>
-        lines.Select(line => ToRotation1(line));
+        lines.Select(ToRotation1);
 
     internal static (char, int) ToRotation1(string line)
     {
         char direction = line[0];
         string number = line[1..];
-        return (direction, int.Parse(number));
+        return (direction, int.Parse(number, CultureInfo.InvariantCulture));
     }
 }
