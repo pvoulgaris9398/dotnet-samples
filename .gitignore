@@ -4,6 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 **/data/*.txt
+**/data/*.csv
 
 # Local .env file
 .env

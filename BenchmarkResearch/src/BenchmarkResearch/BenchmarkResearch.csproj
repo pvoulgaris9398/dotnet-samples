@@ -5,4 +5,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CsvHelper" />
+  </ItemGroup>
 </Project>

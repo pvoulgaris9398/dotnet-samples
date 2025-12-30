@@ -5,4 +5,7 @@
   <ItemGroup>
     <PackageVersion Include="BenchmarkDotNet" Version="0.15.8" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="CsvHelper" Version="33.1.0" />
+  </ItemGroup>
 </Project>
