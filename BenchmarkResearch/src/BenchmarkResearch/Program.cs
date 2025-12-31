@@ -5,8 +5,9 @@ if (args.Length > 0)
 {
     Action actionToExecute = args[0] switch
     {
-        "test0" => Tests.Test0,
-        "test1" => Tests.Test1,
+        "csv-loader" => Tests.TestCsvLoader,
+        "string-loader" => Tests.TestStringLoader,
+        "string-parser" => Tests.TestStringParsing,
         _ => () => Console.WriteLine("Unrecognized command-line argument"),
     };
     actionToExecute();
@@ -15,16 +16,9 @@ if (args.Length > 0)
 
 internal static class Tests
 {
-    public static void Test0()
-    {
-        Console.WriteLine("Test0: CsvLoader Process");
-        new CsvLoader().Process();
-    }
+    public static void TestCsvLoader() => new CsvLoader().Process();
 
-    public static void Test1()
-    {
-        BenchmarkRunner.Run<StringLoaderBenchmark>();
-        Console.WriteLine("Test1: ");
-    }
+    public static void TestStringLoader() => BenchmarkRunner.Run<StringLoaderBenchmark>();
 
+    public static void TestStringParsing() => BenchmarkRunner.Run<StringParsingBenchmark>();
 }
