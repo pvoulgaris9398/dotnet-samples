@@ -1,11 +1,11 @@
 ﻿<Project>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>BenchmarkResearch</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <NoWarn>$(NoWarn);SYSLIB1045</NoWarn>
+    <NoWarn>SYSLIB1045</NoWarn>
     <AnalysisLevel>latest</AnalysisLevel>
-    <AnalysisMode>all</AnalysisMode>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

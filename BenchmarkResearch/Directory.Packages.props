@@ -8,4 +8,7 @@
   <ItemGroup>
     <PackageVersion Include="CsvHelper" Version="33.1.0" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="Sep" Version="0.12.1" />
+  </ItemGroup>
 </Project>
