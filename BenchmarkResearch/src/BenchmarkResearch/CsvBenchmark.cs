@@ -17,7 +17,7 @@ public class CsvBenchmark
 
     private readonly Consumer _consumer = new();
 
-    [Params(1, 100, 100, 10_000, 50_000, 100_000, 150_000, 500_000)]
+    [Params(1, 100, 1_000, 10_000, 50_000, 100_000, 150_000, 500_000)]
     public int Rows { get; set; }
 
     [Benchmark]
