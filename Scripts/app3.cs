@@ -82,33 +82,31 @@ internal static class ExponentialMovingAverage
 {
     internal static IEnumerable<double> Calculate(IEnumerable<double> data, int windowSize)
     {
-        int counter = 1;
+        int counter = 0;
 
         IEnumerator<double> enumerator = data.GetEnumerator();
+        double currentSum = 0;
+        double k = 2.0 / (windowSize + 1);
+        double ema = 0;
 
-        if (enumerator.MoveNext())
+        while (enumerator.MoveNext())
         {
             /*
             EMA = Price(t) * k + EMA(t-1)*(1-k)
             at t = 0 there is not price from yesterday so
-            EMA starts off as
+            EMA starts off as previous average
             */
-            double previousPrice = enumerator.Current;
-            double k = 2.0 / (windowSize + 1);
-            double ema = previousPrice * k;
+            currentSum += enumerator.Current;
+            counter += 1;
+            ema = currentSum / counter;
+            if (counter == windowSize)
+                break;
+        }
 
-            while (enumerator.MoveNext())
-            {
-                counter += 1;
-                double currentPrice = enumerator.Current;
-                ema = (currentPrice * k) + (ema * (1 - k));
-                if (counter >= windowSize)
-                {
-                    yield return ema;
-                }
-
-                previousPrice = currentPrice;
-            }
+        while (enumerator.MoveNext())
+        {
+            ema = (enumerator.Current * k) + (ema * (1 - k));
+            yield return ema;
         }
         yield break;
     }
@@ -203,7 +201,7 @@ internal static class Tests
         double min = 50;
         double max = 100;
         int windowSize = 4;
-        int numberOfItemsInSequence = 20;
+        int numberOfItemsInSequence = 10;
 
         Func<int, double> generationStrategy1 = i => (random.NextDouble() * (max - min)) + min;
 
