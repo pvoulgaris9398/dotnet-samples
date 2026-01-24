@@ -40,7 +40,6 @@ internal class MinHeap
                 (_data[parentIndex], _data[idx]) = (_data[idx], _data[parentIndex]);
             }
             idx = parentIndex;
-
         }
         Index++;
     }
@@ -52,5 +51,4 @@ internal class MinHeap
             WriteLine($"{i} = {_data[i]}");
         }
     }
-
 }
