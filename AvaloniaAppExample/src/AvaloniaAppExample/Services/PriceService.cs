@@ -2,7 +2,7 @@ using AvaloniaAppExample.Models;
 
 namespace AvaloniaAppExample.Services
 {
-    public class PriceService : IPriceService, IDisposable
+    public sealed class PriceService : IPriceService, IDisposable
     {
         private readonly CompositeDisposable _cleanup;
 
@@ -50,10 +50,10 @@ namespace AvaloniaAppExample.Services
                 "USD",
                 "YEN",
             ];
-            var random = new Random(1);
             Func<decimal> nextDecimal = () =>
-                Math.Round((decimal)random.Next(1, 1000) / random.Next(20, 45), 3);
-            Func<string> nextCurrency = () => currencyList[random.Next(0, currencyList.Length - 1)];
+                Math.Round((decimal)Random.Shared.Next(1, 1000) / Random.Shared.Next(20, 45), 3);
+            Func<string> nextCurrency = () =>
+                currencyList[Random.Shared.Next(0, currencyList.Length - 1)];
 
             return Observable.Create<Price>(observer =>
             {

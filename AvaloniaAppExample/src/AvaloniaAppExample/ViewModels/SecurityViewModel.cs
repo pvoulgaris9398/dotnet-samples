@@ -2,9 +2,11 @@ using AvaloniaAppExample.Models;
 
 namespace AvaloniaAppExample.ViewModels
 {
-    public class SecurityViewModel(Security item)
+    public sealed class SecurityViewModel(Security item)
     {
+#pragma warning disable CS0628 // New protected member declared in sealed type
         protected Security Item { get; } = item;
+#pragma warning restore CS0628 // New protected member declared in sealed type
 
         public long Id => Item.Id;
         public string SecurityName => Item.SecurityName;

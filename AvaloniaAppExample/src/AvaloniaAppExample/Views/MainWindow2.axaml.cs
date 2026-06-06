@@ -5,9 +5,6 @@ namespace AvaloniaAppExample.Views
         public MainWindow2()
         {
             InitializeComponent();
-#if DEBUG
-            this.AttachDevTools();
-#endif
         }
 
         /// <summary>

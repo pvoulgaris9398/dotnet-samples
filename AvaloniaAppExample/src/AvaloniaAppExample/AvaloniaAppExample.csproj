@@ -17,12 +17,7 @@
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
     <PackageReference Include="Avalonia.Fonts.Inter" />
-    <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-    <PackageReference Include="Avalonia.Diagnostics">
-      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
-      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Avalonia.ReactiveUI" />
+    <PackageReference Include="ReactiveUI.Avalonia" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,7 +38,7 @@
     <Using Include="Avalonia.Controls.Templates" />
     <Using Include="Avalonia.Interactivity" />
     <Using Include="Avalonia.Markup.Xaml" />
-    <Using Include="Avalonia.ReactiveUI" />
+    <Using Include="ReactiveUI.Avalonia" />
   </ItemGroup>
 
   <ItemGroup>

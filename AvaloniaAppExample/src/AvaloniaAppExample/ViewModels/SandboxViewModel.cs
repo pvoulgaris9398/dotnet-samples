@@ -13,7 +13,7 @@
 
 namespace AvaloniaAppExample.ViewModels
 {
-    public class SandboxViewModel : ViewModelBase
+    public sealed class SandboxViewModel : ViewModelBase
     {
         private string _defaultText = "Enter...";
 

@@ -7,7 +7,9 @@ namespace AvaloniaAppExample.Views
     {
         public SecurityListView()
         {
+#pragma warning disable CA2000 // Dispose objects before losing scope
             ViewModel = new SecurityListViewModel(new SecurityService());
+#pragma warning restore CA2000 // Dispose objects before losing scope
             AvaloniaXamlLoader.Load(this);
         }
 
