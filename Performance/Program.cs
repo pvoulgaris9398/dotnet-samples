@@ -46,7 +46,7 @@ productsApi
             // state-machine overhead
             var products = await db.Products.AsNoTracking().ToListAsync();
 
-            if (Random.Shared.Next(0, 1) == 1)
+            if (Random.Shared.Next(0, 2) == 1)
             {
                 return TypedResults.BadRequest();
             }

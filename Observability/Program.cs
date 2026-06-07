@@ -4,7 +4,10 @@ using Serilog;
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .Enrich.FromLogContext()
-    .WriteTo.Console()
+    .WriteTo.Console(
+        outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] ({SourceContext}) {Message:lj}{NewLine}{Exception}"
+    )
+    //.WriteTo.Console(new CompactJsonFormatter())
     .CreateLogger();
 #pragma warning restore CA1305 // Specify IFormatProvider
 
@@ -13,15 +16,27 @@ try
     Log.Information("Starting web application...");
     var builder = WebApplication.CreateBuilder(args);
 
-    _ = builder.Host.UseSerilog();
+    //builder.Host.UseRequestContextLogging();
+
+    //_ = builder.Host.UseSerilog();
 
     // 2. Wire up Serilog into the DI container
-    _ = builder.Services.AddSerilog(
-        (services, lc) =>
-            lc.ReadFrom.Configuration(builder.Configuration).ReadFrom.Services(services)
+    // Apply the template globally to the host
+
+    _ = builder.Host.UseSerilog(
+        (context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration)
     );
 
     var app = builder.Build();
+
+    _ = app.Use(
+        async (context, next) =>
+        {
+            Log.Information("BEFORE");
+            await next(context);
+            Log.Information("AFTER");
+        }
+    );
 
     // Optional: Add request logging to see HTTP requests in the console
     _ = app.UseSerilogRequestLogging();
@@ -55,13 +70,15 @@ try
 
     _ = app.MapGet(
             "/weatherforecast",
-            async (Serilog.ILogger logger) =>
+            async (HttpRequest request, Serilog.ILogger logger) =>
             {
-                int pause = Random.Shared.Next(3, 10);
+                int pause = Random.Shared.Next(0, 6);
+
+                logger.Debug("Waiting for: {Pause} seconds...", pause);
 
                 await Task.Delay(pause * 1000);
 
-                logger.Information("Testing: {CurrentTime}", DateTime.UtcNow);
+                logger.Information("Requested Route: {RequestedRoute}", request.Path);
 
                 var forecast = Enumerable
                     .Range(1, 5)
@@ -72,7 +89,7 @@ try
                     ))
                     .ToArray();
 
-                return TypedResults.Ok(forecast);
+                return TypedResults.Accepted(request.Path, forecast);
             }
         )
         .WithName("GetWeatherForecast");
