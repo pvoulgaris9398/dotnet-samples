@@ -15,7 +15,8 @@ namespace AvaloniaAppExample.ViewModels
             ArgumentNullException.ThrowIfNull(priceService, nameof(priceService));
 #pragma warning disable CS0618 // Type or member is obsolete
             _cleanup = priceService
-                .Prices.Sort(SortExpressionComparer<Price>.Descending(i => i.Timestamp))
+                .Prices.Sample(TimeSpan.FromMilliseconds(250))
+                .Sort(SortExpressionComparer<Price>.Descending(i => i.Timestamp))
                 .ObserveOn(AvaloniaScheduler.Instance)
                 .Bind(out _items)
                 .Subscribe();

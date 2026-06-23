@@ -15,8 +15,16 @@ namespace AvaloniaAppExample.Services
 
         private readonly Task _consumer;
 
-        public PriceService()
+        private readonly TimeSpan _uiRefreshInterval;
+
+        private readonly int _maxBatchSize;
+
+        public PriceService(TimeSpan? uiRefreshInterval = null, int maxBatchSize = 500)
         {
+            _uiRefreshInterval = uiRefreshInterval ?? TimeSpan.FromMilliseconds(100);
+
+            _maxBatchSize = maxBatchSize;
+
             _cache = new SourceCache<Price, string>(p => p.Security);
 
             Prices = _cache.Connect();
@@ -62,31 +70,33 @@ namespace AvaloniaAppExample.Services
 
         private async Task ConsumePrices(CancellationToken token)
         {
-            List<Price> batch = [];
+            List<Price> batch = new(_maxBatchSize);
 
-            var timer = new PeriodicTimer(TimeSpan.FromMilliseconds(33));
+            var timer = new PeriodicTimer(_uiRefreshInterval);
 
             while (!token.IsCancellationRequested)
             {
-                while (_channel.Reader.TryRead(out var price))
+                _ = await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
+
+                while (batch.Count < _maxBatchSize && _channel.Reader.TryRead(out var price))
                 {
                     batch.Add(price);
                 }
 
-                if (batch.Count > 0)
+                if (batch.Count == 0)
                 {
-                    _cache.Edit(cache =>
-                    {
-                        foreach (var p in batch)
-                        {
-                            cache.AddOrUpdate(p);
-                        }
-                    });
-
-                    batch.Clear();
+                    continue;
                 }
 
-                _ = await timer.WaitForNextTickAsync(token).ConfigureAwait(false);
+                _cache.Edit(cache =>
+                {
+                    foreach (var p in batch)
+                    {
+                        cache.AddOrUpdate(p);
+                    }
+                });
+
+                batch.Clear();
             }
         }
 

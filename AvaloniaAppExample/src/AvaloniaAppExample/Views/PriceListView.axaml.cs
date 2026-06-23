@@ -8,7 +8,12 @@ namespace AvaloniaAppExample.Views
         public PriceListView()
         {
             InitializeComponent();
-            ViewModel = new PriceListViewModel(new PriceService());
+            ViewModel = new PriceListViewModel(
+                new PriceService(
+                    uiRefreshInterval: TimeSpan.FromMilliseconds(100),
+                    maxBatchSize: 500
+                )
+            );
         }
     }
 }
