@@ -19,7 +19,7 @@
                 AcceptsReturn="True"
                 Width="100"
                 Text="{Binding DefaultText}"
-                Watermark="Enter a description"/>
+                PlaceholderText="Enter a description"/>
             <Button
                 Command="{Binding SubmitCommand}"
                 Content="Submit" />

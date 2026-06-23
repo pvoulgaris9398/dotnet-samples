@@ -6,7 +6,7 @@ namespace AvaloniaAppExample.ViewModels
     public sealed class PriceListViewModel : ViewModelBase, IDisposable
     {
         private readonly ReadOnlyObservableCollection<Price> _items;
-        private readonly IDisposable _disposable;
+        private readonly IDisposable _cleanup;
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public PriceListViewModel(IPriceService priceService)
@@ -14,7 +14,7 @@ namespace AvaloniaAppExample.ViewModels
         {
             ArgumentNullException.ThrowIfNull(priceService, nameof(priceService));
 #pragma warning disable CS0618 // Type or member is obsolete
-            _disposable = priceService
+            _cleanup = priceService
                 .Prices.Sort(SortExpressionComparer<Price>.Descending(i => i.Timestamp))
                 .ObserveOn(AvaloniaScheduler.Instance)
                 .Bind(out _items)
@@ -24,10 +24,6 @@ namespace AvaloniaAppExample.ViewModels
 
         public ReadOnlyObservableCollection<Price> Items => _items;
 
-        public void Dispose()
-        {
-            _disposable.Dispose();
-            GC.SuppressFinalize(this);
-        }
+        public void Dispose() => _cleanup.Dispose();
     }
 }
