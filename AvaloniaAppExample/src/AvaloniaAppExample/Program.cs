@@ -10,7 +10,11 @@
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
 
         // Avalonia configuration, don't remove; also used by visual designer.
+        // csharpier-ignore
         public static AppBuilder BuildAvaloniaApp() =>
-            AppBuilder.Configure<App>().UsePlatformDetect().WithInterFont().LogToTrace();
+            AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .UseReactiveUI(_ => { })
+            .LogToTrace();
     }
 }

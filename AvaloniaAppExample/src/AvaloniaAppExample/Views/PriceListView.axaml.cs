@@ -7,10 +7,8 @@ namespace AvaloniaAppExample.Views
     {
         public PriceListView()
         {
-#pragma warning disable CA2000 // Dispose objects before losing scope
+            InitializeComponent();
             ViewModel = new PriceListViewModel(new PriceService());
-#pragma warning restore CA2000 // Dispose objects before losing scope
-            AvaloniaXamlLoader.Load(this);
         }
     }
 }

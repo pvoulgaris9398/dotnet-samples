@@ -5,18 +5,19 @@ namespace AvaloniaAppExample.Services
     public sealed class PriceService : IPriceService, IDisposable
     {
         private readonly CompositeDisposable _cleanup;
+        private static readonly SourceCache<Price, string> PriceCache = new(p => p.Security);
 
         public PriceService()
         {
             var priceData = GeneratePrices().Publish(); // Returns an IConnectableObservable<T>
-            Prices = priceData.ToObservableChangeSet();
+            //Prices = priceData.ToObservableChangeSet();
             _cleanup = new CompositeDisposable(priceData.Connect()); // Returns an IDisposable
         }
 
         /// <summary>
         /// Consumers will _Subscribe_ to these events
         /// </summary>
-        public IObservable<IChangeSet<Price>> Prices { get; }
+        public IObservable<IChangeSet<Price, string>> Prices => PriceCache.Connect();
 
         public void Dispose()
         {
@@ -72,7 +73,9 @@ namespace AvaloniaAppExample.Services
                             DateTime.Now,
                             decimalValue
                         );
-                        observer.OnNext(nextPrice);
+
+                        //observer.OnNext(nextPrice);
+                        PriceCache.AddOrUpdate(nextPrice);
                     });
             });
         }
