@@ -36,18 +36,18 @@ namespace AvaloniaAppExample.Services
 
             Prices = _cache.Connect();
 
-            // _channel = Channel.CreateUnbounded<Price>(
-            //     new() { SingleReader = true, SingleWriter = true }
-            // );
-
-            _channel = Channel.CreateBounded<Price>(
-                new BoundedChannelOptions(10000)
-                {
-                    SingleReader = true,
-                    SingleWriter = true,
-                    FullMode = BoundedChannelFullMode.DropOldest,
-                }
+            _channel = Channel.CreateUnbounded<Price>(
+                new() { SingleReader = true, SingleWriter = true }
             );
+
+            // _channel = Channel.CreateBounded<Price>(
+            //     new BoundedChannelOptions(10000)
+            //     {
+            //         SingleReader = true,
+            //         SingleWriter = true,
+            //         FullMode = BoundedChannelFullMode.DropOldest,
+            //     }
+            // );
 
             _cts = new CancellationTokenSource();
 

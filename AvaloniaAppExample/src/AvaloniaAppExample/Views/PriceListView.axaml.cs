@@ -9,9 +9,12 @@ namespace AvaloniaAppExample.Views
         {
             InitializeComponent();
             ViewModel = new PriceListViewModel(
+                /*
+                With these settings production and consumption are about equal
+                */
                 new PriceService(
                     uiRefreshInterval: TimeSpan.FromMilliseconds(100),
-                    maxBatchSize: 500
+                    maxBatchSize: 1000
                 )
             );
         }
