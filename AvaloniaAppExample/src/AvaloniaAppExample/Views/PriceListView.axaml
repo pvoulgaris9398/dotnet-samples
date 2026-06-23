@@ -9,6 +9,7 @@
     x:TypeArguments="PriceListViewModel">
 
     <DockPanel
+        DockPanel.Dock="Top"
         LastChildFill="True">
         <!--<StackPanel
             DockPanel.Dock="Top"
@@ -18,6 +19,31 @@
                 Close One View
             </Button>
         </StackPanel>-->
+        <DataGrid
+
+        Height="200"
+
+        ItemsSource="{Binding Metrics}"
+
+        AutoGenerateColumns="False">
+
+        <DataGrid.Columns>
+
+            <DataGridTextColumn
+
+                Header="Metric"
+
+                Binding="{Binding Name}" />
+
+            <DataGridTextColumn
+
+                Header="Value"
+
+                Binding="{Binding Value}" />
+
+            </DataGrid.Columns>
+
+        </DataGrid>
         <DataGrid
             AutoGenerateColumns="False"
             GridLinesVisibility="All"
