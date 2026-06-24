@@ -11,6 +11,12 @@ namespace AvaloniaAppExample.Infrastructure
 
         public long ManagedHeapMb => GC.GetTotalMemory(false) / 1024 / 1024;
 
+        public long Gen0 => GC.CollectionCount(0);
+
+        public long Gen1 => GC.CollectionCount(1);
+
+        public long Gen2 => GC.CollectionCount(2);
+
         public long TotalMessages;
 
         public int MessagesPerSecond;

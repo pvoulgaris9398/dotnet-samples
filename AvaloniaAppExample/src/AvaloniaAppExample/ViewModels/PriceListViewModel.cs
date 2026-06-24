@@ -35,6 +35,18 @@ namespace AvaloniaAppExample.ViewModels
                 Metrics.Clear();
 
                 Metrics.Add(
+                    new("Gen 0", _service.Telemetry.Gen0.ToString(CultureInfo.InvariantCulture))
+                );
+
+                Metrics.Add(
+                    new("Gen 1", _service.Telemetry.Gen1.ToString(CultureInfo.InvariantCulture))
+                );
+
+                Metrics.Add(
+                    new("Gen 2", _service.Telemetry.Gen2.ToString(CultureInfo.InvariantCulture))
+                );
+
+                Metrics.Add(
                     new(
                         "Working Set (MB)",
                         _service.Telemetry.WorkingSetMb.ToString(CultureInfo.InvariantCulture)
