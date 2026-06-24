@@ -1,4 +1,6 @@
-﻿namespace AvaloniaAppExample
+﻿using System.Runtime.InteropServices;
+
+namespace AvaloniaAppExample
 {
     internal sealed class Program
     {
@@ -6,8 +8,16 @@
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
         [STAThread]
-        public static void Main(string[] args) =>
-            BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        public static void Main(string[] args)
+        {
+            Console.WriteLine(RuntimeInformation.FrameworkDescription);
+
+            Console.WriteLine(Environment.Version);
+
+            Console.WriteLine(Environment.Is64BitProcess);
+
+            _ = BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
+        }
 
         // Avalonia configuration, don't remove; also used by visual designer.
         // csharpier-ignore

@@ -8,20 +8,10 @@
     x:DataType="vm:PriceListViewModel"
     x:TypeArguments="PriceListViewModel">
 
-    <DockPanel
-        DockPanel.Dock="Top"
-        LastChildFill="True">
-        <!--<StackPanel
-            DockPanel.Dock="Top"
-            Orientation="Horizontal">
-            <Button
-                Click="ClickHandler">
-                Close One View
-            </Button>
-        </StackPanel>-->
-        <DataGrid
+    <StackPanel
+        Orientation="Vertical">
 
-        Height="200"
+        <DataGrid
 
         ItemsSource="{Binding Metrics}"
 
@@ -71,6 +61,6 @@
 
         </DataGrid>
 
-    </DockPanel>
+    </StackPanel>
 
 </ReactiveUserControl>

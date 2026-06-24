@@ -94,10 +94,11 @@ namespace AvaloniaAppExample.Services
         private async Task Consumer(CancellationToken token)
         {
             using var timer = new PeriodicTimer(_uiRefreshInterval);
+            List<Price> batch = new(_maxBatchSize);
 
             while (_ = await timer.WaitForNextTickAsync(token).ConfigureAwait(false))
             {
-                List<Price> batch = [];
+                batch.Clear();
 
                 while (batch.Count < _maxBatchSize && _channel.Reader.TryRead(out var price))
                 {

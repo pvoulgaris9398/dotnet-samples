@@ -15,7 +15,6 @@ namespace AvaloniaAppExample.ViewModels
             _disposable = securityService
                 .Securities.Transform(x => new SecurityViewModel(x))
                 .Filter(x => true)
-                //.ObserveOn(RxApp.MainThreadScheduler)
                 .Bind(out _items)
                 .Subscribe();
         }

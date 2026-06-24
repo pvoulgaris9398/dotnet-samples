@@ -36,6 +36,27 @@ namespace AvaloniaAppExample.ViewModels
 
                 Metrics.Add(
                     new(
+                        "Working Set (MB)",
+                        _service.Telemetry.WorkingSetMb.ToString(CultureInfo.InvariantCulture)
+                    )
+                );
+
+                Metrics.Add(
+                    new(
+                        "Private Memory (MB)",
+                        _service.Telemetry.PrivateMemoryMb.ToString(CultureInfo.InvariantCulture)
+                    )
+                );
+
+                Metrics.Add(
+                    new(
+                        "Managed Heap (MB)",
+                        _service.Telemetry.ManagedHeapMb.ToString(CultureInfo.InvariantCulture)
+                    )
+                );
+
+                Metrics.Add(
+                    new(
                         "Messages/sec",
                         _service.Telemetry.MessagesPerSecond.ToString(CultureInfo.InvariantCulture)
                     )
