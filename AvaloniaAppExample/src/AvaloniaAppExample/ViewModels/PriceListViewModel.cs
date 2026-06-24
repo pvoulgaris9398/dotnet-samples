@@ -1,5 +1,6 @@
 using System.Globalization;
 using Avalonia.Threading;
+using AvaloniaAppExample.Infrastructure;
 using AvaloniaAppExample.Models;
 using AvaloniaAppExample.Services;
 
@@ -9,15 +10,18 @@ namespace AvaloniaAppExample.ViewModels
     {
         private readonly ReadOnlyObservableCollection<Price> _items;
         private readonly IDisposable _cleanup;
+        private readonly IDisposable _telemetryCleanup;
 
-        private readonly PriceService _service;
+        private readonly IPriceService _service;
+        private readonly DispatcherTimer _metricsTimer;
+        private ObservableCollection<DashboardMetric> _metrics = [];
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public PriceListViewModel(IPriceService priceService)
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
             ArgumentNullException.ThrowIfNull(priceService, nameof(priceService));
-            _service = (PriceService)priceService;
+            _service = priceService;
 
 #pragma warning disable CS0618 // Type or member is obsolete
             _cleanup = _service
@@ -28,83 +32,94 @@ namespace AvaloniaAppExample.ViewModels
                 .Subscribe();
 #pragma warning restore CS0618 // Type or member is obsolete
 
-            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(250) };
+            _telemetryCleanup = _service
+                .TelemetryUpdates.ObserveOn(AvaloniaScheduler.Instance)
+                .Subscribe(UpdateMetrics);
 
-            timer.Tick += (_, _) =>
+            _metricsTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            _metricsTimer.Tick += (_, _) => UpdateMetricsFromService();
+            _metricsTimer.Start();
+        }
+
+        public ReadOnlyObservableCollection<Price> Items => _items;
+        public ObservableCollection<DashboardMetric> Metrics
+        {
+            get => _metrics;
+            private set => this.RaiseAndSetIfChanged(ref _metrics, value);
+        }
+
+        public void Dispose()
+        {
+            _metricsTimer.Stop();
+            _metricsTimer.Tick -= (_, _) => UpdateMetricsFromService();
+            _cleanup.Dispose();
+            _telemetryCleanup.Dispose();
+        }
+
+        private void UpdateMetrics(DashboardTelemetrySnapshot telemetry)
+        {
+            Dispatcher.UIThread.Post(() =>
             {
                 Metrics.Clear();
 
-                Metrics.Add(
-                    new("Gen 0", _service.Telemetry.Gen0.ToString(CultureInfo.InvariantCulture))
-                );
-
-                Metrics.Add(
-                    new("Gen 1", _service.Telemetry.Gen1.ToString(CultureInfo.InvariantCulture))
-                );
-
-                Metrics.Add(
-                    new("Gen 2", _service.Telemetry.Gen2.ToString(CultureInfo.InvariantCulture))
-                );
-
+                Metrics.Add(new("Gen 0", telemetry.Gen0.ToString(CultureInfo.InvariantCulture)));
+                Metrics.Add(new("Gen 1", telemetry.Gen1.ToString(CultureInfo.InvariantCulture)));
+                Metrics.Add(new("Gen 2", telemetry.Gen2.ToString(CultureInfo.InvariantCulture)));
                 Metrics.Add(
                     new(
                         "Working Set (MB)",
-                        _service.Telemetry.WorkingSetMb.ToString(CultureInfo.InvariantCulture)
+                        telemetry.WorkingSetMb.ToString(CultureInfo.InvariantCulture)
                     )
                 );
-
                 Metrics.Add(
                     new(
                         "Private Memory (MB)",
-                        _service.Telemetry.PrivateMemoryMb.ToString(CultureInfo.InvariantCulture)
+                        telemetry.PrivateMemoryMb.ToString(CultureInfo.InvariantCulture)
                     )
                 );
-
                 Metrics.Add(
                     new(
                         "Managed Heap (MB)",
-                        _service.Telemetry.ManagedHeapMb.ToString(CultureInfo.InvariantCulture)
+                        telemetry.ManagedHeapMb.ToString(CultureInfo.InvariantCulture)
                     )
                 );
-
                 Metrics.Add(
                     new(
                         "Messages/sec",
-                        _service.Telemetry.MessagesPerSecond.ToString(CultureInfo.InvariantCulture)
+                        telemetry.MessagesPerSecond.ToString(CultureInfo.InvariantCulture)
                     )
                 );
                 Metrics.Add(
-                    new(
-                        "Queue Depth",
-                        _service.Telemetry.QueueDepth.ToString(CultureInfo.InvariantCulture)
-                    )
+                    new("Queue Depth", telemetry.QueueDepth.ToString(CultureInfo.InvariantCulture))
                 );
                 Metrics.Add(
-                    new(
-                        "Batch Size",
-                        _service.Telemetry.BatchSize.ToString(CultureInfo.InvariantCulture)
-                    )
+                    new("Batch Size", telemetry.BatchSize.ToString(CultureInfo.InvariantCulture))
                 );
                 Metrics.Add(
                     new(
                         "UI Updates/sec",
-                        _service.Telemetry.UpdatesPerSecond.ToString(CultureInfo.InvariantCulture)
+                        telemetry.UpdatesPerSecond.ToString(CultureInfo.InvariantCulture)
                     )
                 );
                 Metrics.Add(
                     new(
                         "Total Updates",
-                        _service.Telemetry.TotalMessages.ToString(CultureInfo.InvariantCulture)
+                        telemetry.TotalMessages.ToString(CultureInfo.InvariantCulture)
                     )
                 );
-            };
 
-            timer.Start();
+                this.RaisePropertyChanged(nameof(Metrics));
+            });
         }
 
-        public ReadOnlyObservableCollection<Price> Items => _items;
-        public ObservableCollection<DashboardMetric> Metrics { get; } = [];
+        private void UpdateMetricsFromService()
+        {
+            if (_service is not PriceService priceService)
+            {
+                return;
+            }
 
-        public void Dispose() => _cleanup.Dispose();
+            UpdateMetrics(priceService.Telemetry.ToSnapshot());
+        }
     }
 }

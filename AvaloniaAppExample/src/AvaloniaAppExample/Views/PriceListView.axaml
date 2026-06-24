@@ -13,7 +13,7 @@
 
         <DataGrid
 
-        ItemsSource="{Binding Metrics}"
+        ItemsSource="{Binding Metrics, Mode=OneWay}"
 
         AutoGenerateColumns="False">
 

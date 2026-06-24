@@ -1,3 +1,4 @@
+using System.Reactive.Subjects;
 using System.Threading.Channels;
 using AvaloniaAppExample.Infrastructure;
 using AvaloniaAppExample.Models;
@@ -17,6 +18,8 @@ namespace AvaloniaAppExample.Services
         private readonly Task _consumer;
 
         private readonly Task _metrics;
+
+        private readonly Subject<DashboardTelemetrySnapshot> _telemetryUpdates = new();
 
         private readonly TimeSpan _uiRefreshInterval;
 
@@ -59,6 +62,7 @@ namespace AvaloniaAppExample.Services
         }
 
         public IObservable<IChangeSet<Price, string>> Prices { get; }
+        public IObservable<DashboardTelemetrySnapshot> TelemetryUpdates => _telemetryUpdates;
         public DashboardTelemetry Telemetry { get; } = new();
 
         private async Task Producer(CancellationToken token)
@@ -84,7 +88,7 @@ namespace AvaloniaAppExample.Services
 
                     _ = Interlocked.Increment(ref _messagesThisSecond);
 
-                    _ = Interlocked.Increment(ref Telemetry.TotalMessages);
+                    _ = Telemetry.IncrementTotalMessages();
                 }
 
                 await Task.Delay(20, token).ConfigureAwait(false);
@@ -118,7 +122,7 @@ namespace AvaloniaAppExample.Services
                     }
                 });
 
-                Telemetry.BatchSize = batch.Count;
+                Telemetry.UpdateBatchSize(batch.Count);
 
                 _ = Interlocked.Increment(ref _updatesPerSecond);
             }
@@ -130,11 +134,13 @@ namespace AvaloniaAppExample.Services
 
             while (_ = await timer.WaitForNextTickAsync(token).ConfigureAwait(false))
             {
-                Telemetry.MessagesPerSecond = Interlocked.Exchange(ref _messagesThisSecond, 0);
+                Telemetry.UpdateMessagesPerSecond(Interlocked.Exchange(ref _messagesThisSecond, 0));
 
-                Telemetry.UpdatesPerSecond = Interlocked.Exchange(ref _updatesPerSecond, 0);
+                Telemetry.UpdateUpdatesPerSecond(Interlocked.Exchange(ref _updatesPerSecond, 0));
 
-                Telemetry.QueueDepth = _channel.Reader.Count;
+                Telemetry.UpdateQueueDepth(_channel.Reader.Count);
+
+                _telemetryUpdates.OnNext(Telemetry.ToSnapshot());
             }
         }
 
@@ -149,6 +155,9 @@ namespace AvaloniaAppExample.Services
             }
             catch { }
 #pragma warning restore CA1031 // Do not catch general exception types
+
+            _telemetryUpdates.OnCompleted();
+            _telemetryUpdates.Dispose();
 
             _cache.Dispose();
 
