@@ -1,0 +1,12 @@
+services:
+  script-runner:
+    build: .
+    volumes:
+      # 1. Mount the local working folder (where scripts live)
+      - ./:/app
+      # 2. Persist the NuGet cache across container restarts and updates
+      - ./nuget_cache:/root/.nuget/packages
+
+# volumes: # Not needed in this case
+#   # Define the named volume managed by Docker
+#   nuget_cache:
