@@ -1,11 +1,14 @@
 services:
   script-runner:
     build: .
+    environment:
+      # FORCE NuGet to use this exact directory path at runtime
+      - NUGET_PACKAGES=/app/nuget_cache
     volumes:
       # 1. Mount the local working folder (where scripts live)
       - ./:/app
       # 2. Persist the NuGet cache across container restarts and updates
-      - ./nuget_cache:/root/.nuget/packages
+      - ./nuget_cache:/app/nuget_cache
 
 # volumes: # Not needed in this case
 #   # Define the named volume managed by Docker

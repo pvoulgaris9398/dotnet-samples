@@ -24,6 +24,13 @@ docker compose build
 
 ### `Thursday, 5/25/2026`
 
+#### Later This Same Evening
+
+- Tried to get `api.cs` running in this setup. It runs now, as is: but I don't see anything being populated into the nuget_cache with these changes
+- Would like to figure out why, but calling it a night for now!
+
+#### Over Lunch Break
+
 - Note `app2.cs` doesn't run correctly with a command-line argument, need to figure out why
 - Note, that the original way I had this, wasn't passing command-line arguments to the scripts
 - Now with the following update, I can any arbitrary script, with command-line arguments:
