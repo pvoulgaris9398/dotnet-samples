@@ -2,7 +2,7 @@
 
 ## To run an arbitrary script from the local directory
 
-- `--quite`: Suppresses docker messages
+- `--quiet`: Suppresses docker messages
 - `--rm`: Runs script in a temporary container
 - `./my-script-name.cs`: The name of the script to run
   - Note: Script file must contain: `#!/usr/bin/env -S dotnet` at the very top for this to work
@@ -22,7 +22,7 @@ docker compose build
 
 ## Issues
 
-### `Thursday, 5/25/2026`
+### `Thursday, 6/25/2026`
 
 #### Later This Same Evening
 
@@ -33,7 +33,7 @@ docker compose build
 
 - Note `app2.cs` doesn't run correctly with a command-line argument, need to figure out why
 - Note, that the original way I had this, wasn't passing command-line arguments to the scripts
-- Now with the following update, I can any arbitrary script, with command-line arguments:
+- Now with the following update, I can run any arbitrary script, with command-line arguments:
 
 ```bash
 # Uses ANSI escape codes: \033[1;31m turns text bold red, and \033[0m resets it back to normal
