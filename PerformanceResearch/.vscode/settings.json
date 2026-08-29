@@ -1,0 +1,5 @@
+{
+    "window.zoomLevel": 1,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "vscode.json-language-features"
+}
